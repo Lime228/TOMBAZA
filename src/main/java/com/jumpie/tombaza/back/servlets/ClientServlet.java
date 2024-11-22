@@ -16,7 +16,7 @@ public class ClientServlet extends HttpServlet{
         req.setCharacterEncoding("UTF-8");
         if(req.getParameter("get") != null) {
             try {
-                Client client = new Client(req.getParameter("id"),"","","");
+                Client client = createClient(req);
                 Client cli = ClientService.get(client);
                 req.setAttribute("id", cli.getId());
                 req.setAttribute("phoneNumber", cli.getPhoneNumber());
@@ -62,12 +62,17 @@ public class ClientServlet extends HttpServlet{
         String name = req.getParameter("name");
         //проверку на пустоту?
         try {
-            Client client = new Client(id,phoneNumber,address,name);
+            Client client = new Client(id,
+                    phoneNumber,
+                    address,
+                    name);
             return client;
         } catch (NumberFormatException e) {
             e.printStackTrace();
-            return new Client("","","","");
-            //это явно не должно быть так
+            if (req.getParameter("id") != "") {
+                return new Client(req.getParameter("id"),"","","");
+            }else return new Client("","","","");
+
         }
     }
 }

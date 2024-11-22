@@ -17,7 +17,7 @@ public class FineServlet extends HttpServlet{
         req.setCharacterEncoding("UTF-8");
         if(req.getParameter("get") != null) {
             try {
-                Fine fine = new Fine(Integer.parseInt(req.getParameter("id")),"",0,0);
+                Fine fine = createFine(req);
                 Fine fn = FineService.get(fine);
                 req.setAttribute("id", fn.getId());
                 req.setAttribute("description", fn.getFineDescription());
@@ -71,7 +71,9 @@ public class FineServlet extends HttpServlet{
             return fine;
         } catch (NumberFormatException e) {
             e.printStackTrace();
-            return new Fine(0,"",0,0);
+            if (req.getParameter("id") != "") {
+                return new Fine(Integer.parseInt(req.getParameter("id")),"",0,0);
+            }else return new Fine(0,"",0,0);
             //это явно не должно быть так
         }
     }

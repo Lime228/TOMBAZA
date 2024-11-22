@@ -19,7 +19,7 @@ public class AgreementServlet extends HttpServlet {
         req.setCharacterEncoding("UTF-8");
         if(req.getParameter("get") != null) {
             try {
-                Agreement agreement = new Agreement(Integer.parseInt(req.getParameter("id")),0,0,"","");
+                Agreement agreement = createAgreement(req);
                 Agreement agr = AgreementService.get(agreement);
                 req.setAttribute("id", agr.getId());
                 req.setAttribute("rentPrice", agr.getRentPrice());
@@ -78,8 +78,10 @@ public class AgreementServlet extends HttpServlet {
             return agreement;
         } catch (NumberFormatException e) {
             e.printStackTrace();
-            return new Agreement(0,0,0," "," ");
-            //это явно не должно быть так
+            if(req.getParameter("id")!="") {
+                return new Agreement(Integer.parseInt(req.getParameter("id")), 0, 0, "", "");
+            }else return new Agreement(0, 0, 0, "", "");
+
         }
     }
 }

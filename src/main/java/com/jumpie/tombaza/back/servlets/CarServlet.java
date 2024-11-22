@@ -17,7 +17,7 @@ public class CarServlet extends HttpServlet{
         req.setCharacterEncoding("UTF-8");
         if(req.getParameter("get") != null) {
             try {
-                Car car = new Car(req.getParameter("id"),"","","","",0,"");
+                Car car = createCar(req);
                 Car cr = CarService.get(car);
                 req.setAttribute("id", cr.getId());
                 req.setAttribute("color", cr.getColor());
@@ -71,12 +71,20 @@ public class CarServlet extends HttpServlet{
         String number = req.getParameter("number");
         //проверку на пустоту?
         try {
-            Car car = new Car(id,color,modelName,brand,releaseYear,Integer.parseInt(parkingPlaceId),number);
+            Car car = new Car(id,
+                    color,
+                    modelName,
+                    brand,
+                    releaseYear,
+                    Integer.parseInt(parkingPlaceId),
+                    number);
             return car;
         } catch (NumberFormatException e) {
             e.printStackTrace();
-            return new Car("","","","","",0,"");
-            //это явно не должно быть так
+            if (req.getParameter("id") != "") {
+                return new Car(req.getParameter("id"),"","","","",0,"");
+            }else return new Car("","","","","",0,"");
+
         }
     }
 }
