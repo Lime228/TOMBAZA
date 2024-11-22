@@ -19,22 +19,22 @@
     <p><input type="text" name="id" id="id" value="" size="25" />
         <small> Вин-номер</small>
     </p>
-    <p><input type="text" name="color" id="color" value=" " size="25" />
+    <p><input type="text" name="color" id="color" value="" size="25" />
         <small> Цвет</small>
     </p>
-    <p><input type="text" name="brand" id="brand" value=" " size="25" />
+    <p><input type="text" name="brand" id="brand" value="" size="25" />
         <small> Бренд</small>
     </p>
-    <p><input type="text" name="modelName" id="modelName" value=" " size="25" />
+    <p><input type="text" name="modelName" id="modelName" value="" size="25" />
         <small> Название модели</small>
     </p>
-    <p><input type="text" name="releaseYear" id="releaseYear" value=" " size="25" />
+    <p><input type="text" name="releaseYear" id="releaseYear" value="" size="25" />
         <small> Год выпуска</small>
     </p>
-    <p><input type="text" name="parkingPlaceId" id="parkingPlaceId" value="1" size="25" />
+    <p><input type="text" name="parkingPlaceId" id="parkingPlaceId" value="" size="25" />
         <small> Место на парковке. Обязательно должно существовать.</small> <a><input name="getParkingPlaces" type="submit" id="getParkingPlaces" value="Посмотреть все места" /></a>
     </p>
-    <p><input type="text" name="number" id="number" value=" " size="25" />
+    <p><input type="text" name="number" id="number" value="" size="25" />
         <small> Гос. номер</small>
     </p>
     <a><input name="get" type="submit" id="get" value="Получить автомобиль по Вин-номеру" />

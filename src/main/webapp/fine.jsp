@@ -19,13 +19,13 @@
     <p><input type="text" name="id" id="id" value="" size="25" />
         <small> Номер</small>
     </p>
-    <p><input type="text" name="fineDescription" id="fineDescription" value=" " size="25" />
+    <p><input type="text" name="fineDescription" id="fineDescription" value="" size="25" />
         <small> Описание</small>
     </p>
-    <p><input type="text" name="fineCost" id="fineCost" value=" " size="25" />
+    <p><input type="text" name="fineCost" id="fineCost" value="" size="25" />
         <small> Стоимость оплаты</small>
     </p>
-    <p><input type="text" name="agreementId" id="agreementId" value=" " size="25" />
+    <p><input type="text" name="agreementId" id="agreementId" value="" size="25" />
         <small> Номер договора. Обязательно должен существовать.</small> <a><input name="getAgreements" type="submit" id="getAgreements" value="Посмотреть все договоры" /></a>
     </p>
     <a><input name="get" type="submit" id="get" value="Получить штраф по номеру" />
@@ -66,4 +66,3 @@
 
 </body>
 </html>
-ТЫ ЕБЛАН ПОМЕНЯЙ ПРИНЦИП УДАЛЕНИЯ И ПУСТЫЕ ВВОДНЫЕ СТРОЧКИ
