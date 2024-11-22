@@ -38,8 +38,6 @@ public class CarRepository implements Repository<Car> {
             car.setReleaseYear(res.getString(5));
             car.setParkingPlaceId(res.getInt(6));
             car.setNumber(res.getString(7));
-
-
             return car;
         } catch (SQLException | ClassNotFoundException e) {
             e.printStackTrace();
