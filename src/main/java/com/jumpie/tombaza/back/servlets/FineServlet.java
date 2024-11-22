@@ -67,14 +67,17 @@ public class FineServlet extends HttpServlet{
 
         //проверку на пустоту?
         try {
-            Fine fine = new Fine(Integer.parseInt(id),fineDescription,Integer.parseInt(fineCost),Integer.parseInt(agreementId));
+            Fine fine = new Fine(Integer.parseInt(id),
+                    fineDescription,
+                    Integer.parseInt(fineCost),
+                    Integer.parseInt(agreementId));
             return fine;
         } catch (NumberFormatException e) {
             e.printStackTrace();
             if (req.getParameter("id") != "") {
                 return new Fine(Integer.parseInt(req.getParameter("id")),"",0,0);
             }else return new Fine(0,"",0,0);
-            //это явно не должно быть так
+
         }
     }
 }

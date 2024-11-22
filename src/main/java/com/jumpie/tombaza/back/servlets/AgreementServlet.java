@@ -21,11 +21,7 @@ public class AgreementServlet extends HttpServlet {
             try {
                 Agreement agreement = createAgreement(req);
                 Agreement agr = AgreementService.get(agreement);
-                req.setAttribute("id", agr.getId());
-                req.setAttribute("rentPrice", agr.getRentPrice());
-                req.setAttribute("rentPeriod", agr.getRentPeriod());
-                req.setAttribute("vinNumber", agr.getVinNumber());
-                req.setAttribute("passportNumber", agr.getPassportNumber());
+                req.setAttribute("agrem", agr);
             } catch (Exception e){
                 e.printStackTrace();
                 req.setAttribute("error", "вероятно, был задан пустой ID. Задайте число.");
