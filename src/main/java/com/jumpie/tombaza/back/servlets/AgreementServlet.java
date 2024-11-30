@@ -40,8 +40,8 @@ public class AgreementServlet extends HttpServlet {
             try {
                 if (AgreementService.update(agreement)!=null) req.setAttribute("wasUpdated", "успешно обновлено");
                 else req.setAttribute("wasUpdated","договор не был обновлен");
-            } catch (ClassNotFoundException e) {
-                throw new RuntimeException(e);
+            } catch (Exception e) {
+                e.printStackTrace();
             }
         } else if (req.getParameter("delete") != null) {
             //нужно подтверждение

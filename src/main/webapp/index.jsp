@@ -2,11 +2,11 @@
 
 
 <head>
-    <title>HTML заголовки</title>
+    <title>Аренда автомобилей</title>
 </head>
 
 <body align="center">
-    <h1>HTML заголовок 1-го уровня</h1>
+    <h1>Аренда автомобилей</h1>
     <a href="agreement">Договор</a>
     <a href="car">Машина</a>
     <a href="client">Клиент</a>
