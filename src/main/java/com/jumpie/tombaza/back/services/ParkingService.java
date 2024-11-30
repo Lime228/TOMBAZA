@@ -6,24 +6,35 @@ import com.jumpie.tombaza.back.repositories.ParkingRepository;
 import java.util.List;
 
 public class ParkingService {
+    private static ParkingRepository parkingRepository;
+    private static ParkingService instance;
+
+    private ParkingService() {
+        parkingRepository = ParkingRepository.getInstance();
+    }
+
     public static boolean create(Parking parking) throws ClassNotFoundException {
-        return ParkingRepository.getInstance().create(parking)!=null;
+        return parkingRepository.create(parking)!=null;
     }
 
 
     public static Parking get(Parking parking) {
-        return ParkingRepository.getInstance().getByID(parking);
+        return parkingRepository.getByID(parking);
     }
     public static List<Parking> getAll() {
-        return ParkingRepository.getInstance().getAll();
+        return parkingRepository.getAll();
     }
 
     public static Parking update(Parking parking) throws ClassNotFoundException {
-        return ParkingRepository.getInstance().update(parking);
+        return parkingRepository.update(parking);
     }
 
-
     public static boolean delete(Parking parking) {
-        return ParkingRepository.getInstance().delete(parking);
+        return parkingRepository.delete(parking);
+    }
+
+    public static synchronized ParkingService getInstance() {
+        if (instance == null) instance = new ParkingService();
+        return instance;
     }
 }

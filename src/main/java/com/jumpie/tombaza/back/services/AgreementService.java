@@ -6,24 +6,36 @@ import com.jumpie.tombaza.back.repositories.AgreementRepository;
 import java.util.List;
 
 public class AgreementService {
-    public static boolean create(Agreement agr) throws ClassNotFoundException {
-        return AgreementRepository.getInstance().create(agr) != null;
+    private static AgreementRepository agreementRepository;
+    private static AgreementService instance;
+
+    private AgreementService() {
+        agreementRepository = AgreementRepository.getInstance();
+    }
+
+    public boolean create(Agreement agr) throws ClassNotFoundException {
+        return agreementRepository.create(agr) != null;
+    }
+    //добавить контейнер, сервисы - синглтоны
+
+    public Agreement get(Agreement agr) {
+        return agreementRepository.getByID(agr);
+    }
+    public List<Agreement> getAll() {
+        return agreementRepository.getAll();
+    }
+
+    public Agreement update(Agreement agr) throws ClassNotFoundException {
+        return agreementRepository.update(agr);
     }
 
 
-    public static Agreement get(Agreement agr) {
-        return AgreementRepository.getInstance().getByID(agr);
-    }
-    public static List<Agreement> getAll() {
-        return AgreementRepository.getInstance().getAll();
+    public boolean delete(Agreement agr) {
+        return agreementRepository.delete(agr);
     }
 
-    public static Agreement update(Agreement agr) throws ClassNotFoundException {
-        return AgreementRepository.getInstance().update(agr);
-    }
-
-
-    public static boolean delete(Agreement agr) {
-        return AgreementRepository.getInstance().delete(agr);
+    public static synchronized AgreementService getInstance(){
+        if (instance == null) instance = new AgreementService();
+        return instance;
     }
 }
