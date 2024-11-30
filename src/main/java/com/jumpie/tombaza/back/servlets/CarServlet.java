@@ -9,6 +9,9 @@ import jakarta.servlet.http.HttpServletResponse;
 
 import java.io.IOException;
 public class CarServlet extends HttpServlet{
+    private static CarService carService = CarService.getInstance();
+    private static ParkingPlaceService parkingPlaceService = ParkingPlaceService.getInstance();
+
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         req.getRequestDispatcher("/car.jsp").forward(req, resp);
@@ -34,7 +37,7 @@ public class CarServlet extends HttpServlet{
         } else if (req.getParameter("create") != null) {
             Car car = createCar(req);
             try {
-                if(CarService.create(car)) req.setAttribute("wasCreated", "успешно создана");
+                if(carService.create(car)) req.setAttribute("wasCreated", "успешно создана");
                 else req.setAttribute("wasCreated", "машина не была создана");
             } catch (ClassNotFoundException e) {
                 throw new RuntimeException(e);
@@ -42,7 +45,7 @@ public class CarServlet extends HttpServlet{
         } else if (req.getParameter("update") != null) {
             Car car = createCar(req);
             try {
-                if (CarService.update(car)!=null) req.setAttribute("wasUpdated", "успешно обновлено");
+                if (carService.update(car)!=null) req.setAttribute("wasUpdated", "успешно обновлено");
                 else req.setAttribute("wasUpdated","машина не была обновлена");
             } catch (ClassNotFoundException e) {
                 throw new RuntimeException(e);
@@ -50,12 +53,12 @@ public class CarServlet extends HttpServlet{
         } else if (req.getParameter("delete") != null) {
             //нужно подтверждение
             Car client = createCar(req);
-            if (CarService.delete(client)) req.setAttribute("wasDeleted", "успешно удалено");
+            if (carService.delete(client)) req.setAttribute("wasDeleted", "успешно удалено");
             else req.setAttribute("wasDeleted","клиент не был удален");
         }else if (req.getParameter("getAll") != null) {
-            req.setAttribute("cars", CarService.getAll());
+            req.setAttribute("cars", carService.getAll());
         }else if (req.getParameter("getParkingPlaces") != null) {
-            req.setAttribute("places", ParkingPlaceService.getAll());
+            req.setAttribute("places", parkingPlaceService.getAll());
         }
 
         req.getRequestDispatcher("/car.jsp").forward(req, resp);

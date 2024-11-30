@@ -11,6 +11,10 @@ import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 public class AgreementServlet extends HttpServlet {
+    private static AgreementService agreementService = AgreementService.getInstance();
+    private static CarService carService = CarService.getInstance();
+    private static ClientService clientService = ClientService.getInstance();
+
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         req.getRequestDispatcher("/agreement.jsp").forward(req, resp);
@@ -20,7 +24,7 @@ public class AgreementServlet extends HttpServlet {
         if(req.getParameter("get") != null) {
             try {
                 Agreement agreement = createAgreement(req);
-                Agreement agr = AgreementService.get(agreement);
+                Agreement agr = agreementService.get(agreement);
                 req.setAttribute("agrem", agr);
             } catch (Exception e){
                 e.printStackTrace();
@@ -30,7 +34,7 @@ public class AgreementServlet extends HttpServlet {
         } else if (req.getParameter("create") != null) {
             Agreement agreement = createAgreement(req);
             try {
-                if(AgreementService.create(agreement)) req.setAttribute("wasCreated", "успешно создан");
+                if(agreementService.create(agreement)) req.setAttribute("wasCreated", "успешно создан");
                 else req.setAttribute("wasCreated", "договор не был создан");
             } catch (ClassNotFoundException e) {
                 throw new RuntimeException(e);
@@ -38,7 +42,7 @@ public class AgreementServlet extends HttpServlet {
         } else if (req.getParameter("update") != null) {
             Agreement agreement = createAgreement(req);
             try {
-                if (AgreementService.update(agreement)!=null) req.setAttribute("wasUpdated", "успешно обновлено");
+                if (agreementService.update(agreement)!=null) req.setAttribute("wasUpdated", "успешно обновлено");
                 else req.setAttribute("wasUpdated","договор не был обновлен");
             } catch (Exception e) {
                 e.printStackTrace();
@@ -46,14 +50,14 @@ public class AgreementServlet extends HttpServlet {
         } else if (req.getParameter("delete") != null) {
             //нужно подтверждение
             Agreement agreement = createAgreement(req);
-            if (AgreementService.delete(agreement)) req.setAttribute("wasDeleted", "успешно удалено");
+            if (agreementService.delete(agreement)) req.setAttribute("wasDeleted", "успешно удалено");
             else req.setAttribute("wasDeleted","договор не был удален");
         } else if (req.getParameter("getPassports") != null) {
-            req.setAttribute("passports", ClientService.getAll());
+            req.setAttribute("passports", clientService.getAll());
         } else if (req.getParameter("getCars") != null) {
-            req.setAttribute("cars", CarService.getAll());
+            req.setAttribute("cars", carService.getAll());
         }else if (req.getParameter("getAll") != null) {
-            req.setAttribute("agreements", AgreementService.getAll());
+            req.setAttribute("agreements", agreementService.getAll());
         }
 
         req.getRequestDispatcher("/agreement.jsp").forward(req, resp);

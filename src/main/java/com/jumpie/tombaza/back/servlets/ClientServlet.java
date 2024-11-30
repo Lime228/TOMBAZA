@@ -8,6 +8,8 @@ import jakarta.servlet.http.HttpServletResponse;
 
 import java.io.IOException;
 public class ClientServlet extends HttpServlet{
+    private static ClientService clientService = ClientService.getInstance();
+
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         req.getRequestDispatcher("/client.jsp").forward(req, resp);
@@ -17,7 +19,7 @@ public class ClientServlet extends HttpServlet{
         if(req.getParameter("get") != null) {
             try {
                 Client client = createClient(req);
-                Client cli = ClientService.get(client);
+                Client cli = clientService.get(client);
                 req.setAttribute("id", cli.getId());
                 req.setAttribute("phoneNumber", cli.getPhoneNumber());
                 req.setAttribute("address", cli.getAddress());
@@ -30,7 +32,7 @@ public class ClientServlet extends HttpServlet{
         } else if (req.getParameter("create") != null) {
             Client client = createClient(req);
             try {
-                if(ClientService.create(client)) req.setAttribute("wasCreated", "успешно создан");
+                if(clientService.create(client)) req.setAttribute("wasCreated", "успешно создан");
                 else req.setAttribute("wasCreated", "клиент не был создан");
             } catch (ClassNotFoundException e) {
                 throw new RuntimeException(e);
@@ -38,7 +40,7 @@ public class ClientServlet extends HttpServlet{
         } else if (req.getParameter("update") != null) {
             Client client = createClient(req);
             try {
-                if (ClientService.update(client)!=null) req.setAttribute("wasUpdated", "успешно обновлено");
+                if (clientService.update(client)!=null) req.setAttribute("wasUpdated", "успешно обновлено");
                 else req.setAttribute("wasUpdated","клиент не был обновлен");
             } catch (ClassNotFoundException e) {
                 throw new RuntimeException(e);
@@ -46,10 +48,10 @@ public class ClientServlet extends HttpServlet{
         } else if (req.getParameter("delete") != null) {
             //нужно подтверждение
             Client client = createClient(req);
-            if (ClientService.delete(client)) req.setAttribute("wasDeleted", "успешно удалено");
+            if (clientService.delete(client)) req.setAttribute("wasDeleted", "успешно удалено");
             else req.setAttribute("wasDeleted","клиент не был удален");
         }else if (req.getParameter("getAll") != null) {
-            req.setAttribute("clients", ClientService.getAll());
+            req.setAttribute("clients", clientService.getAll());
         }
 
         req.getRequestDispatcher("/client.jsp").forward(req, resp);

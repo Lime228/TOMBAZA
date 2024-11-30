@@ -9,6 +9,8 @@ import jakarta.servlet.http.HttpServletResponse;
 
 import java.io.IOException;
 public class FineServlet extends HttpServlet{
+    private static FineService fineService = FineService.getInstance();
+
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         req.getRequestDispatcher("/fine.jsp").forward(req, resp);
@@ -18,7 +20,7 @@ public class FineServlet extends HttpServlet{
         if(req.getParameter("get") != null) {
             try {
                 Fine fine = createFine(req);
-                Fine fn = FineService.get(fine);
+                Fine fn = fineService.get(fine);
                 req.setAttribute("id", fn.getId());
                 req.setAttribute("description", fn.getFineDescription());
                 req.setAttribute("fineCost", fn.getFineCost());
@@ -31,7 +33,7 @@ public class FineServlet extends HttpServlet{
         } else if (req.getParameter("create") != null) {
             Fine fine = createFine(req);
             try {
-                if(FineService.create(fine)) req.setAttribute("wasCreated", "успешно создана");
+                if(fineService.create(fine)) req.setAttribute("wasCreated", "успешно создана");
                 else req.setAttribute("wasCreated", "машина не была создана");
             } catch (ClassNotFoundException e) {
                 throw new RuntimeException(e);
@@ -39,7 +41,7 @@ public class FineServlet extends HttpServlet{
         } else if (req.getParameter("update") != null) {
             Fine fine = createFine(req);
             try {
-                if (FineService.update(fine)!=null) req.setAttribute("wasUpdated", "успешно обновлено");
+                if (fineService.update(fine)!=null) req.setAttribute("wasUpdated", "успешно обновлено");
                 else req.setAttribute("wasUpdated","машина не была обновлена");
             } catch (ClassNotFoundException e) {
                 throw new RuntimeException(e);
@@ -47,12 +49,12 @@ public class FineServlet extends HttpServlet{
         } else if (req.getParameter("delete") != null) {
             //нужно подтверждение
             Fine fine = createFine(req);
-            if (FineService.delete(fine)) req.setAttribute("wasDeleted", "успешно удалено");
+            if (fineService.delete(fine)) req.setAttribute("wasDeleted", "успешно удалено");
             else req.setAttribute("wasDeleted","клиент не был удален");
         }else if (req.getParameter("getAll") != null) {
-            req.setAttribute("fines", FineService.getAll());
+            req.setAttribute("fines", fineService.getAll());
         }else if (req.getParameter("getAgreements") != null) {
-            req.setAttribute("agreements", AgreementService.getAll());
+            req.setAttribute("agreements", fineService.getAll());
         }
 
 

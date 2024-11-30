@@ -8,6 +8,8 @@ import jakarta.servlet.http.HttpServletResponse;
 
 import java.io.IOException;
 public class ParkingPlaceServlet extends HttpServlet{
+    private static ParkingPlaceService parkingPlaceService = ParkingPlaceService.getInstance();
+
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         req.getRequestDispatcher("/parkingplace.jsp").forward(req, resp);
@@ -17,7 +19,7 @@ public class ParkingPlaceServlet extends HttpServlet{
         if(req.getParameter("get") != null) {
             try {
                 ParkingPlace parkingPlace = createParkinPlace(req);
-                ParkingPlace pp = ParkingPlaceService.get(parkingPlace);
+                ParkingPlace pp = parkingPlaceService.get(parkingPlace);
                 req.setAttribute("id", pp.getId());
                 req.setAttribute("occupiedSlot", pp.getOccupiedSlot());
                 req.setAttribute("parkingId", pp.getParkingId());
@@ -30,7 +32,7 @@ public class ParkingPlaceServlet extends HttpServlet{
         } else if (req.getParameter("create") != null) {
             ParkingPlace pp = createParkinPlace(req);
             try {
-                if(ParkingPlaceService.create(pp)) req.setAttribute("wasCreated", "успешно создана");
+                if(parkingPlaceService.create(pp)) req.setAttribute("wasCreated", "успешно создана");
                 else req.setAttribute("wasCreated", "место не было создано");
             } catch (ClassNotFoundException e) {
                 throw new RuntimeException(e);
@@ -38,7 +40,7 @@ public class ParkingPlaceServlet extends HttpServlet{
         } else if (req.getParameter("update") != null) {
             ParkingPlace parkinPlace = createParkinPlace(req);
             try {
-                if (ParkingPlaceService.update(parkinPlace)!=null) req.setAttribute("wasUpdated", "успешно обновлено");
+                if (parkingPlaceService.update(parkinPlace)!=null) req.setAttribute("wasUpdated", "успешно обновлено");
                 else req.setAttribute("wasUpdated","место не было обновлено");
             } catch (ClassNotFoundException e) {
                 throw new RuntimeException(e);
@@ -46,10 +48,10 @@ public class ParkingPlaceServlet extends HttpServlet{
         } else if (req.getParameter("delete") != null) {
             //нужно подтверждение
             ParkingPlace pp = createParkinPlace(req);
-            if (ParkingPlaceService.delete(pp)) req.setAttribute("wasDeleted", "успешно удалено");
+            if (parkingPlaceService.delete(pp)) req.setAttribute("wasDeleted", "успешно удалено");
             else req.setAttribute("wasDeleted","место не было удалено");
         }else if (req.getParameter("getAll") != null) {
-            req.setAttribute("parkingPlaces", ParkingPlaceService.getAll());
+            req.setAttribute("parkingPlaces", parkingPlaceService.getAll());
         }
         req.getRequestDispatcher("/parkingplace.jsp").forward(req, resp);
     }

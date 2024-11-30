@@ -8,6 +8,8 @@ import jakarta.servlet.http.HttpServletResponse;
 
 import java.io.IOException;
 public class ParkingServlet extends HttpServlet{
+    private ParkingService parkingService = ParkingService.getInstance();
+
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         req.getRequestDispatcher("/parking.jsp").forward(req, resp);
@@ -17,7 +19,7 @@ public class ParkingServlet extends HttpServlet{
         if(req.getParameter("get") != null) {
             try {
                 Parking parking = createParking(req);
-                Parking p = ParkingService.get(parking);
+                Parking p = parkingService.get(parking);
                 req.setAttribute("id", p.getId());
                 req.setAttribute("maxCapacity", p.getMaxCapacity());
                 req.setAttribute("parkingAddress", p.getParkingAddress());
@@ -29,7 +31,7 @@ public class ParkingServlet extends HttpServlet{
         } else if (req.getParameter("create") != null) {
             Parking pp = createParking(req);
             try {
-                if(ParkingService.create(pp)) req.setAttribute("wasCreated", "успешно создана");
+                if(parkingService.create(pp)) req.setAttribute("wasCreated", "успешно создана");
                 else req.setAttribute("wasCreated", "парковка не была создана");
             } catch (ClassNotFoundException e) {
                 throw new RuntimeException(e);
@@ -37,7 +39,7 @@ public class ParkingServlet extends HttpServlet{
         } else if (req.getParameter("update") != null) {
             Parking parkinPlace = createParking(req);
             try {
-                if (ParkingService.update(parkinPlace)!=null) req.setAttribute("wasUpdated", "успешно обновлено");
+                if (parkingService.update(parkinPlace)!=null) req.setAttribute("wasUpdated", "успешно обновлено");
                 else req.setAttribute("wasUpdated","парковка не была обновлена");
             } catch (ClassNotFoundException e) {
                 throw new RuntimeException(e);
@@ -45,10 +47,10 @@ public class ParkingServlet extends HttpServlet{
         } else if (req.getParameter("delete") != null) {
             //нужно подтверждение
             Parking pp = createParking(req);
-            if (ParkingService.delete(pp)) req.setAttribute("wasDeleted", "успешно удалено");
+            if (parkingService.delete(pp)) req.setAttribute("wasDeleted", "успешно удалено");
             else req.setAttribute("wasDeleted","паркоука не была удалена");
         }else if (req.getParameter("getAll") != null) {
-            req.setAttribute("parkings", ParkingService.getAll());
+            req.setAttribute("parkings", parkingService.getAll());
         }
         req.getRequestDispatcher("/parking.jsp").forward(req, resp);
     }
