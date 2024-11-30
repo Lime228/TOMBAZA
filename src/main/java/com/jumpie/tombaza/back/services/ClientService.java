@@ -13,24 +13,24 @@ public class ClientService {
         clientRepository = ClientRepository.getInstance();
     }
 
-    public static boolean create(Client cli) throws ClassNotFoundException {
+    public boolean create(Client cli) throws ClassNotFoundException {
         return clientRepository.create(cli)!=null;
     }
 
 
-    public static Client get(Client cli) {
+    public Client get(Client cli) {
         return clientRepository.getByID(cli);
     }
-    public static List<Client> getAll() {
+    public List<Client> getAll() {
         return clientRepository.getAll();
     }
 
-    public static Client update(Client cli) throws ClassNotFoundException {
+    public Client update(Client cli) throws ClassNotFoundException {
         return clientRepository.update(cli);
     }
 
 
-    public static boolean delete(Client cli) {
+    public boolean delete(Client cli) {
         return clientRepository.delete(cli);
     }
 

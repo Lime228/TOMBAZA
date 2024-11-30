@@ -13,22 +13,22 @@ public class ParkingPlaceService {
         parkingPlaceRepository = ParkingPlaceRepository.getInstance();
     }
 
-    public static boolean create(ParkingPlace parking) throws ClassNotFoundException {
+    public boolean create(ParkingPlace parking) throws ClassNotFoundException {
         return parkingPlaceRepository.create(parking)!=null;
     }
 
-    public static ParkingPlace get(ParkingPlace parking) {
+    public ParkingPlace get(ParkingPlace parking) {
         return parkingPlaceRepository.getByID(parking);
     }
-    public static List<ParkingPlace> getAll() {
+    public List<ParkingPlace> getAll() {
         return parkingPlaceRepository.getAll();
     }
 
-    public static ParkingPlace update(ParkingPlace parking) throws ClassNotFoundException {
+    public ParkingPlace update(ParkingPlace parking) throws ClassNotFoundException {
         return parkingPlaceRepository.update(parking);
     }
 
-    public static boolean delete(ParkingPlace parking) {
+    public boolean delete(ParkingPlace parking) {
         return parkingPlaceRepository.delete(parking);
     }
 

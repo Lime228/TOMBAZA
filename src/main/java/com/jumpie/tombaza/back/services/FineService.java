@@ -13,23 +13,23 @@ public class FineService {
         fineRepository = FineRepository.getInstance();
     }
 
-    public static boolean create(Fine fine) throws ClassNotFoundException {
+    public boolean create(Fine fine) throws ClassNotFoundException {
         return fineRepository.create(fine) != null;
     }
 
 
-    public static Fine get(Fine fine) {
+    public Fine get(Fine fine) {
         return fineRepository.getByID(fine);
     }
-    public static List<Fine> getAll() {
+    public List<Fine> getAll() {
         return fineRepository.getAll();
     }
 
-    public static Fine update(Fine fine) throws ClassNotFoundException {
+    public Fine update(Fine fine) throws ClassNotFoundException {
         return fineRepository.update(fine);
     }
 
-    public static boolean delete(Fine fine) {
+    public boolean delete(Fine fine) {
         return fineRepository.delete(fine);
     }
 
