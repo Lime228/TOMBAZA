@@ -20,6 +20,8 @@ public class CarRepository implements Repository<Car> {
     public static final String CAR_PARKING_PLACE = "parking_place_id";
     public static final String CAR_NUMBER = "number";
 
+    private CarRepository() {}
+
     @Override
     public Car getByID(Car get) {
         String realID = get.getId();

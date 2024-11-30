@@ -10,13 +10,15 @@ import java.util.List;
 
 public class AgreementRepository implements Repository<Agreement> {
     private static AgreementRepository instance;
-    public static final String AGREEMENT_TABLE = "agreement";
+    private static final String AGREEMENT_TABLE = "agreement";
 
-    public static final String AGREEMENT_ID = "agreement_id";
-    public static final String AGREEMENT_RENT_PRICE = "rent_price";
-    public static final String AGREEMENT_RENT_PERIOD = "rent_period";
-    public static final String AGREEMENT_VIN_NUMBER = "vin_number";
-    public static final String AGREEMENT_PASSPORT_NUMBER = "passport_number";
+    private static final String AGREEMENT_ID = "agreement_id";
+    private static final String AGREEMENT_RENT_PRICE = "rent_price";
+    private static final String AGREEMENT_RENT_PERIOD = "rent_period";
+    private static final String AGREEMENT_VIN_NUMBER = "vin_number";
+    private static final String AGREEMENT_PASSPORT_NUMBER = "passport_number";
+
+    private AgreementRepository() {}
 
     @Override
     public Agreement getByID(Agreement get) {
@@ -78,6 +80,23 @@ public class AgreementRepository implements Repository<Agreement> {
             prSt.setInt(3, agr.getRentPeriod());
             prSt.setString(4, agr.getVinNumber());
             prSt.setString(5, agr.getPassportNumber());
+            prSt.executeUpdate();
+            return agr;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    public Agreement createWithoutID(Agreement add) throws ClassNotFoundException {
+        Agreement agr = add;
+        String ins = "INSERT INTO " + AGREEMENT_TABLE + "(" + AGREEMENT_RENT_PRICE + "," + AGREEMENT_RENT_PERIOD + "," + AGREEMENT_VIN_NUMBER + "," + AGREEMENT_PASSPORT_NUMBER + ")" + "VALUES(?,?,?,?)";
+        ConnectJDBC con = ConnectJDBC.getInstance();
+        try (PreparedStatement prSt = con.getDbConnection().prepareStatement(ins)) {
+            prSt.setInt(1, agr.getRentPrice());
+            prSt.setInt(2, agr.getRentPeriod());
+            prSt.setString(3, agr.getVinNumber());
+            prSt.setString(4, agr.getPassportNumber());
             prSt.executeUpdate();
             return agr;
         } catch (SQLException e) {

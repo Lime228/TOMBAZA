@@ -17,6 +17,8 @@ public class ParkingPlaceRepository implements Repository<ParkingPlace> {
     public static final String PARKINGP_PARKING_ID = "parking_id";
     public static final String PARKINGP_FLOOR = "floor";
 
+    private ParkingPlaceRepository() {}
+
     @Override
     public ParkingPlace getByID(ParkingPlace get) {
         int realID = get.getId();
@@ -75,6 +77,22 @@ public class ParkingPlaceRepository implements Repository<ParkingPlace> {
             prSt.setString(2, String.valueOf(pp.getOccupiedSlot()));
             prSt.setString(3, String.valueOf(pp.getParkingId()));
             prSt.setString(4, String.valueOf(pp.getFloor()));
+            prSt.executeUpdate();
+            return pp;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    public ParkingPlace createWithoutID(ParkingPlace add) throws ClassNotFoundException {
+        ParkingPlace pp = add;
+        String ins = "INSERT INTO " + PARKINGP_TABLE + "(" + PARKINGP_SLOT + "," + PARKINGP_PARKING_ID + "," + PARKINGP_FLOOR + ")" + "VALUES(?,?,?)";
+        ConnectJDBC con = ConnectJDBC.getInstance();
+        try (PreparedStatement prSt = con.getDbConnection().prepareStatement(ins)) {
+            prSt.setString(1, String.valueOf(pp.getOccupiedSlot()));
+            prSt.setString(2, String.valueOf(pp.getParkingId()));
+            prSt.setString(3, String.valueOf(pp.getFloor()));
             prSt.executeUpdate();
             return pp;
         } catch (SQLException e) {

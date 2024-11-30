@@ -18,6 +18,8 @@ public class ClientRepository implements Repository<Client> {
     public static final String CLIENT_ADDRESS = "address";
     public static final String CLIENT_NAME = "name";
 
+    private ClientRepository() {}
+
     @Override
     public Client getByID(Client get) {
         String realID = get.getId();

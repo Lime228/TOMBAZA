@@ -17,6 +17,8 @@ public class FineRepository implements Repository<Fine> {
     public static final String FINE_COST = "fine_cost";
     public static final String FINE_AGREEMENT = "agreement_id";
 
+    private FineRepository() {}
+
     @Override
     public Fine getByID(Fine get) {
         int realID = get.getId();
@@ -70,6 +72,22 @@ public class FineRepository implements Repository<Fine> {
             prSt.setString(2, fin.getFineDescription());
             prSt.setString(3, String.valueOf(fin.getFineCost()));
             prSt.setString(4, String.valueOf(fin.getAgreementId()));
+            prSt.executeUpdate();
+            return fin;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    public Fine createWithoutID(Fine add) throws ClassNotFoundException {
+        Fine fin = add;
+        String ins = "INSERT INTO " + FINE_TABLE + "(" + FINE_DESCRIPTION + "," + FINE_COST + "," + FINE_AGREEMENT + ")" + "VALUES(?,?,?)";
+        ConnectJDBC con = ConnectJDBC.getInstance();
+        try (PreparedStatement prSt = con.getDbConnection().prepareStatement(ins)){
+            prSt.setString(1, fin.getFineDescription());
+            prSt.setString(2, String.valueOf(fin.getFineCost()));
+            prSt.setString(3, String.valueOf(fin.getAgreementId()));
             prSt.executeUpdate();
             return fin;
         } catch (SQLException e) {

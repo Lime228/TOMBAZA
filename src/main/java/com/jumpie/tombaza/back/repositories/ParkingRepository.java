@@ -17,6 +17,8 @@ public class ParkingRepository implements Repository<Parking> {
     public static final String PARKING_MAX_CAPACITY = "max_capacity";
     public static final String PARKING_ADDRESS = "parking_address";
 
+    private ParkingRepository() {}
+
     @Override
     public Parking getByID(Parking get) {
         int realID = get.getId();
@@ -71,6 +73,21 @@ public class ParkingRepository implements Repository<Parking> {
             prSt.setString(1, String.valueOf(p.getId()));
             prSt.setString(2, String.valueOf(p.getMaxCapacity()));
             prSt.setString(3, p.getParkingAddress());
+            prSt.executeUpdate();
+            return p;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    public Parking createWithoutID(Parking add) throws ClassNotFoundException {
+        Parking p = add;
+        String ins = "INSERT INTO " + PARKING_TABLE + "("  + PARKING_MAX_CAPACITY + "," + PARKING_ADDRESS + ")" + "VALUES(?,?)";
+        ConnectJDBC con = ConnectJDBC.getInstance();
+        try (PreparedStatement prSt = con.getDbConnection().prepareStatement(ins)) {
+            prSt.setString(1, String.valueOf(p.getMaxCapacity()));
+            prSt.setString(2, p.getParkingAddress());
             prSt.executeUpdate();
             return p;
         } catch (SQLException e) {
