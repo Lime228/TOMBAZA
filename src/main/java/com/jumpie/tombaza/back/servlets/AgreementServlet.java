@@ -1,6 +1,8 @@
 package com.jumpie.tombaza.back.servlets;
 
 import com.jumpie.tombaza.back.models.Agreement;
+import com.jumpie.tombaza.back.models.Car;
+import com.jumpie.tombaza.back.models.Client;
 import com.jumpie.tombaza.back.services.AgreementService;
 import com.jumpie.tombaza.back.services.CarService;
 import com.jumpie.tombaza.back.services.ClientService;
@@ -10,6 +12,8 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class AgreementServlet extends HttpServlet {
     private static AgreementService agreementService = AgreementService.getInstance();
@@ -36,34 +40,48 @@ public class AgreementServlet extends HttpServlet {
         } else if (req.getParameter("create") != null) {
             Agreement agreement = createAgreement(req);
             try {
-                if (agreementService.create(agreement)) req.setAttribute("wasCreated", "успешно создан");
-                else req.setAttribute("wasCreated", "договор не был создан");
+                if (agreementService.create(agreement)) req.setAttribute("error", "успешно создан");
+                else req.setAttribute("error", "договор не был создан");
             } catch (ClassNotFoundException e) {
                 throw new RuntimeException(e);
             }
-        } else if (req.getParameter("update") != null) {
+        } else if(req.getParameter("createWithoutId") != null){
             Agreement agreement = createAgreement(req);
             try {
-                if (agreementService.update(agreement) != null) req.setAttribute("wasUpdated", "успешно обновлено");
-                else req.setAttribute("wasUpdated", "договор не был обновлен");
+                if (agreementService.createWithoutId(agreement)) req.setAttribute("error", "успешно создан");
+                else req.setAttribute("error", "договор не был создан");
+            } catch (ClassNotFoundException e) {
+                throw new RuntimeException(e);
+            }
+        }else if (req.getParameter("update") != null) {
+            Agreement agreement = createAgreement(req);
+            try {
+                if (agreementService.update(agreement) != null) req.setAttribute("error", "успешно обновлено");
+                else req.setAttribute("error", "договор не был обновлен");
             } catch (Exception e) {
                 e.printStackTrace();
             }
-//        } else if (req.getParameter("delete") != null) {
-//            //нужно подтверждение                            БОЛЕЕ НЕ ВОСТРЕБОВАНО ПОДЛЕЖИТ УДАЛЕНИЮ
-//            Agreement agreement = createAgreement(req);
-//            if (agreementService.delete(agreement)) req.setAttribute("wasDeleted", "успешно удалено");
-//            else req.setAttribute("wasDeleted","договор не был удален");
         } else if (req.getParameter("getPassports") != null) {
             req.setAttribute("passports", clientService.getAll());
         } else if (req.getParameter("getCars") != null) {
             req.setAttribute("cars", carService.getAll());
         } else if (req.getParameter("getAll") != null) {
-            req.setAttribute("agreements", agreementService.getAll());
+            List<Agreement> agreements = agreementService.getAll();
+            List<Car> cars = new ArrayList<>();
+            List<Client> clients = new ArrayList<>();
+            for (Agreement agreement : agreements) {
+                cars.add(carService.get(new Car(agreement.getVinNumber().toString(),"","","","",0,"")));
+                clients.add(clientService.get(new Client(agreement.getPassportNumber(),"","","")));
+            }
+            req.setAttribute("agreements",agreements);
+            req.setAttribute("carsInfo",cars);
+            req.setAttribute("clientsInfo",clients);
+
+
         } else if (req.getParameter("deleteOther") != null) {
             Agreement agreement = createAgreement(req);
-            if (agreementService.delete(agreement)) req.setAttribute("wasDeleted", "успешно удалено");
-            else req.setAttribute("wasDeleted", "договор не был удален");
+            if (agreementService.delete(agreement)) req.setAttribute("error", "успешно удалено");
+            else req.setAttribute("error", "договор не был удален");
         }else if (req.getParameter("change") != null) {
             Agreement agreement = createAgreement(req);
             req.setAttribute("idRet", agreement.getId());
@@ -71,34 +89,34 @@ public class AgreementServlet extends HttpServlet {
             req.setAttribute("rentPeriodRet", agreement.getRentPeriod());
             req.setAttribute("passportNumberRet", agreement.getPassportNumber());
             req.setAttribute("vinNumberRet", agreement.getVinNumber());
-
-
         }
 
         req.getRequestDispatcher("/agreement.jsp").forward(req, resp);
     }
 
     private Agreement createAgreement(HttpServletRequest req) {
-        String id;
+        String id = "0";
         String rentPrice;
         String rentPeriod;
         String passportNumber;
         String vinNumber;
 
         if (req.getParameter("deleteOther") != null || req.getParameter("change") != null) {
-            id = req.getParameter("idOther");
+            if (req.getParameter("createWithoutId") == null) {
+                id = req.getParameter("idOther");
+            }
             rentPrice = req.getParameter("rentPriceOther");
             rentPeriod = req.getParameter("rentPeriodOther");
             passportNumber = req.getParameter("passportNumberOther");
             vinNumber = req.getParameter("vinNumberOther");
         } else {
-            id = req.getParameter("id");
+            if (req.getParameter("createWithoutId") == null) {
+                id = req.getParameter("id");
+            }
             rentPrice = req.getParameter("rentPrice");
             rentPeriod = req.getParameter("rentPeriod");
             passportNumber = req.getParameter("passportNumber");
             vinNumber = req.getParameter("vinNumber");
-
-
         }
         //проверку на пустоту?
         try {

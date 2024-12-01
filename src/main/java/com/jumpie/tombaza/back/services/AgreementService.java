@@ -16,6 +16,10 @@ public class AgreementService {
     public boolean create(Agreement agr) throws ClassNotFoundException {
         return agreementRepository.create(agr) != null;
     }
+
+    public boolean createWithoutId(Agreement agr) throws ClassNotFoundException {
+        return agreementRepository.createWithoutID(agr) != null;
+    }
     //добавить контейнер, сервисы - синглтоны
 
     public Agreement get(Agreement agr) {

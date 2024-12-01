@@ -110,18 +110,15 @@
         </p>
         <p>
             <input name="get" type="submit" id="get" value="Получить договор">
-            <input name="create" type="submit" id="create" value="Создать новый договор">
+            <input name="create" type="submit" id="create" value="Создать новый договор с номером">
+            <input name="createWithoutId" type="submit" id="createWithoutId" value="Создать новый договор без номера">
             <input name="update" type="submit" id="update" value="Обновить условия договора">
-<%--            <input name="delete" type="submit" id="delete" value="Удалить договор"> БОЛЕЕ НЕ ВОСТРЕБОВАНО ПОДЛЕЖИТ УДАЛЕНИЮ --%>
             <input name="getAll" type="submit" id="getAll" value="Посмотреть все договоры">
         </p>
     </form>
 
     <div class="section info">
         <div>${error}</div>
-        <div>${wasCreated}</div>
-        <div>${wasUpdated}</div>
-        <div>${wasDeleted}</div>
     </div>
     <div class="section">
         <h2>По искомому договору</h2>
@@ -142,6 +139,8 @@
 
                     <input name="change" type="submit" id="change" value="Изменить условия договора">
                     <input name="deleteOther" type="submit" id="deleteOther" value="Удалить договор">
+                    <p style="text-indent: 25px;">${carsInfo.removeFirst().allInString()}</p>
+                    <p style="text-indent: 25px;">${clientsInfo.removeFirst().allInString()}</p>
                 </form>
             </div>
         </c:forEach>
