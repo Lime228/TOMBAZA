@@ -34,8 +34,8 @@ public class AgreementRepository implements Repository<Agreement> {
             agreement.setId(res.getInt(1));
             agreement.setRentPrice(res.getInt(2));
             agreement.setRentPeriod(res.getInt(3));
-            agreement.setVinNumber(res.getString(4));
-            agreement.setPassportNumber(res.getString(5));
+            agreement.setPassportNumber(res.getString(4));
+            agreement.setVinNumber(res.getString(5));
 
             return agreement;
         } catch (SQLException | ClassNotFoundException e) {
@@ -57,8 +57,8 @@ public class AgreementRepository implements Repository<Agreement> {
                 agreement.setId(res.getInt(1));
                 agreement.setRentPrice(res.getInt(2));
                 agreement.setRentPeriod(res.getInt(3));
-                agreement.setVinNumber(res.getString(4));
-                agreement.setPassportNumber(res.getString(5));
+                agreement.setPassportNumber(res.getString(4));
+                agreement.setVinNumber(res.getString(5));
                 agreements.add(agreement);
             }
             return agreements;
@@ -72,14 +72,15 @@ public class AgreementRepository implements Repository<Agreement> {
     @Override
     public Agreement create(Agreement add) throws ClassNotFoundException {
         Agreement agr = add;
-        String ins = "INSERT INTO " + AGREEMENT_TABLE + "(" + AGREEMENT_ID + "," + AGREEMENT_RENT_PRICE + "," + AGREEMENT_RENT_PERIOD + "," + AGREEMENT_VIN_NUMBER + "," + AGREEMENT_PASSPORT_NUMBER + ")" + "VALUES(?,?,?,?,?)";
+        String ins = "INSERT INTO " + AGREEMENT_TABLE + "(" + AGREEMENT_ID + "," + AGREEMENT_RENT_PRICE + "," + AGREEMENT_RENT_PERIOD + "," + AGREEMENT_PASSPORT_NUMBER+ "," +  AGREEMENT_VIN_NUMBER + ")" + "VALUES(?,?,?,?,?)";
         ConnectJDBC con = ConnectJDBC.getInstance();
         try (PreparedStatement prSt = con.getDbConnection().prepareStatement(ins)) {
             prSt.setInt(1, agr.getId());
             prSt.setInt(2, agr.getRentPrice());
             prSt.setInt(3, agr.getRentPeriod());
-            prSt.setString(4, agr.getVinNumber());
-            prSt.setString(5, agr.getPassportNumber());
+            prSt.setString(4, agr.getPassportNumber());
+            prSt.setString(5, agr.getVinNumber());
+
             prSt.executeUpdate();
             return agr;
         } catch (SQLException e) {
@@ -90,13 +91,13 @@ public class AgreementRepository implements Repository<Agreement> {
 
     public Agreement createWithoutID(Agreement add) throws ClassNotFoundException {
         Agreement agr = add;
-        String ins = "INSERT INTO " + AGREEMENT_TABLE + "(" + AGREEMENT_RENT_PRICE + "," + AGREEMENT_RENT_PERIOD + "," + AGREEMENT_VIN_NUMBER + "," + AGREEMENT_PASSPORT_NUMBER + ")" + "VALUES(?,?,?,?)";
+        String ins = "INSERT INTO " + AGREEMENT_TABLE + "(" + AGREEMENT_RENT_PRICE + "," + AGREEMENT_RENT_PERIOD + "," + AGREEMENT_PASSPORT_NUMBER + "," +  AGREEMENT_VIN_NUMBER + ")" + "VALUES(?,?,?,?)";
         ConnectJDBC con = ConnectJDBC.getInstance();
         try (PreparedStatement prSt = con.getDbConnection().prepareStatement(ins)) {
             prSt.setInt(1, agr.getRentPrice());
             prSt.setInt(2, agr.getRentPeriod());
-            prSt.setString(3, agr.getVinNumber());
-            prSt.setString(4, agr.getPassportNumber());
+            prSt.setString(3, agr.getPassportNumber());
+            prSt.setString(4, agr.getVinNumber());
             prSt.executeUpdate();
             return agr;
         } catch (SQLException e) {
@@ -110,14 +111,14 @@ public class AgreementRepository implements Repository<Agreement> {
         Agreement agr = upd;
         if (getByID(agr) != null) {
             ConnectJDBC con = ConnectJDBC.getInstance();
-            String ins = "UPDATE " + AGREEMENT_TABLE + " SET " + AGREEMENT_ID + " = ?, " + AGREEMENT_RENT_PRICE + " =?, " + AGREEMENT_RENT_PERIOD + " =?, " + AGREEMENT_VIN_NUMBER + " =?, " + AGREEMENT_PASSPORT_NUMBER + " =? WHERE " + AGREEMENT_ID + "=" + agr.getId();
+            String ins = "UPDATE " + AGREEMENT_TABLE + " SET " + AGREEMENT_RENT_PRICE + " =?, " + AGREEMENT_RENT_PERIOD + " =?, " +  AGREEMENT_PASSPORT_NUMBER+ " =?, " + AGREEMENT_VIN_NUMBER + " =? WHERE " + AGREEMENT_ID + "=" + agr.getId();
 
             try (PreparedStatement prSt = con.getDbConnection().prepareStatement(ins)) {
-                prSt.setString(1, String.valueOf(agr.getId()));
-                prSt.setString(2, String.valueOf(agr.getRentPrice()));
-                prSt.setString(3, String.valueOf(agr.getRentPeriod()));
+//                prSt.setString(1, String.valueOf(agr.getId()));
+                prSt.setString(1, String.valueOf(agr.getRentPrice()));
+                prSt.setString(2, String.valueOf(agr.getRentPeriod()));
+                prSt.setString(3, agr.getPassportNumber());
                 prSt.setString(4, agr.getVinNumber());
-                prSt.setString(5, agr.getPassportNumber());
                 prSt.executeUpdate();
                 return agr;
             } catch (SQLException | ClassNotFoundException e) {

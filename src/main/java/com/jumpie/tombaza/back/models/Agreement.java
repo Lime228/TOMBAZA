@@ -4,18 +4,19 @@ public class Agreement extends Model<Integer> {
 
     private int rentPrice;
     private int rentPeriod;
-    private String vinNumber;
     private String passportNumber;
+    private String vinNumber;
 
     public Agreement() {
     }
 
-    public Agreement(int agreementId, int rentPrice, int rentPeriod, String vinNumber, String passportNumber) {
+    public Agreement(int agreementId, int rentPrice, int rentPeriod, String passportNumber,String vinNumber) {
         setId(agreementId);
         setRentPrice(rentPrice);
         setRentPeriod(rentPeriod);
-        setVinNumber(vinNumber);
         setPassportNumber(passportNumber);
+        setVinNumber(vinNumber);
+
     }
 
 
@@ -58,11 +59,11 @@ public class Agreement extends Model<Integer> {
     }
 
     public void print() {
-        System.out.println(super.getId() + " " + this.rentPrice + " " + this.rentPeriod + " " + this.vinNumber + " " + this.passportNumber);
+        System.out.println(super.getId() + " " + this.rentPrice + " " + this.rentPeriod + " "  + this.passportNumber + " "  + this.vinNumber);
     }
 
     public String allInString() {
-        String str ="ID: " + super.getId() + " RENTPRICE: " + this.rentPrice + " RENTPERIOD: " + this.rentPeriod + " VINNUMBER: " + this.vinNumber + " PASSPORT: " + this.passportNumber;
+        String str ="ID: " + super.getId() + " RENTPRICE: " + this.rentPrice + " RENTPERIOD: " + this.rentPeriod + " PASSPORT: " + this.passportNumber +  " VINNUMBER: " + this.vinNumber;
         return str;
     }
 }
