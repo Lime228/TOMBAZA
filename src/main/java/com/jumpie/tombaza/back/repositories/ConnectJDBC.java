@@ -5,6 +5,7 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 
 public class ConnectJDBC {
+    //я знаю что так хранить не надо, мне просто лень переделывать 😭😭😭
     protected String dbHost = "localhost";
     protected String dbPort = "3306";
     protected String dbUsername = "root";
