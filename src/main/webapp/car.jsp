@@ -10,6 +10,7 @@
 
 
 <html>
+<a href="index">Домой</a>
 <head>
         <title>Машины</title>
 </head>

@@ -7,88 +7,136 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Договоры</title>
-<%--    <style>--%>
-<%--        body {--%>
-<%--            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;--%>
-<%--            margin: 0;--%>
-<%--            padding: 0;--%>
-<%--            background-color: #f8f9fa;--%>
-<%--            color: #343a40;--%>
-<%--        }--%>
-<%--        header {--%>
-<%--            background-color: #0e8585;--%>
-<%--            color: white;--%>
-<%--            padding: 10px 20px;--%>
-<%--            text-align: center;--%>
-<%--        }--%>
-<%--        h1, h2 {--%>
-<%--            color: #343a40;--%>
-<%--            margin-bottom: 10px;--%>
-<%--        }--%>
-<%--        form {--%>
-<%--            max-width: 700px;--%>
-<%--            margin: 20px auto;--%>
-<%--            background: white;--%>
-<%--            padding: 20px;--%>
-<%--            border-radius: 6px;--%>
-<%--            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);--%>
-<%--        }--%>
-<%--        form p {--%>
-<%--            margin-bottom: 15px;--%>
-<%--        }--%>
-<%--        label {--%>
-<%--            display: block;--%>
-<%--            font-weight: bold;--%>
-<%--            margin-bottom: 5px;--%>
-<%--        }--%>
-<%--        input[type="text"], input[type="submit"] {--%>
-<%--            display: block;--%>
-<%--            width: 100%;--%>
-<%--            padding: 10px;--%>
-<%--            margin-top: 5px;--%>
-<%--            font-size: 16px;--%>
-<%--            border: 1px solid #ccc;--%>
-<%--            border-radius: 4px;--%>
-<%--        }--%>
-<%--        input[type="submit"] {--%>
-<%--            background-color: #07a7a7;--%>
-<%--            color: white;--%>
-<%--            border: none;--%>
-<%--            cursor: pointer;--%>
-<%--            margin-top: 10px;--%>
-<%--        }--%>
-<%--        input[type="submit"]:hover {--%>
-<%--            background-color: #034f4f;--%>
-<%--        }--%>
-<%--        .section {--%>
-<%--            max-width: 800px;--%>
-<%--            margin: 20px auto;--%>
-<%--        }--%>
-<%--        .card {--%>
-<%--            background: white;--%>
-<%--            padding: 15px;--%>
-<%--            border-radius: 6px;--%>
-<%--            margin: 10px 0;--%>
-<%--            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);--%>
-<%--        }--%>
-<%--        .info {--%>
-<%--            margin-top: 20px;--%>
-<%--        }--%>
-<%--        .info div {--%>
-<%--            margin-bottom: 5px;--%>
-<%--        }--%>
-<%--    </style>--%>
+    <style>
+        /* Основные стили */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f9;
+            color: #333;
+        }
+
+        header {
+            background-color: #58b092;
+            color: white;
+            padding: 15px;
+            text-align: center;
+        }
+
+        main {
+            padding: 20px;
+        }
+
+        a {
+            display: inline-block;
+            margin: 10px 0;
+            color: #58b092;
+            text-decoration: none;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+
+        h1, h2 {
+            color: #000000;
+        }
+
+        form {
+            margin-bottom: 20px;
+        }
+
+        form p {
+            margin-bottom: 15px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+
+        input[type="text"],
+        input[type="submit"],
+        input[type="hidden"] {
+            padding: 10px;
+            margin-right: 5px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        input[type="submit"] {
+            background-color: #58b092;
+            color: white;
+            cursor: pointer;
+        }
+
+        input[type="submit"]:hover {
+            background-color: #3c7562;
+        }
+
+        .section {
+            margin-top: 30px;
+            padding: 20px;
+            background-color: white;
+            border: 1px solid #ddd;
+            border-radius: 10px;
+        }
+
+        .card {
+            padding: 15px;
+            margin-bottom: 15px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            background-color: #f9f9f9;
+        }
+
+        .info {
+            color: #0d9d9d;
+        }
+        .info div:empty {
+            display: none;
+        }
+
+
+        .card p {
+            margin: 10px 0;
+        }
+        home {
+            margin: 20px 0;
+        }
+
+        home a {
+            display: inline-block;
+            margin: 0 10px;
+            padding: 10px 20px;
+            color: white;
+            background-color: #58b092;
+            text-decoration: none;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+        }
+
+        home a:hover {
+            background-color: #3c7562;
+        }
+    </style>
 </head>
 <body>
+
 <header>
     <h1>Управление договорами</h1>
 </header>
 <main>
+    <home>
+        <a href="index">Домой</a>
+    </home>
     <form action="" method="post" name="agreementform" id="agreementform">
         <h2>Данные договора</h2>
         <p>
-            <label for="id">Номер договора</label>
-            <input type="text" name="id" id="id" placeholder="Введите номер договора" value="${idRet}">
+<%--            <label for="id">Номер договора</label>--%>
+            <input type="hidden" name="id" id="id" placeholder="Введите номер договора" value="${idRet}">
         </p>
         <p>
             <label for="rentPrice">Цена аренды</label>
@@ -117,7 +165,7 @@
         </p>
     </form>
 
-    <div class="section info">
+    <div class="info">
         <div>${error}</div>
     </div>
     <div class="section">
@@ -139,8 +187,8 @@
 
                     <input name="change" type="submit" id="change" value="Изменить условия договора">
                     <input name="deleteOther" type="submit" id="deleteOther" value="Удалить договор">
-                    <p style="text-indent: 25px;">${carsInfo.removeFirst().allInString()}</p>
-                    <p style="text-indent: 25px;">${clientsInfo.removeFirst().allInString()}</p>
+                    <p style="text-indent: 25px;">Car: ${carsInfo.removeFirst().allInString()}</p>
+                    <p style="text-indent: 25px;">Client: ${clientsInfo.removeFirst().allInString()}</p>
                 </form>
             </div>
         </c:forEach>

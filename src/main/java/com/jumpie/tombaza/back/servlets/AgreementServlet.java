@@ -27,6 +27,11 @@ public class AgreementServlet extends HttpServlet {
 
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
         req.setCharacterEncoding("UTF-8");
+        req.setAttribute("idRet", req.getParameter("id"));
+        req.setAttribute("rentPriceRet", req.getParameter("rentPrice"));
+        req.setAttribute("rentPeriodRet", req.getParameter("rentPeriod"));
+        req.setAttribute("passportNumberRet", req.getParameter("passportNumber"));
+        req.setAttribute("vinNumberRet", req.getParameter("vinNumber"));
         if (req.getParameter("get") != null) {
             try {
                 Agreement agreement = createAgreement(req);

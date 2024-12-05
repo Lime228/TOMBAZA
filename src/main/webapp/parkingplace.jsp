@@ -7,6 +7,7 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
+<a href="index">Домой</a>
 <head>
     <title>парковочное место</title>
 </head>
