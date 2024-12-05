@@ -135,8 +135,8 @@
     <form action="" method="post" name="agreementform" id="agreementform">
         <h2>Данные договора</h2>
         <p>
-<%--            <label for="id">Номер договора</label>--%>
-            <input type="hidden" name="id" id="id" placeholder="Введите номер договора" value="${idRet}">
+            <label for="id">Номер договора</label>
+            <input type="text" name="id" id="id" placeholder="Введите номер договора" value="${idRet}">
         </p>
         <p>
             <label for="rentPrice">Цена аренды</label>
@@ -150,11 +150,13 @@
             <label for="passportNumber">Номер паспорта</label>
             <input type="text" name="passportNumber" id="passportNumber" placeholder="Введите номер паспорта" value="${passportNumberRet}">
             <input name="getPassports" type="submit" id="getPassports" value="Посмотреть все паспорта">
+            <input name="getByPassport" type="submit" id="getByPassport" value="Найти по паспорту">
         </p>
         <p>
             <label for="vinNumber">Вин-номер автомобиля</label>
             <input type="text" name="vinNumber" id="vinNumber" placeholder="Введите вин-номер автомобиля" value="${vinNumberRet}">
             <input name="getCars" type="submit" id="getCars" value="Посмотреть все автомобили">
+            <input name="getByCar" type="submit" id="getByCar" value="Найти по автомобилю">
         </p>
         <p>
             <input name="get" type="submit" id="get" value="Получить договор">
@@ -167,10 +169,6 @@
 
     <div class="info">
         <div>${error}</div>
-    </div>
-    <div class="section">
-        <h2>По искомому договору</h2>
-        <div>${agrem.allInString()}</div>
     </div>
 
     <div class="section">

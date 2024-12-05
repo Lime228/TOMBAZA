@@ -25,6 +25,15 @@ public class AgreementService {
     public Agreement get(Agreement agr) {
         return agreementRepository.getByID(agr);
     }
+
+    public List<Agreement> getByPassport(Agreement agr) {
+        return agreementRepository.getByPassport(agr);
+    }
+
+    public List<Agreement> getByCar(Agreement agr) {
+        return agreementRepository.getByCar(agr);
+    }
+
     public List<Agreement> getAll() {
         return agreementRepository.getAll();
     }
@@ -32,7 +41,6 @@ public class AgreementService {
     public Agreement update(Agreement agr) throws ClassNotFoundException {
         return agreementRepository.update(agr);
     }
-
 
     public boolean delete(Agreement agr) {
         return agreementRepository.delete(agr);

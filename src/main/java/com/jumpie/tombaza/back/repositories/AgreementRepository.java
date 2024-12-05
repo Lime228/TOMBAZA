@@ -45,6 +45,56 @@ public class AgreementRepository implements Repository<Agreement> {
         return null;
     }
 
+    public List<Agreement> getByPassport(Agreement get) {
+        String passportNumber = get.getPassportNumber();
+        String ins = "SELECT * FROM " + AGREEMENT_TABLE + " WHERE " + AGREEMENT_PASSPORT_NUMBER + "=?";
+        ConnectJDBC con = ConnectJDBC.getInstance();
+        try (PreparedStatement prSt = con.getDbConnection().prepareStatement(ins)) {
+            prSt.setString(1, passportNumber);
+            ResultSet res = prSt.executeQuery();
+            List<Agreement> agreements = new ArrayList<>();
+            while (res.next()) {
+                Agreement agreement = new Agreement();
+                agreement.setId(res.getInt(1));
+                agreement.setRentPrice(res.getInt(2));
+                agreement.setRentPeriod(res.getInt(3));
+                agreement.setPassportNumber(res.getString(4));
+                agreement.setVinNumber(res.getString(5));
+                agreements.add(agreement);
+            }
+            return agreements;
+        } catch (SQLException | ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+
+        return null;
+    }
+
+    public List<Agreement> getByCar(Agreement get) {
+        String vinNumber = get.getVinNumber();
+        String ins = "SELECT * FROM " + AGREEMENT_TABLE + " WHERE " + AGREEMENT_VIN_NUMBER + "=?";
+        ConnectJDBC con = ConnectJDBC.getInstance();
+        try (PreparedStatement prSt = con.getDbConnection().prepareStatement(ins)) {
+            prSt.setString(1, vinNumber);
+            ResultSet res = prSt.executeQuery();
+            List<Agreement> agreements = new ArrayList<>();
+            while (res.next()) {
+                Agreement agreement = new Agreement();
+                agreement.setId(res.getInt(1));
+                agreement.setRentPrice(res.getInt(2));
+                agreement.setRentPeriod(res.getInt(3));
+                agreement.setPassportNumber(res.getString(4));
+                agreement.setVinNumber(res.getString(5));
+                agreements.add(agreement);
+            }
+            return agreements;
+        } catch (SQLException | ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+
+        return null;
+    }
+
     public List<Agreement> getAll() {
 
         String ins = "SELECT * FROM " + AGREEMENT_TABLE;

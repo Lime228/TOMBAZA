@@ -36,12 +36,34 @@ public class AgreementServlet extends HttpServlet {
             try {
                 Agreement agreement = createAgreement(req);
                 Agreement agr = agreementService.get(agreement);
-                req.setAttribute("agrem", agr);
+                List<Agreement> list = new ArrayList<>();
+                list.add(agr);
+                getMoreInfo(list,req);
             } catch (Exception e) {
                 e.printStackTrace();
                 req.setAttribute("error", "вероятно, был задан пустой ID. Задайте число.");
             }
 
+        } else if (req.getParameter("getByPassport") != null) {
+            try {
+                Agreement agreement = createAgreement(req);
+                List<Agreement> agr = agreementService.getByPassport(agreement);
+                getMoreInfo(agr,req);
+                req.setAttribute("agreements", agr);
+            } catch (Exception e) {
+                e.printStackTrace();
+                req.setAttribute("error", "вероятно, был задан пустой паспорт.");
+            }
+        } else if (req.getParameter("getByCar") != null) {
+            try {
+                Agreement agreement = createAgreement(req);
+                List<Agreement> agr = agreementService.getByCar(agreement);
+                getMoreInfo(agr,req);
+                req.setAttribute("agreements", agr);
+            } catch (Exception e) {
+                e.printStackTrace();
+                req.setAttribute("error", "вероятно, был задан пустой ВИН-номер.");
+            }
         } else if (req.getParameter("create") != null) {
             Agreement agreement = createAgreement(req);
             try {
@@ -72,17 +94,7 @@ public class AgreementServlet extends HttpServlet {
             req.setAttribute("cars", carService.getAll());
         } else if (req.getParameter("getAll") != null) {
             List<Agreement> agreements = agreementService.getAll();
-            List<Car> cars = new ArrayList<>();
-            List<Client> clients = new ArrayList<>();
-            for (Agreement agreement : agreements) {
-                cars.add(carService.get(new Car(agreement.getVinNumber().toString(),"","","","",0,"")));
-                clients.add(clientService.get(new Client(agreement.getPassportNumber(),"","","")));
-            }
-            req.setAttribute("agreements",agreements);
-            req.setAttribute("carsInfo",cars);
-            req.setAttribute("clientsInfo",clients);
-
-
+            getMoreInfo(agreements,req);
         } else if (req.getParameter("deleteOther") != null) {
             Agreement agreement = createAgreement(req);
             if (agreementService.delete(agreement)) req.setAttribute("error", "успешно удалено");
@@ -106,6 +118,11 @@ public class AgreementServlet extends HttpServlet {
         String passportNumber;
         String vinNumber;
 
+        if (req.getParameter("getByCar") != null){
+            return new Agreement(0, 0, 0, "", vinNumber = req.getParameter("vinNumber"));
+        } else if (req.getParameter("getByPassport") != null) {
+            return new Agreement(0, 0, 0, req.getParameter("passportNumber"), "");
+        }
         if (req.getParameter("deleteOther") != null || req.getParameter("change") != null) {
             if (req.getParameter("createWithoutId") == null) {
                 id = req.getParameter("idOther");
@@ -138,5 +155,17 @@ public class AgreementServlet extends HttpServlet {
             } else return new Agreement(0, 0, 0, "", "");
 
         }
+
+    }
+    private void getMoreInfo(List<Agreement> agreements, HttpServletRequest req) {
+        List<Car> cars = new ArrayList<>();
+        List<Client> clients = new ArrayList<>();
+        for (Agreement agreement : agreements) {
+            cars.add(carService.get(new Car(agreement.getVinNumber().toString(),"","","","",0,"")));
+            clients.add(clientService.get(new Client(agreement.getPassportNumber(),"","","")));
+        }
+        req.setAttribute("agreements",agreements);
+        req.setAttribute("carsInfo",cars);
+        req.setAttribute("clientsInfo",clients);
     }
 }
