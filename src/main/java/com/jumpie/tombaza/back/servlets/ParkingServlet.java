@@ -48,6 +48,13 @@ public class ParkingServlet extends HttpServlet {
                 throw new RuntimeException(e);
             }
         } else if (req.getParameter("createWithoutId") != null) {
+            Parking pp = createParking(req);
+            try {
+                if (parkingService.createWithoutId(pp)) req.setAttribute("error", "успешно создана");
+                else req.setAttribute("error", "парковка не была создана");
+            } catch (ClassNotFoundException e) {
+                throw new RuntimeException(e);
+            }
 
 
         } else if (req.getParameter("update") != null) {
@@ -59,6 +66,10 @@ public class ParkingServlet extends HttpServlet {
                 throw new RuntimeException(e);
             }
         } else if (req.getParameter("change") != null) {
+            Parking parking = createParking(req);
+            req.setAttribute("idRet", parking.getId());
+            req.setAttribute("maxCapacityRet", parking.getMaxCapacity());
+            req.setAttribute("parkingAddressRet", parking.getParkingAddress());
 
 
         } else if (req.getParameter("getAll") != null) {

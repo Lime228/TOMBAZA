@@ -17,8 +17,24 @@ public class ParkingPlaceService {
         return parkingPlaceRepository.create(parking) != null;
     }
 
+    public boolean createWithoutId(ParkingPlace parking) throws ClassNotFoundException {
+        return parkingPlaceRepository.create(parking) != null;
+    }
+
     public ParkingPlace get(ParkingPlace parking) {
         return parkingPlaceRepository.getByID(parking);
+    }
+
+    public List<ParkingPlace> getByParkingId(ParkingPlace parking) {
+        return parkingPlaceRepository.getByParkingId(parking);
+    }
+
+    public List<ParkingPlace> getByFloor(ParkingPlace parking) {
+        return parkingPlaceRepository.getByFloor(parking);
+    }
+
+    public List<ParkingPlace> getByOccupiedSlot(ParkingPlace parking) {
+        return parkingPlaceRepository.getByOccupiedSlot(parking);
     }
 
     public List<ParkingPlace> getAll() {

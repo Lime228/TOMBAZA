@@ -39,11 +39,34 @@ public class ParkingPlaceServlet extends HttpServlet {
                 req.setAttribute("error", "вероятно, был задан пустой ID.");
             }
         } else if (req.getParameter("getByParkingId") != null) {
-
+            try {
+                ParkingPlace parkingPlace = createParkinPlace(req);
+                List<ParkingPlace> list = parkingPlaceService.getByParkingId(parkingPlace);
+                req.setAttribute("parkingPlaces", list);
+            } catch (Exception e) {
+                e.printStackTrace();
+                req.setAttribute("error", "вероятно, был задан пустой ID.");
+            }
         } else if (req.getParameter("getByFloor") != null) {
+            try {
+                ParkingPlace parkingPlace = createParkinPlace(req);
+                List<ParkingPlace> list = parkingPlaceService.getByFloor(parkingPlace);
+                req.setAttribute("parkingPlaces", list);
+            } catch (Exception e) {
+                e.printStackTrace();
+                req.setAttribute("error", "вероятно, был задан пустой ID.");
+            }
 
         } else if (req.getParameter("getByOccupiedSlot") != null) {
-
+            try {
+                ParkingPlace parkingPlace = createParkinPlace(req);
+                List<ParkingPlace> list = parkingPlaceService.getByOccupiedSlot(parkingPlace);
+                req.setAttribute("parkingPlaces", list);
+            } catch (Exception e) {
+                e.printStackTrace();
+                req.setAttribute("error", "вероятно, был задан пустой ID.");
+            }
+            
 
         } else if (req.getParameter("create") != null) {
             ParkingPlace pp = createParkinPlace(req);
@@ -54,6 +77,13 @@ public class ParkingPlaceServlet extends HttpServlet {
                 throw new RuntimeException(e);
             }
         } else if (req.getParameter("createWithoutId") != null) {
+            ParkingPlace pp = createParkinPlace(req);
+            try {
+                if (parkingPlaceService.createWithoutId(pp)) req.setAttribute("error", "успешно создана");
+                else req.setAttribute("error", "место не было создано");
+            } catch (ClassNotFoundException e) {
+                throw new RuntimeException(e);
+            }
 
 
         } else if (req.getParameter("update") != null) {
@@ -66,9 +96,15 @@ public class ParkingPlaceServlet extends HttpServlet {
                 throw new RuntimeException(e);
             }
         } else if (req.getParameter("change") != null) {
+            ParkingPlace parkinPlace = createParkinPlace(req);
+            req.setAttribute("idRet", parkinPlace.getId());
+            req.setAttribute("occupiedSlotRet", parkinPlace.getOccupiedSlot());
+            req.setAttribute("parkingIdRet", parkinPlace.getParkingId());
+            req.setAttribute("floorRet", parkinPlace.getFloor());
+
 
         } else if (req.getParameter("getAll") != null) {
-
+            req.setAttribute("parkingPlaces", parkingPlaceService.getAll());
         } else if (req.getParameter("getParkings") != null) {
 
 
@@ -76,8 +112,6 @@ public class ParkingPlaceServlet extends HttpServlet {
             ParkingPlace pp = createParkinPlace(req);
             if (parkingPlaceService.delete(pp)) req.setAttribute("error", "успешно удалено");
             else req.setAttribute("wasDeleted", "место не было удалено");
-        } else if (req.getParameter("getAll") != null) {
-            req.setAttribute("parkingPlaces", parkingPlaceService.getAll());
         }
         req.getRequestDispatcher("/parkingplace.jsp").forward(req, resp);
     }

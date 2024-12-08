@@ -17,6 +17,10 @@ public class ParkingService {
         return parkingRepository.create(parking) != null;
     }
 
+    public boolean createWithoutId(Parking parking) throws ClassNotFoundException {
+        return parkingRepository.createWithoutID(parking) != null;
+    }
+
     public Parking get(Parking parking) {
         return parkingRepository.getByID(parking);
     }

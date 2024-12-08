@@ -45,6 +45,81 @@ public class ParkingPlaceRepository implements Repository<ParkingPlace> {
         return null;
     }
 
+    public List<ParkingPlace> getByOccupiedSlot(ParkingPlace get) {
+        int slot = get.getOccupiedSlot();
+        String ins = "SELECT * FROM " + PARKINGP_TABLE + " WHERE " + PARKINGP_SLOT + "=?";
+        ConnectJDBC con = ConnectJDBC.getInstance();
+
+        try (PreparedStatement prSt = con.getDbConnection().prepareStatement(ins)) {
+            prSt.setString(1, String.valueOf(slot));
+            ResultSet res = prSt.executeQuery();
+            List<ParkingPlace> list = new ArrayList<>();
+            while (res.next()) {
+                ParkingPlace pp = new ParkingPlace();
+                pp.setId(res.getInt(1));
+                pp.setOccupiedSlot(res.getInt(2));
+                pp.setParkingId(res.getInt(3));
+                pp.setFloor(Short.parseShort(res.getString(4)));
+                list.add(pp);
+            }
+            return list;
+        } catch (SQLException | ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+
+        return null;
+    }
+
+    public List<ParkingPlace> getByParkingId(ParkingPlace get) {
+        int pId = get.getParkingId();
+        String ins = "SELECT * FROM " + PARKINGP_TABLE + " WHERE " + PARKINGP_PARKING_ID + "=?";
+        ConnectJDBC con = ConnectJDBC.getInstance();
+
+        try (PreparedStatement prSt = con.getDbConnection().prepareStatement(ins)) {
+            prSt.setString(1, String.valueOf(pId));
+            ResultSet res = prSt.executeQuery();
+            List<ParkingPlace> list = new ArrayList<>();
+            while (res.next()) {
+                ParkingPlace pp = new ParkingPlace();
+                pp.setId(res.getInt(1));
+                pp.setOccupiedSlot(res.getInt(2));
+                pp.setParkingId(res.getInt(3));
+                pp.setFloor(Short.parseShort(res.getString(4)));
+                list.add(pp);
+            }
+            return list;
+        } catch (SQLException | ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+
+        return null;
+    }
+
+    public List<ParkingPlace> getByFloor(ParkingPlace get) {
+        int floor = get.getFloor();
+        String ins = "SELECT * FROM " + PARKINGP_TABLE + " WHERE " + PARKINGP_FLOOR + "=?";
+        ConnectJDBC con = ConnectJDBC.getInstance();
+
+        try (PreparedStatement prSt = con.getDbConnection().prepareStatement(ins)) {
+            prSt.setString(1, String.valueOf(floor));
+            ResultSet res = prSt.executeQuery();
+            List<ParkingPlace> list = new ArrayList<>();
+            while (res.next()) {
+                ParkingPlace pp = new ParkingPlace();
+                pp.setId(res.getInt(1));
+                pp.setOccupiedSlot(res.getInt(2));
+                pp.setParkingId(res.getInt(3));
+                pp.setFloor(Short.parseShort(res.getString(4)));
+                list.add(pp);
+            }
+            return list;
+        } catch (SQLException | ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+
+        return null;
+    }
+
     public List<ParkingPlace> getAll() {
         String ins = "SELECT * FROM " + PARKINGP_TABLE;
         ConnectJDBC con = ConnectJDBC.getInstance();
