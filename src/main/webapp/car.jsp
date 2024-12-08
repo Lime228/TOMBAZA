@@ -206,8 +206,8 @@
                     <input type="hidden" name="parkingPlaceIdOther" id="parkingPlaceIdOther" value="${car.getParkingPlaceId()}">
                     <input type="hidden" name="numberOther" id="numberOther" value="${car.getNumber()}">
 
-                    <input name="change" type="submit" id="change" value="Изменить условия договора">
-                    <input name="deleteOther" type="submit" id="deleteOther" value="Удалить договор">
+                    <input name="change" type="submit" id="change" value="Изменить данные автомобиля">
+                    <input name="deleteOther" type="submit" id="deleteOther" value="Удалить автомобиль">
                         <%--            пример ниже    здесь еще выводить место, парковку (договор?)--%>
 <%--                    <p style="text-indent: 25px;">Car: ${carsInfo.removeFirst().allInString()}</p>--%>
 <%--                    <p style="text-indent: 25px;">Client: ${clientsInfo.removeFirst().allInString()}</p>--%>
