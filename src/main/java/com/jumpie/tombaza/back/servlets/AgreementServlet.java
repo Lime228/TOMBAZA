@@ -49,7 +49,7 @@ public class AgreementServlet extends HttpServlet {
                 Agreement agreement = createAgreement(req);
                 List<Agreement> agr = agreementService.getByPassport(agreement);
                 getMoreInfo(agr,req);
-                req.setAttribute("agreements", agr);
+//                req.setAttribute("agreements", agr);
             } catch (Exception e) {
                 e.printStackTrace();
                 req.setAttribute("error", "вероятно, был задан пустой паспорт.");
@@ -59,7 +59,7 @@ public class AgreementServlet extends HttpServlet {
                 Agreement agreement = createAgreement(req);
                 List<Agreement> agr = agreementService.getByCar(agreement);
                 getMoreInfo(agr,req);
-                req.setAttribute("agreements", agr);
+//                req.setAttribute("agreements", agr);
             } catch (Exception e) {
                 e.printStackTrace();
                 req.setAttribute("error", "вероятно, был задан пустой ВИН-номер.");

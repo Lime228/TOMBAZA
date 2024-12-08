@@ -95,6 +95,7 @@
         .info {
             color: #0d9d9d;
         }
+
         .info div:empty {
             display: none;
         }
@@ -103,6 +104,7 @@
         .card p {
             margin: 10px 0;
         }
+
         home {
             margin: 20px 0;
         }
@@ -133,38 +135,46 @@
         <a href="index">Домой</a>
     </home>
     <form action="" method="post" name="agreementform" id="agreementform">
-        <h2>Данные договора</h2>
-        <p>
-            <label for="id">Номер договора</label>
-            <input type="text" name="id" id="id" placeholder="Введите номер договора" value="${idRet}">
-        </p>
-        <p>
-            <label for="rentPrice">Цена аренды</label>
-            <input type="text" name="rentPrice" id="rentPrice" placeholder="Введите цену аренды" value="${rentPriceRet}">
-        </p>
-        <p>
-            <label for="rentPeriod">Период аренды</label>
-            <input type="text" name="rentPeriod" id="rentPeriod" placeholder="Введите период аренды" value="${rentPeriodRet}">
-        </p>
-        <p>
-            <label for="passportNumber">Номер паспорта</label>
-            <input type="text" name="passportNumber" id="passportNumber" placeholder="Введите номер паспорта" value="${passportNumberRet}">
-            <input name="getPassports" type="submit" id="getPassports" value="Посмотреть все паспорта">
-            <input name="getByPassport" type="submit" id="getByPassport" value="Найти по паспорту">
-        </p>
-        <p>
-            <label for="vinNumber">Вин-номер автомобиля</label>
-            <input type="text" name="vinNumber" id="vinNumber" placeholder="Введите вин-номер автомобиля" value="${vinNumberRet}">
-            <input name="getCars" type="submit" id="getCars" value="Посмотреть все автомобили">
-            <input name="getByCar" type="submit" id="getByCar" value="Найти по автомобилю">
-        </p>
-        <p>
-            <input name="get" type="submit" id="get" value="Получить договор">
-            <input name="create" type="submit" id="create" value="Создать новый договор с номером">
-            <input name="createWithoutId" type="submit" id="createWithoutId" value="Создать новый договор без номера">
+        <div class="section">
+            <h2>Данные договора</h2>
+            <p>
+                <label for="id">Номер договора</label>
+                <input type="text" name="id" id="id" placeholder="Введите номер договора" value="${idRet}">
+                <input name="get" type="submit" id="get" value="Найти по номеру">
+            </p>
+            <p>
+                <label for="rentPrice">Цена аренды</label>
+                <input type="text" name="rentPrice" id="rentPrice" placeholder="Введите цену аренды"
+                       value="${rentPriceRet}">
+            </p>
+            <p>
+                <label for="rentPeriod">Период аренды</label>
+                <input type="text" name="rentPeriod" id="rentPeriod" placeholder="Введите период аренды"
+                       value="${rentPeriodRet}">
+            </p>
+            <p>
+                <label for="passportNumber">Номер паспорта</label>
+                <input type="text" name="passportNumber" id="passportNumber" placeholder="Введите номер паспорта"
+                       value="${passportNumberRet}">
+                <input name="getPassports" type="submit" id="getPassports" value="Посмотреть все паспорта">
+                <input name="getByPassport" type="submit" id="getByPassport" value="Найти по паспорту">
+            </p>
+            <p>
+                <label for="vinNumber">Вин-номер автомобиля</label>
+                <input type="text" name="vinNumber" id="vinNumber" placeholder="Введите вин-номер автомобиля"
+                       value="${vinNumberRet}">
+                <input name="getCars" type="submit" id="getCars" value="Посмотреть все автомобили">
+                <input name="getByCar" type="submit" id="getByCar" value="Найти по автомобилю">
+            </p>
+            <p>
+                <input name="create" type="submit" id="create" value="Создать новый договор с номером">
+                <input name="createWithoutId" type="submit" id="createWithoutId"
+                       value="Создать новый договор без номера">
+            <p></p>
             <input name="update" type="submit" id="update" value="Обновить условия договора">
             <input name="getAll" type="submit" id="getAll" value="Посмотреть все договоры">
-        </p>
+            </p>
+        </div>
     </form>
 
     <div class="info">
@@ -179,9 +189,11 @@
                     <c:out value="${agreement.allInString()}"></c:out>
                     <input type="hidden" name="idOther" id="idOther" value="${agreement.getId()}">
                     <input type="hidden" name="rentPriceOther" id="rentPriceOther" value="${agreement.getRentPrice()}">
-                    <input type="hidden" name="rentPeriodOther" id="rentPeriodOther" value="${agreement.getRentPeriod()}">
-                    <input type="hidden" name="passportNumberOther" id="passportNumberOther" value="${agreement.getPassportNumber()}">
-                    <input type="hidden" name="vinNumberOther" id="vinNumberOther" value="${agreement.getVinNumber()}" >
+                    <input type="hidden" name="rentPeriodOther" id="rentPeriodOther"
+                           value="${agreement.getRentPeriod()}">
+                    <input type="hidden" name="passportNumberOther" id="passportNumberOther"
+                           value="${agreement.getPassportNumber()}">
+                    <input type="hidden" name="vinNumberOther" id="vinNumberOther" value="${agreement.getVinNumber()}">
 
                     <input name="change" type="submit" id="change" value="Изменить условия договора">
                     <input name="deleteOther" type="submit" id="deleteOther" value="Удалить договор">
