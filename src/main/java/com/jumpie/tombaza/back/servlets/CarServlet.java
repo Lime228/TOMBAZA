@@ -1,8 +1,6 @@
 package com.jumpie.tombaza.back.servlets;
 
-import com.jumpie.tombaza.back.models.Agreement;
 import com.jumpie.tombaza.back.models.Car;
-import com.jumpie.tombaza.back.models.Client;
 import com.jumpie.tombaza.back.services.CarService;
 import com.jumpie.tombaza.back.services.ParkingPlaceService;
 import jakarta.servlet.ServletException;
@@ -100,7 +98,7 @@ public class CarServlet extends HttpServlet {
         } else if (req.getParameter("create") != null) {
             Car car = createCar(req);
             try {
-                if (carService.create(car)) req.setAttribute("wasCreated", "успешно создана");
+                if (carService.create(car)) req.setAttribute("error", "успешно создана");
                 else req.setAttribute("error", "машина не была создана");
             } catch (ClassNotFoundException e) {
                 throw new RuntimeException(e);
@@ -108,7 +106,7 @@ public class CarServlet extends HttpServlet {
         } else if (req.getParameter("update") != null) {
             Car car = createCar(req);
             try {
-                if (carService.update(car) != null) req.setAttribute("wasUpdated", "успешно обновлено");
+                if (carService.update(car) != null) req.setAttribute("error", "успешно обновлено");
                 else req.setAttribute("error", "машина не была обновлена");
             } catch (ClassNotFoundException e) {
                 throw new RuntimeException(e);
@@ -116,7 +114,7 @@ public class CarServlet extends HttpServlet {
         } else if (req.getParameter("deleteOther") != null) {
             //нужно подтверждение
             Car client = createCar(req);
-            if (carService.delete(client)) req.setAttribute("wasDeleted", "успешно удалено");
+            if (carService.delete(client)) req.setAttribute("error", "успешно удалено");
             else req.setAttribute("error", "клиент не был удален");
         } else if (req.getParameter("change") != null) {
             Car car = createCar(req);
@@ -160,9 +158,7 @@ public class CarServlet extends HttpServlet {
         }
 
         if (req.getParameter("deleteOther") != null || req.getParameter("change") != null) {
-            if (req.getParameter("createWithoutId") == null) {
-                id = req.getParameter("idOther");
-            }
+            id = req.getParameter("idOther");
             color = req.getParameter("colorOther");
             brand = req.getParameter("brandOther");
             modelName = req.getParameter("modelNameOther");
@@ -170,9 +166,7 @@ public class CarServlet extends HttpServlet {
             parkingPlaceId = req.getParameter("parkingPlaceIdOther");
             number = req.getParameter("numberOther");
         } else {
-            if (req.getParameter("createWithoutId") == null) {
-                id = req.getParameter("id");
-            }
+            id = req.getParameter("id");
             color = req.getParameter("color");
             brand = req.getParameter("brand");
             modelName = req.getParameter("modelName");
