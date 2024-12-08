@@ -15,6 +15,9 @@ public class ParkingServlet extends HttpServlet{
         req.getRequestDispatcher("/parking.jsp").forward(req, resp);
     }
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
+        //ПЕРЕДЕЛАТЬ ПОД НОВЫЙ ВАРИАНТ
+
+
         req.setCharacterEncoding("UTF-8");
         if(req.getParameter("get") != null) {
             try {

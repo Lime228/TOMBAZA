@@ -8,62 +8,184 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
-
-<html>
-<a href="index">Домой</a>
+<!DOCTYPE html>
+<html lang="ru">
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Штрафы</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f9;
+            color: #333;
+        }
+
+        header {
+            background-color: #58b092;
+            color: white;
+            padding: 15px;
+            text-align: center;
+        }
+
+        main {
+            padding: 20px;
+        }
+
+        a {
+            display: inline-block;
+            margin: 10px 0;
+            color: #58b092;
+            text-decoration: none;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+
+        h1, h2 {
+            color: #000000;
+        }
+
+        form {
+            margin-bottom: 20px;
+        }
+
+        form p {
+            margin-bottom: 15px;
+        }
+
+        label, small {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+
+        input[type="text"],
+        input[type="submit"] {
+            padding: 10px;
+            margin-right: 5px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        input[type="submit"] {
+            background-color: #58b092;
+            color: white;
+            cursor: pointer;
+        }
+
+        input[type="submit"]:hover {
+            background-color: #3c7562;
+        }
+
+        .section {
+            margin-top: 30px;
+            padding: 20px;
+            background-color: white;
+            border: 1px solid #ddd;
+            border-radius: 10px;
+        }
+
+        .card {
+            padding: 15px;
+            margin-bottom: 15px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            background-color: #f9f9f9;
+        }
+
+        .info {
+            color: #0d9d9d;
+        }
+
+        .info div:empty {
+            display: none;
+        }
+
+        .card p {
+            margin: 10px 0;
+        }
+        home {
+            margin: 20px 0;
+        }
+
+        home a {
+            display: inline-block;
+            margin: 0 10px;
+            padding: 10px 20px;
+            color: white;
+            background-color: #58b092;
+            text-decoration: none;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+        }
+
+        home a:hover {
+            background-color: #3c7562;
+        }
+    </style>
 </head>
-<body >
-<h1>Штраф</h1>
-<form action="" method="post" name="fineform" id="fineform">
-    <p><input type="text" name="id" id="id" value="" size="25" />
-        <small> Номер</small>
-    </p>
-    <p><input type="text" name="fineDescription" id="fineDescription" value="" size="25" />
-        <small> Описание</small>
-    </p>
-    <p><input type="text" name="fineCost" id="fineCost" value="" size="25" />
-        <small> Стоимость оплаты</small>
-    </p>
-    <p><input type="text" name="agreementId" id="agreementId" value="" size="25" />
-        <small> Номер договора. Обязательно должен существовать.</small> <a><input name="getAgreements" type="submit" id="getAgreements" value="Посмотреть все договоры" /></a>
-    </p>
-    <a><input name="get" type="submit" id="get" value="Получить штраф по номеру" />
-    </a>
-    <a><input name="create" type="submit" id="create" value="Внести в базу новый штраф" />
-    </a>
-    <p></p>
-    <a><input name="update" type="submit" id="update" value="Обновить данные штрафа" />
-    </a>
-    <a><input name="delete" type="submit" id="delete" value="Удалить штраф из базы по номеру" />
-    </a>
-    <a><input name="getAll" type="submit" id="getAll" value="Посмотреть все штрафы" />
-    </a>
-</form>
-<a>Что-то пошло не так: ${error}</a><p></p>
-<a>Создалось: ${wasCreated}</a> <p></p>
-<a>Обновилось: ${wasUpdated}</a> <p></p>
-<a>Удалилось: ${wasDeleted}</a><p></p>
-<h2>По искомому штрафу:</h2>
-<a>ID: ${id}</a>
-<a>FINEDESCRIPTION: ${fineDescription}</a>
-<a>FINECOST: ${fineCost}</a>
-<a>AGREEMENTID: ${agreementId}</a>
+<body>
 
-<h1>Автомобили</h1>
-<c:forEach var="fine" items="${fines}">
-    <div>
-        <c:out value="${fine.allInString()}" />
+<header>
+    <h1>Штраф</h1>
+</header>
+<main>
+    <home><a href="index">Домой</a></home>
+    <form action="" method="post" name="fineform" id="fineform">
+        <div class="section">
+            <p>
+                <label for="id">Номер штрафа</label>
+                <input type="text" name="id" id="id" placeholder="Введите номер штрафа" value="">
+                <input name="get" type="submit" id="get" value="Получить штраф по номеру">
+            </p>
+            <p>
+                <label for="fineDescription">Описание</label>
+                <input type="text" name="fineDescription" id="fineDescription" placeholder="Введите описание" value="">
+            </p>
+            <p>
+                <label for="fineCost">Стоимость</label>
+                <input type="text" name="fineCost" id="fineCost" placeholder="Введите стоимость оплаты" value="">
+            </p>
+            <p>
+                <label for="agreementId">Номер договора</label>
+                <input type="text" name="agreementId" id="agreementId" placeholder="Введите номер договора" value="">
+                <input name="getAgreements" type="submit" id="getAgreements" value="Посмотреть все договоры">
+            </p>
+            <p>
+                <input name="create" type="submit" id="create" value="Внести в базу новый штраф">
+                <input name="update" type="submit" id="update" value="Обновить данные штрафа">
+            <p></p>
+                <input name="delete" type="submit" id="delete" value="Удалить штраф из базы по номеру">
+                <input name="getAll" type="submit" id="getAll" value="Посмотреть все штрафы">
+            </p>
+        </div>
+    </form>
+    <div class="info">
+        <p>${error}</p>
     </div>
-</c:forEach>
-<h1>Договоры</h1>
-<c:forEach var="agreement" items="${agreements}">
-    <div>
-        <c:out value="${agreement.allInString()}" />
+
+    <div class="section">
+        <h2>Штрафы</h2>
+        <c:forEach var="fine" items="${fines}">
+            <div class="card">
+                <c:out value="${fine.allInString()}"></c:out>
+            </div>
+        </c:forEach>
     </div>
-</c:forEach>
 
-
+    <div class="section">
+        <h2>Договоры</h2>
+        <c:forEach var="agreement" items="${agreements}">
+            <div class="card">
+                <c:out value="${agreement.allInString()}"></c:out>
+            </div>
+        </c:forEach>
+    </div>
+</main>
 </body>
 </html>
+
