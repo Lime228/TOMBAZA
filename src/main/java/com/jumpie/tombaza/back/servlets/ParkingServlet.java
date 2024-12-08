@@ -8,6 +8,8 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class ParkingServlet extends HttpServlet {
     private ParkingService parkingService = ParkingService.getInstance();
@@ -18,54 +20,80 @@ public class ParkingServlet extends HttpServlet {
     }
 
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
-        //ПЕРЕДЕЛАТЬ ПОД НОВЫЙ ВАРИАНТ
-
-
         req.setCharacterEncoding("UTF-8");
+        req.setAttribute("idRet", req.getParameter("id"));
+        req.setAttribute("maxCapacityRet", req.getParameter("maxCapacity"));
+        req.setAttribute("parkingAddressRet", req.getParameter("parkingAddress"));
+
+
         if (req.getParameter("get") != null) {
             try {
                 Parking parking = createParking(req);
                 Parking p = parkingService.get(parking);
-                req.setAttribute("id", p.getId());
-                req.setAttribute("maxCapacity", p.getMaxCapacity());
-                req.setAttribute("parkingAddress", p.getParkingAddress());
+                List<Parking> list = new ArrayList<>();
+                list.add(p);
+                req.setAttribute("parkings", list);
             } catch (Exception e) {
                 e.printStackTrace();
                 req.setAttribute("error", "вероятно, был задан пустой ID.");
             }
 
+
         } else if (req.getParameter("create") != null) {
             Parking pp = createParking(req);
             try {
-                if (parkingService.create(pp)) req.setAttribute("wasCreated", "успешно создана");
-                else req.setAttribute("wasCreated", "парковка не была создана");
+                if (parkingService.create(pp)) req.setAttribute("error", "успешно создана");
+                else req.setAttribute("error", "парковка не была создана");
             } catch (ClassNotFoundException e) {
                 throw new RuntimeException(e);
             }
+        } else if (req.getParameter("createWithoutId") != null) {
+
+
         } else if (req.getParameter("update") != null) {
             Parking parkinPlace = createParking(req);
             try {
-                if (parkingService.update(parkinPlace) != null) req.setAttribute("wasUpdated", "успешно обновлено");
-                else req.setAttribute("wasUpdated", "парковка не была обновлена");
+                if (parkingService.update(parkinPlace) != null) req.setAttribute("error", "успешно обновлено");
+                else req.setAttribute("error", "парковка не была обновлена");
             } catch (ClassNotFoundException e) {
                 throw new RuntimeException(e);
             }
-        } else if (req.getParameter("delete") != null) {
-            //нужно подтверждение
-            Parking pp = createParking(req);
-            if (parkingService.delete(pp)) req.setAttribute("wasDeleted", "успешно удалено");
-            else req.setAttribute("wasDeleted", "паркоука не была удалена");
+        } else if (req.getParameter("change") != null) {
+
+
         } else if (req.getParameter("getAll") != null) {
             req.setAttribute("parkings", parkingService.getAll());
+
+
+        } else if (req.getParameter("deleteOther") != null) {
+            Parking pp = createParking(req);
+            if (parkingService.delete(pp)) req.setAttribute("error", "успешно удалено");
+            else req.setAttribute("error", "паркоука не была удалена");
         }
         req.getRequestDispatcher("/parking.jsp").forward(req, resp);
     }
 
     private Parking createParking(HttpServletRequest req) {
-        String id = req.getParameter("id");
-        String maxCapacity = req.getParameter("maxCapacity");
-        String parkingAddress = req.getParameter("parkingAddress");
-        //проверку на пустоту?
+        String id = "0";
+        String maxCapacity;
+        String parkingAddress;
+
+        if (req.getParameter("deleteOther") != null || req.getParameter("change") != null) {
+            if (req.getParameter("createWithoutId") == null) {
+                id = req.getParameter("idOther");
+            }
+            maxCapacity = req.getParameter("maxCapacityOther");
+            parkingAddress = req.getParameter("parkingAddressOther");
+
+        } else {
+            if (req.getParameter("createWithoutId") == null) {
+                id = req.getParameter("id");
+            }
+            maxCapacity = req.getParameter("maxCapacity");
+            parkingAddress = req.getParameter("parkingAddress");
+        }
+
+
         try {
             Parking parkingPlace = new Parking(Integer.parseInt(id),
                     Integer.parseInt(maxCapacity),

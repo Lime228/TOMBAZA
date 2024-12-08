@@ -8,6 +8,8 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class ParkingPlaceServlet extends HttpServlet {
     private static ParkingPlaceService parkingPlaceService = ParkingPlaceService.getInstance();
@@ -18,44 +20,61 @@ public class ParkingPlaceServlet extends HttpServlet {
     }
 
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
-        //ПЕРЕДЕЛАТЬ ПОД НОВЫЙ ВАРИАНТ
-
-
         req.setCharacterEncoding("UTF-8");
+        req.setAttribute("idRet", req.getParameter("id"));
+        req.setAttribute("occupiedSlotRet", req.getParameter("occupiedSlot"));
+        req.setAttribute("parkingIdRet", req.getParameter("parkingId"));
+        req.setAttribute("floorRet", req.getParameter("floor"));
+
+
         if (req.getParameter("get") != null) {
             try {
                 ParkingPlace parkingPlace = createParkinPlace(req);
                 ParkingPlace pp = parkingPlaceService.get(parkingPlace);
-                req.setAttribute("id", pp.getId());
-                req.setAttribute("occupiedSlot", pp.getOccupiedSlot());
-                req.setAttribute("parkingId", pp.getParkingId());
-                req.setAttribute("floor", pp.getFloor());
+                List<ParkingPlace> list = new ArrayList<>();
+                list.add(pp);
+                req.setAttribute("parkingPlaces", list);
             } catch (Exception e) {
                 e.printStackTrace();
                 req.setAttribute("error", "вероятно, был задан пустой ID.");
             }
+        } else if (req.getParameter("getByParkingId") != null) {
+
+        } else if (req.getParameter("getByFloor") != null) {
+
+        } else if (req.getParameter("getByOccupiedSlot") != null) {
+
 
         } else if (req.getParameter("create") != null) {
             ParkingPlace pp = createParkinPlace(req);
             try {
-                if (parkingPlaceService.create(pp)) req.setAttribute("wasCreated", "успешно создана");
-                else req.setAttribute("wasCreated", "место не было создано");
+                if (parkingPlaceService.create(pp)) req.setAttribute("error", "успешно создана");
+                else req.setAttribute("error", "место не было создано");
             } catch (ClassNotFoundException e) {
                 throw new RuntimeException(e);
             }
+        } else if (req.getParameter("createWithoutId") != null) {
+
+
         } else if (req.getParameter("update") != null) {
             ParkingPlace parkinPlace = createParkinPlace(req);
             try {
                 if (parkingPlaceService.update(parkinPlace) != null)
-                    req.setAttribute("wasUpdated", "успешно обновлено");
-                else req.setAttribute("wasUpdated", "место не было обновлено");
+                    req.setAttribute("error", "успешно обновлено");
+                else req.setAttribute("error", "место не было обновлено");
             } catch (ClassNotFoundException e) {
                 throw new RuntimeException(e);
             }
-        } else if (req.getParameter("delete") != null) {
-            //нужно подтверждение
+        } else if (req.getParameter("change") != null) {
+
+        } else if (req.getParameter("getAll") != null) {
+
+        } else if (req.getParameter("getParkings") != null) {
+
+
+        } else if (req.getParameter("deleteOther") != null) {
             ParkingPlace pp = createParkinPlace(req);
-            if (parkingPlaceService.delete(pp)) req.setAttribute("wasDeleted", "успешно удалено");
+            if (parkingPlaceService.delete(pp)) req.setAttribute("error", "успешно удалено");
             else req.setAttribute("wasDeleted", "место не было удалено");
         } else if (req.getParameter("getAll") != null) {
             req.setAttribute("parkingPlaces", parkingPlaceService.getAll());
@@ -64,11 +83,37 @@ public class ParkingPlaceServlet extends HttpServlet {
     }
 
     private ParkingPlace createParkinPlace(HttpServletRequest req) {
-        String id = req.getParameter("id");
-        String occupiedSlot = req.getParameter("occupiedSlot");
-        String parkingId = req.getParameter("parkingId");
-        String floor = req.getParameter("floor");
-        //проверку на пустоту?
+        String id = "0";
+        String occupiedSlot;
+        String parkingId;
+        String floor;
+
+        if (req.getParameter("getByParkingId") != null) {
+            return new ParkingPlace(0, 0, Integer.parseInt(req.getParameter("parkingId")), (short) 0);
+        } else if (req.getParameter("getByOccupiedSlot") != null) {
+            return new ParkingPlace(0, Integer.parseInt(req.getParameter("occupiedSlot")), 0, (short) 0);
+        } else if (req.getParameter("getByFloor") != null) {
+            return new ParkingPlace(0, 0, 0, Short.parseShort(req.getParameter("floor")));
+        }
+
+
+        if (req.getParameter("deleteOther") != null || req.getParameter("change") != null) {
+            if (req.getParameter("createWithoutId") == null) {
+                id = req.getParameter("idOther");
+            }
+            occupiedSlot = req.getParameter("occupiedSlotOther");
+            parkingId = req.getParameter("parkingIdOther");
+            floor = req.getParameter("floorOther");
+        } else {
+            if (req.getParameter("createWithoutId") == null) {
+                id = req.getParameter("id");
+            }
+            occupiedSlot = req.getParameter("occupiedSlot");
+            parkingId = req.getParameter("parkingId");
+            floor = req.getParameter("floor");
+        }
+
+
         try {
             ParkingPlace parkingPlace = new ParkingPlace(Integer.parseInt(id),
                     Integer.parseInt(occupiedSlot),
