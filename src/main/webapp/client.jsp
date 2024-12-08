@@ -141,22 +141,22 @@
         <div class="section">
             <p>
                 <label for="id">Номер паспорта</label>
-                <input type="text" name="id" id="id" placeholder="Введите паспортные данные" value="">
+                <input type="text" name="id" id="id" placeholder="Введите паспортные данные" value="${idRet}">
                 <input name="get" type="submit" id="get" value="Найти по паспорту">
             </p>
             <p>
                 <label for="phoneNumber">Номер телефона</label>
-                <input type="text" name="phoneNumber" id="phoneNumber" placeholder="Введите номер телефона" value="">
+                <input type="text" name="phoneNumber" id="phoneNumber" placeholder="Введите номер телефона" value="${phoneNumberRet}">
                 <input name="getByPNumber" type="submit" id="getByPNumber" value="Найти по номеру телефона">
             </p>
             <p>
                 <label for="address">Адрес</label>
-                <input type="text" name="address" id="address" placeholder="Введите адрес" value="">
+                <input type="text" name="address" id="address" placeholder="Введите адрес" value="${addressRet}">
                 <input name="getByAddress" type="submit" id="getByAddress" value="Найти по адресу">
             </p>
             <p>
                 <label for="name">ФИО</label>
-                <input type="text" name="name" id="name" placeholder="Введите ФИО" value="">
+                <input type="text" name="name" id="name" placeholder="Введите ФИО" value="${nameRet}">
                 <input name="getByName" type="submit" id="getByName" value="Найти по имени">
             </p>
             <p>
@@ -176,7 +176,17 @@
         <h2>Клиенты</h2>
         <c:forEach var="client" items="${clients}">
             <div class="card">
-                <c:out value="${client.allInString()}"></c:out>
+                <form action="" method="post" name="carform" id="oneCarform">
+                    <c:out value="${client.allInString()}"></c:out>
+                    <input type="hidden" name="idOther" id="idOther" value="${client.getId()}">
+                    <input type="hidden" name="phoneNumberOther" id="phoneNumberOther" value="${client.getPhoneNumber()}">
+                    <input type="hidden" name="addressOther" id="addressOther" value="${client.getAddress()}">
+                    <input type="hidden" name="nameOther" id="nameOther" value="${client.getName()}">
+
+
+                    <input name="change" type="submit" id="change" value="Изменить данные">
+                    <input name="deleteOther" type="submit" id="deleteOther" value="Удалить клиента">
+                </form>
             </div>
         </c:forEach>
     </div>

@@ -42,6 +42,79 @@ public class ClientRepository implements Repository<Client> {
 
         return null;
     }
+
+    public List<Client> getByPhone(Client cli) {
+        String phone = cli.getPhoneNumber();
+        String ins = "SELECT * FROM " + CLIENT_TABLE + " WHERE " + CLIENT_NUMBER + "=?";
+        ConnectJDBC con = ConnectJDBC.getInstance();
+        try (PreparedStatement prSt = con.getDbConnection().prepareStatement(ins)) {
+            prSt.setString(1, phone);
+            ResultSet res = prSt.executeQuery();
+            List<Client> clients = new ArrayList<>();
+            while (res.next()) {
+                Client client = new Client();
+                client.setId(res.getString(1));
+                client.setPhoneNumber(res.getString(2));
+                client.setAddress(res.getString(3));
+                client.setName(res.getString(4));
+                clients.add(client);
+            }
+            return clients;
+        } catch (SQLException | ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+
+        return null;
+    }
+
+    public List<Client> getByAddress(Client cli) {
+        String address = cli.getAddress();
+        String ins = "SELECT * FROM " + CLIENT_TABLE + " WHERE " + CLIENT_ADDRESS + "=?";
+        ConnectJDBC con = ConnectJDBC.getInstance();
+        try (PreparedStatement prSt = con.getDbConnection().prepareStatement(ins)) {
+            prSt.setString(1, address);
+            ResultSet res = prSt.executeQuery();
+            List<Client> clients = new ArrayList<>();
+            while (res.next()) {
+                Client client = new Client();
+                client.setId(res.getString(1));
+                client.setPhoneNumber(res.getString(2));
+                client.setAddress(res.getString(3));
+                client.setName(res.getString(4));
+                clients.add(client);
+            }
+            return clients;
+        } catch (SQLException | ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+
+        return null;
+    }
+
+    public List<Client> getByName(Client cli) {
+        String name = cli.getName();
+        String ins = "SELECT * FROM " + CLIENT_TABLE + " WHERE " + CLIENT_NAME + "=?";
+        ConnectJDBC con = ConnectJDBC.getInstance();
+        try (PreparedStatement prSt = con.getDbConnection().prepareStatement(ins)) {
+            prSt.setString(1, name);
+            ResultSet res = prSt.executeQuery();
+            List<Client> clients = new ArrayList<>();
+            while (res.next()) {
+                Client client = new Client();
+                client.setId(res.getString(1));
+                client.setPhoneNumber(res.getString(2));
+                client.setAddress(res.getString(3));
+                client.setName(res.getString(4));
+                clients.add(client);
+            }
+            return clients;
+        } catch (SQLException | ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+
+        return null;
+    }
+
     public List<Client> getAll() {
 
         String ins = "SELECT * FROM " + CLIENT_TABLE;

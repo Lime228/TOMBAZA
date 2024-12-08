@@ -21,6 +21,19 @@ public class ClientService {
     public Client get(Client cli) {
         return clientRepository.getByID(cli);
     }
+
+    public List<Client> getByName(Client cli) {
+        return clientRepository.getByName(cli);
+    }
+
+    public List<Client> getByAddress(Client cli) {
+        return clientRepository.getByAddress(cli);
+    }
+
+    public List<Client> getByPhone(Client cli) {
+        return clientRepository.getByPhone(cli);
+    }
+
     public List<Client> getAll() {
         return clientRepository.getAll();
     }
