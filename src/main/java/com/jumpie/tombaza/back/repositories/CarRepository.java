@@ -1,5 +1,6 @@
 package com.jumpie.tombaza.back.repositories;
 
+import com.jumpie.tombaza.back.models.Agreement;
 import com.jumpie.tombaza.back.models.Car;
 
 import java.sql.PreparedStatement;
@@ -47,6 +48,175 @@ public class CarRepository implements Repository<Car> {
 
         return null;
     }
+
+    public List<Car> getByColor(Car cr) {
+        String color = cr.getColor();
+        String ins = "SELECT * FROM " + CAR_TABLE + " WHERE " + CAR_COLOR + "=?";
+        ConnectJDBC con = ConnectJDBC.getInstance();
+        try (PreparedStatement prSt = con.getDbConnection().prepareStatement(ins)){
+            prSt.setString(1, color);
+            ResultSet res = prSt.executeQuery();
+            List<Car> cars = new ArrayList<>();
+            while (res.next()) {
+                Car car = new Car();
+                car.setId(res.getString(1));
+                car.setColor(res.getString(2));
+                car.setBrand(res.getString(3));
+                car.setModelName(res.getString(4));
+                car.setReleaseYear(res.getString(5));
+                car.setParkingPlaceId(res.getInt(6));
+                car.setNumber(res.getString(7));
+                cars.add(car);
+            }
+
+            return cars;
+        } catch (SQLException | ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+
+        return null;
+    }
+
+    public List<Car> getByBrand(Car cr) {
+        String brand = cr.getBrand();
+        String ins = "SELECT * FROM " + CAR_TABLE + " WHERE " + CAR_BRAND + "=?";
+        ConnectJDBC con = ConnectJDBC.getInstance();
+        try (PreparedStatement prSt = con.getDbConnection().prepareStatement(ins)){
+            prSt.setString(1, brand);
+            ResultSet res = prSt.executeQuery();
+            List<Car> cars = new ArrayList<>();
+            while (res.next()) {
+                Car car = new Car();
+                car.setId(res.getString(1));
+                car.setColor(res.getString(2));
+                car.setBrand(res.getString(3));
+                car.setModelName(res.getString(4));
+                car.setReleaseYear(res.getString(5));
+                car.setParkingPlaceId(res.getInt(6));
+                car.setNumber(res.getString(7));
+                cars.add(car);
+            }
+
+            return cars;
+        } catch (SQLException | ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+
+        return null;
+    }
+
+    public List<Car> getByModel(Car cr) {
+        String model = cr.getModelName();
+        String ins = "SELECT * FROM " + CAR_TABLE + " WHERE " + CAR_MODEL_NAME + "=?";
+        ConnectJDBC con = ConnectJDBC.getInstance();
+        try (PreparedStatement prSt = con.getDbConnection().prepareStatement(ins)){
+            prSt.setString(1, model);
+            ResultSet res = prSt.executeQuery();
+            List<Car> cars = new ArrayList<>();
+            while (res.next()) {
+                Car car = new Car();
+                car.setId(res.getString(1));
+                car.setColor(res.getString(2));
+                car.setBrand(res.getString(3));
+                car.setModelName(res.getString(4));
+                car.setReleaseYear(res.getString(5));
+                car.setParkingPlaceId(res.getInt(6));
+                car.setNumber(res.getString(7));
+                cars.add(car);
+            }
+
+            return cars;
+        } catch (SQLException | ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+
+        return null;
+    }
+
+    public List<Car> getByYear(Car cr) {
+        String year = cr.getReleaseYear();
+        String ins = "SELECT * FROM " + CAR_TABLE + " WHERE " + CAR_RELEASE_YEAR + "=?";
+        ConnectJDBC con = ConnectJDBC.getInstance();
+        try (PreparedStatement prSt = con.getDbConnection().prepareStatement(ins)){
+            prSt.setString(1, year);
+            ResultSet res = prSt.executeQuery();
+            List<Car> cars = new ArrayList<>();
+            while (res.next()) {
+                Car car = new Car();
+                car.setId(res.getString(1));
+                car.setColor(res.getString(2));
+                car.setBrand(res.getString(3));
+                car.setModelName(res.getString(4));
+                car.setReleaseYear(res.getString(5));
+                car.setParkingPlaceId(res.getInt(6));
+                car.setNumber(res.getString(7));
+                cars.add(car);
+            }
+
+            return cars;
+        } catch (SQLException | ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+
+        return null;
+    }
+
+    public List<Car> getByPPlace(Car cr) {
+        int pp = cr.getParkingPlaceId();
+        String ins = "SELECT * FROM " + CAR_TABLE + " WHERE " + CAR_PARKING_PLACE + "=?";
+        ConnectJDBC con = ConnectJDBC.getInstance();
+        try (PreparedStatement prSt = con.getDbConnection().prepareStatement(ins)){
+            prSt.setString(1, String.valueOf(pp));
+            ResultSet res = prSt.executeQuery();
+            List<Car> cars = new ArrayList<>();
+            while (res.next()) {
+                Car car = new Car();
+                car.setId(res.getString(1));
+                car.setColor(res.getString(2));
+                car.setBrand(res.getString(3));
+                car.setModelName(res.getString(4));
+                car.setReleaseYear(res.getString(5));
+                car.setParkingPlaceId(res.getInt(6));
+                car.setNumber(res.getString(7));
+                cars.add(car);
+            }
+
+            return cars;
+        } catch (SQLException | ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+
+        return null;
+    }
+
+    public List<Car> getByNumber(Car cr) {
+        String number = cr.getNumber();
+        String ins = "SELECT * FROM " + CAR_TABLE + " WHERE " + CAR_NUMBER + "=?";
+        ConnectJDBC con = ConnectJDBC.getInstance();
+        try (PreparedStatement prSt = con.getDbConnection().prepareStatement(ins)){
+            prSt.setString(1, number);
+            ResultSet res = prSt.executeQuery();
+            List<Car> cars = new ArrayList<>();
+            while (res.next()) {
+                Car car = new Car();
+                car.setId(res.getString(1));
+                car.setColor(res.getString(2));
+                car.setBrand(res.getString(3));
+                car.setModelName(res.getString(4));
+                car.setReleaseYear(res.getString(5));
+                car.setParkingPlaceId(res.getInt(6));
+                car.setNumber(res.getString(7));
+                cars.add(car);
+            }
+
+            return cars;
+        } catch (SQLException | ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+
+        return null;
+    }
+
     public List<Car> getAll() {
         String ins = "SELECT * FROM " + CAR_TABLE;
         ConnectJDBC con = ConnectJDBC.getInstance();

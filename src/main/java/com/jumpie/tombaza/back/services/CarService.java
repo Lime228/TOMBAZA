@@ -20,6 +20,31 @@ public class CarService {
     public static Car get(Car car) {
         return carRepository.getByID(car);
     }
+
+    public List<Car> getByColor(Car car) {
+        return carRepository.getByColor(car);
+    }
+
+    public List<Car> getByBrand(Car car) {
+        return carRepository.getByBrand(car);
+    }
+
+    public List<Car> getByModel(Car car) {
+        return carRepository.getByModel(car);
+    }
+
+    public List<Car> getByYear(Car car) {
+        return carRepository.getByYear(car);
+    }
+
+    public List<Car> getByPPlace(Car car) {
+        return carRepository.getByPPlace(car);
+    }
+
+    public List<Car> getByNumber(Car car) {
+        return carRepository.getByNumber(car);
+    }
+
     public List<Car> getAll() {
         return carRepository.getAll();
     }
