@@ -32,6 +32,7 @@ public class AgreementServlet extends HttpServlet {
         req.setAttribute("rentPeriodRet", req.getParameter("rentPeriod"));
         req.setAttribute("passportNumberRet", req.getParameter("passportNumber"));
         req.setAttribute("vinNumberRet", req.getParameter("vinNumber"));
+
         if (req.getParameter("get") != null) {
             try {
                 Agreement agreement = createAgreement(req);
@@ -62,6 +63,8 @@ public class AgreementServlet extends HttpServlet {
                 e.printStackTrace();
                 req.setAttribute("error", "вероятно, был задан пустой ВИН-номер.");
             }
+
+
         } else if (req.getParameter("create") != null) {
             Agreement agreement = createAgreement(req);
             try {
@@ -78,6 +81,8 @@ public class AgreementServlet extends HttpServlet {
             } catch (ClassNotFoundException e) {
                 throw new RuntimeException(e);
             }
+
+
         } else if (req.getParameter("update") != null) {
             Agreement agreement = createAgreement(req);
             try {
@@ -86,17 +91,6 @@ public class AgreementServlet extends HttpServlet {
             } catch (Exception e) {
                 e.printStackTrace();
             }
-        } else if (req.getParameter("getPassports") != null) {
-            req.setAttribute("passports", clientService.getAll());
-        } else if (req.getParameter("getCars") != null) {
-            req.setAttribute("cars", carService.getAll());
-        } else if (req.getParameter("getAll") != null) {
-            List<Agreement> agreements = agreementService.getAll();
-            getMoreInfo(agreements, req);
-        } else if (req.getParameter("deleteOther") != null) {
-            Agreement agreement = createAgreement(req);
-            if (agreementService.delete(agreement)) req.setAttribute("error", "успешно удалено");
-            else req.setAttribute("error", "договор не был удален");
         } else if (req.getParameter("change") != null) {
             Agreement agreement = createAgreement(req);
             req.setAttribute("idRet", agreement.getId());
@@ -104,6 +98,21 @@ public class AgreementServlet extends HttpServlet {
             req.setAttribute("rentPeriodRet", agreement.getRentPeriod());
             req.setAttribute("passportNumberRet", agreement.getPassportNumber());
             req.setAttribute("vinNumberRet", agreement.getVinNumber());
+
+
+        } else if (req.getParameter("getPassports") != null) {
+            req.setAttribute("passports", clientService.getAll());
+        } else if (req.getParameter("getCars") != null) {
+            req.setAttribute("cars", carService.getAll());
+        } else if (req.getParameter("getAll") != null) {
+            List<Agreement> agreements = agreementService.getAll();
+            getMoreInfo(agreements, req);
+
+
+        } else if (req.getParameter("deleteOther") != null) {
+            Agreement agreement = createAgreement(req);
+            if (agreementService.delete(agreement)) req.setAttribute("error", "успешно удалено");
+            else req.setAttribute("error", "договор не был удален");
         }
 
         req.getRequestDispatcher("/agreement.jsp").forward(req, resp);
@@ -121,6 +130,8 @@ public class AgreementServlet extends HttpServlet {
         } else if (req.getParameter("getByPassport") != null) {
             return new Agreement(0, 0, 0, req.getParameter("passportNumber"), "");
         }
+
+
         if (req.getParameter("deleteOther") != null || req.getParameter("change") != null) {
             if (req.getParameter("createWithoutId") == null) {
                 id = req.getParameter("idOther");
@@ -138,6 +149,8 @@ public class AgreementServlet extends HttpServlet {
             passportNumber = req.getParameter("passportNumber");
             vinNumber = req.getParameter("vinNumber");
         }
+
+
         try {
             Agreement agreement = new Agreement(Integer.parseInt(id),
                     Integer.parseInt(rentPrice),

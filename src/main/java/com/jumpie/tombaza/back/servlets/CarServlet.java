@@ -30,6 +30,7 @@ public class CarServlet extends HttpServlet {
         req.setAttribute("releaseYearRet", req.getParameter("releaseYear"));
         req.setAttribute("parkingPlaceIdRet", req.getParameter("parkingPlaceId"));
         req.setAttribute("numberRet", req.getParameter("number"));
+
         if (req.getParameter("get") != null) {
             try {
                 Car car = createCar(req);
@@ -95,6 +96,8 @@ public class CarServlet extends HttpServlet {
                 e.printStackTrace();
                 req.setAttribute("error", "вероятно, был задан пустой номер.");
             }
+
+
         } else if (req.getParameter("create") != null) {
             Car car = createCar(req);
             try {
@@ -103,6 +106,8 @@ public class CarServlet extends HttpServlet {
             } catch (ClassNotFoundException e) {
                 throw new RuntimeException(e);
             }
+
+
         } else if (req.getParameter("update") != null) {
             Car car = createCar(req);
             try {
@@ -111,10 +116,6 @@ public class CarServlet extends HttpServlet {
             } catch (ClassNotFoundException e) {
                 throw new RuntimeException(e);
             }
-        } else if (req.getParameter("deleteOther") != null) {
-            Car client = createCar(req);
-            if (carService.delete(client)) req.setAttribute("error", "успешно удалено");
-            else req.setAttribute("error", "клиент не был удален");
         } else if (req.getParameter("change") != null) {
             Car car = createCar(req);
             req.setAttribute("idRet", car.getId());
@@ -124,10 +125,18 @@ public class CarServlet extends HttpServlet {
             req.setAttribute("releaseYearRet", car.getReleaseYear());
             req.setAttribute("parkingPlaceIdRet", car.getParkingPlaceId());
             req.setAttribute("numberRet", car.getNumber());
+
+
         } else if (req.getParameter("getAll") != null) {
             req.setAttribute("cars", carService.getAll());
         } else if (req.getParameter("getParkingPlaces") != null) {
             req.setAttribute("places", parkingPlaceService.getAll());
+
+
+        } else if (req.getParameter("deleteOther") != null) {
+            Car client = createCar(req);
+            if (carService.delete(client)) req.setAttribute("error", "успешно удалено");
+            else req.setAttribute("error", "клиент не был удален");
         }
 
         req.getRequestDispatcher("/car.jsp").forward(req, resp);
@@ -156,6 +165,7 @@ public class CarServlet extends HttpServlet {
             return new Car("", "", "", "", "", 0, req.getParameter("number"));
         }
 
+
         if (req.getParameter("deleteOther") != null || req.getParameter("change") != null) {
             id = req.getParameter("idOther");
             color = req.getParameter("colorOther");
@@ -173,6 +183,8 @@ public class CarServlet extends HttpServlet {
             parkingPlaceId = req.getParameter("parkingPlaceId");
             number = req.getParameter("number");
         }
+
+
         try {
             Car car = new Car(id,
                     color,

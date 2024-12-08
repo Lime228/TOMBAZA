@@ -25,6 +25,7 @@ public class ClientServlet extends HttpServlet {
         req.setAttribute("phoneNumberRet", req.getParameter("phoneNumber"));
         req.setAttribute("addressRet", req.getParameter("address"));
         req.setAttribute("nameRet", req.getParameter("name"));
+
         if (req.getParameter("get") != null) {
             try {
                 Client client = createClient(req);
@@ -67,6 +68,7 @@ public class ClientServlet extends HttpServlet {
                 req.setAttribute("error", "вероятно, было задано пустое имя.");
             }
 
+
         } else if (req.getParameter("create") != null) {
             Client client = createClient(req);
             try {
@@ -75,6 +77,8 @@ public class ClientServlet extends HttpServlet {
             } catch (ClassNotFoundException e) {
                 throw new RuntimeException(e);
             }
+
+
         } else if (req.getParameter("update") != null) {
             Client client = createClient(req);
             try {
@@ -89,12 +93,14 @@ public class ClientServlet extends HttpServlet {
             req.setAttribute("phoneNumberRet", client.getPhoneNumber());
             req.setAttribute("addressRet", client.getAddress());
             req.setAttribute("nameRet", client.getName());
+
+
+        } else if (req.getParameter("getAll") != null) {
+            req.setAttribute("clients", clientService.getAll());
         } else if (req.getParameter("deleteOther") != null) {
             Client client = createClient(req);
             if (clientService.delete(client)) req.setAttribute("error", "успешно удалено");
             else req.setAttribute("error", "клиент не был удален");
-        } else if (req.getParameter("getAll") != null) {
-            req.setAttribute("clients", clientService.getAll());
         }
 
         req.getRequestDispatcher("/client.jsp").forward(req, resp);
@@ -114,6 +120,7 @@ public class ClientServlet extends HttpServlet {
             return new Client("", "", "", req.getParameter("name"));
         }
 
+
         if (req.getParameter("deleteOther") != null || req.getParameter("change") != null) {
             id = req.getParameter("idOther");
             phoneNumber = req.getParameter("phoneNumberOther");
@@ -125,6 +132,7 @@ public class ClientServlet extends HttpServlet {
             address = req.getParameter("address");
             name = req.getParameter("name");
         }
+
 
         try {
             Client client = new Client(id,
