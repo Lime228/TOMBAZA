@@ -20,7 +20,6 @@ public class AgreementService {
     public boolean createWithoutId(Agreement agr) throws ClassNotFoundException {
         return agreementRepository.createWithoutID(agr) != null;
     }
-    //добавить контейнер, сервисы - синглтоны
 
     public Agreement get(Agreement agr) {
         return agreementRepository.getByID(agr);
@@ -46,7 +45,7 @@ public class AgreementService {
         return agreementRepository.delete(agr);
     }
 
-    public static synchronized AgreementService getInstance(){
+    public static synchronized AgreementService getInstance() {
         if (instance == null) instance = new AgreementService();
         return instance;
     }

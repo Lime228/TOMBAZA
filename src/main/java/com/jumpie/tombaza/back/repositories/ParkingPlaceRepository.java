@@ -10,14 +10,15 @@ import java.util.List;
 
 public class ParkingPlaceRepository implements Repository<ParkingPlace> {
     private static ParkingPlaceRepository instance;
-    public static final String PARKINGP_TABLE = "parking_place";
 
+    public static final String PARKINGP_TABLE = "parking_place";
     public static final String PARKINGP_ID = "parking_palce_id";
     public static final String PARKINGP_SLOT = "occupied_slot";
     public static final String PARKINGP_PARKING_ID = "parking_id";
     public static final String PARKINGP_FLOOR = "floor";
 
-    private ParkingPlaceRepository() {}
+    private ParkingPlaceRepository() {
+    }
 
     @Override
     public ParkingPlace getByID(ParkingPlace get) {
@@ -100,7 +101,6 @@ public class ParkingPlaceRepository implements Repository<ParkingPlace> {
         }
         return null;
     }
-
 
     @Override
     public ParkingPlace update(ParkingPlace upd) throws ClassNotFoundException {

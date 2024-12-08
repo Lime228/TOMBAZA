@@ -9,7 +9,7 @@ public class FineService {
     private static FineRepository fineRepository;
     private static FineService instance;
 
-    private FineService(){
+    private FineService() {
         fineRepository = FineRepository.getInstance();
     }
 
@@ -17,10 +17,18 @@ public class FineService {
         return fineRepository.create(fine) != null;
     }
 
+    public boolean createWithoutId(Fine fine) throws ClassNotFoundException {
+        return fineRepository.createWithoutID(fine) != null;
+    }
 
     public Fine get(Fine fine) {
         return fineRepository.getByID(fine);
     }
+
+    public List<Fine> getByAgreementId(Fine fine) {
+        return fineRepository.getByAgreementId(fine);
+    }
+
     public List<Fine> getAll() {
         return fineRepository.getAll();
     }

@@ -15,7 +15,6 @@ public class ParkingPlace extends Model<Integer> {
         setFloor(floor);
     }
 
-
     public int getOccupiedSlot() {
         return occupiedSlot;
     }
@@ -43,8 +42,9 @@ public class ParkingPlace extends Model<Integer> {
     public void print() {
         System.out.println(super.getId() + " " + this.occupiedSlot + " " + this.parkingId + " " + this.floor);
     }
+
     public String allInString() {
-        String str = "ID: "+super.getId() + " OCCUPIEDSLOT: " + this.occupiedSlot + " PARKINGID: " + this.parkingId + " FLOOR: " + this.floor;
+        String str = "ID: " + super.getId() + " OCCUPIEDSLOT: " + this.occupiedSlot + " PARKINGID: " + this.parkingId + " FLOOR: " + this.floor;
         return str;
     }
 }

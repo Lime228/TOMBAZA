@@ -112,7 +112,6 @@ public class CarServlet extends HttpServlet {
                 throw new RuntimeException(e);
             }
         } else if (req.getParameter("deleteOther") != null) {
-            //нужно подтверждение
             Car client = createCar(req);
             if (carService.delete(client)) req.setAttribute("error", "успешно удалено");
             else req.setAttribute("error", "клиент не был удален");
@@ -125,7 +124,7 @@ public class CarServlet extends HttpServlet {
             req.setAttribute("releaseYearRet", car.getReleaseYear());
             req.setAttribute("parkingPlaceIdRet", car.getParkingPlaceId());
             req.setAttribute("numberRet", car.getNumber());
-        }else if (req.getParameter("getAll") != null) {
+        } else if (req.getParameter("getAll") != null) {
             req.setAttribute("cars", carService.getAll());
         } else if (req.getParameter("getParkingPlaces") != null) {
             req.setAttribute("places", parkingPlaceService.getAll());
@@ -145,15 +144,15 @@ public class CarServlet extends HttpServlet {
 
         if (req.getParameter("getByColor") != null) {
             return new Car("", req.getParameter("color"), "", "", "", 0, "");
-        }else if(req.getParameter("getByBrand") != null){
+        } else if (req.getParameter("getByBrand") != null) {
             return new Car("", "", "", req.getParameter("brand"), "", 0, "");
-        }else if(req.getParameter("getByModel") != null){
+        } else if (req.getParameter("getByModel") != null) {
             return new Car("", "", req.getParameter("modelName"), "", "", 0, "");
-        }else if(req.getParameter("getByYear") != null){
+        } else if (req.getParameter("getByYear") != null) {
             return new Car("", "", "", "", req.getParameter("releaseYear"), 0, "");
-        }else if(req.getParameter("getByPPlace") != null){
+        } else if (req.getParameter("getByPPlace") != null) {
             return new Car("", "", "", "", "", Integer.parseInt(req.getParameter("parkingPlaceId")), "");
-        }else if(req.getParameter("getByNumber") != null){
+        } else if (req.getParameter("getByNumber") != null) {
             return new Car("", "", "", "", "", 0, req.getParameter("number"));
         }
 
@@ -174,7 +173,6 @@ public class CarServlet extends HttpServlet {
             parkingPlaceId = req.getParameter("parkingPlaceId");
             number = req.getParameter("number");
         }
-        //проверку на пустоту?
         try {
             Car car = new Car(id,
                     color,

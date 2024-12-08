@@ -11,8 +11,8 @@ import java.util.List;
 
 public class CarRepository implements Repository<Car> {
     private static CarRepository instance;
-    public static final String CAR_TABLE = "car";
 
+    public static final String CAR_TABLE = "car";
     public static final String CAR_VIN_NUMBER = "vin_number";
     public static final String CAR_COLOR = "color";
     public static final String CAR_BRAND = "brand";
@@ -21,7 +21,8 @@ public class CarRepository implements Repository<Car> {
     public static final String CAR_PARKING_PLACE = "parking_place_id";
     public static final String CAR_NUMBER = "number";
 
-    private CarRepository() {}
+    private CarRepository() {
+    }
 
     @Override
     public Car getByID(Car get) {
@@ -29,7 +30,7 @@ public class CarRepository implements Repository<Car> {
         String ins = "SELECT * FROM " + CAR_TABLE + " WHERE " + CAR_VIN_NUMBER + "=?";
         ConnectJDBC con = ConnectJDBC.getInstance();
 
-        try (PreparedStatement prSt = con.getDbConnection().prepareStatement(ins)){
+        try (PreparedStatement prSt = con.getDbConnection().prepareStatement(ins)) {
             prSt.setString(1, realID);
             ResultSet res = prSt.executeQuery();
             res.next();
@@ -53,7 +54,7 @@ public class CarRepository implements Repository<Car> {
         String color = cr.getColor();
         String ins = "SELECT * FROM " + CAR_TABLE + " WHERE " + CAR_COLOR + "=?";
         ConnectJDBC con = ConnectJDBC.getInstance();
-        try (PreparedStatement prSt = con.getDbConnection().prepareStatement(ins)){
+        try (PreparedStatement prSt = con.getDbConnection().prepareStatement(ins)) {
             prSt.setString(1, color);
             ResultSet res = prSt.executeQuery();
             List<Car> cars = new ArrayList<>();
@@ -81,7 +82,7 @@ public class CarRepository implements Repository<Car> {
         String brand = cr.getBrand();
         String ins = "SELECT * FROM " + CAR_TABLE + " WHERE " + CAR_BRAND + "=?";
         ConnectJDBC con = ConnectJDBC.getInstance();
-        try (PreparedStatement prSt = con.getDbConnection().prepareStatement(ins)){
+        try (PreparedStatement prSt = con.getDbConnection().prepareStatement(ins)) {
             prSt.setString(1, brand);
             ResultSet res = prSt.executeQuery();
             List<Car> cars = new ArrayList<>();
@@ -109,7 +110,7 @@ public class CarRepository implements Repository<Car> {
         String model = cr.getModelName();
         String ins = "SELECT * FROM " + CAR_TABLE + " WHERE " + CAR_MODEL_NAME + "=?";
         ConnectJDBC con = ConnectJDBC.getInstance();
-        try (PreparedStatement prSt = con.getDbConnection().prepareStatement(ins)){
+        try (PreparedStatement prSt = con.getDbConnection().prepareStatement(ins)) {
             prSt.setString(1, model);
             ResultSet res = prSt.executeQuery();
             List<Car> cars = new ArrayList<>();
@@ -137,7 +138,7 @@ public class CarRepository implements Repository<Car> {
         String year = cr.getReleaseYear();
         String ins = "SELECT * FROM " + CAR_TABLE + " WHERE " + CAR_RELEASE_YEAR + "=?";
         ConnectJDBC con = ConnectJDBC.getInstance();
-        try (PreparedStatement prSt = con.getDbConnection().prepareStatement(ins)){
+        try (PreparedStatement prSt = con.getDbConnection().prepareStatement(ins)) {
             prSt.setString(1, year);
             ResultSet res = prSt.executeQuery();
             List<Car> cars = new ArrayList<>();
@@ -165,7 +166,7 @@ public class CarRepository implements Repository<Car> {
         int pp = cr.getParkingPlaceId();
         String ins = "SELECT * FROM " + CAR_TABLE + " WHERE " + CAR_PARKING_PLACE + "=?";
         ConnectJDBC con = ConnectJDBC.getInstance();
-        try (PreparedStatement prSt = con.getDbConnection().prepareStatement(ins)){
+        try (PreparedStatement prSt = con.getDbConnection().prepareStatement(ins)) {
             prSt.setString(1, String.valueOf(pp));
             ResultSet res = prSt.executeQuery();
             List<Car> cars = new ArrayList<>();
@@ -193,7 +194,7 @@ public class CarRepository implements Repository<Car> {
         String number = cr.getNumber();
         String ins = "SELECT * FROM " + CAR_TABLE + " WHERE " + CAR_NUMBER + "=?";
         ConnectJDBC con = ConnectJDBC.getInstance();
-        try (PreparedStatement prSt = con.getDbConnection().prepareStatement(ins)){
+        try (PreparedStatement prSt = con.getDbConnection().prepareStatement(ins)) {
             prSt.setString(1, number);
             ResultSet res = prSt.executeQuery();
             List<Car> cars = new ArrayList<>();
@@ -220,7 +221,7 @@ public class CarRepository implements Repository<Car> {
     public List<Car> getAll() {
         String ins = "SELECT * FROM " + CAR_TABLE;
         ConnectJDBC con = ConnectJDBC.getInstance();
-        try (PreparedStatement prSt = con.getDbConnection().prepareStatement(ins)){
+        try (PreparedStatement prSt = con.getDbConnection().prepareStatement(ins)) {
             ResultSet res = prSt.executeQuery();
             List<Car> cars = new ArrayList<>();
             while (res.next()) {
@@ -246,9 +247,9 @@ public class CarRepository implements Repository<Car> {
     @Override
     public Car create(Car add) throws ClassNotFoundException {
         Car car = add;
-        String ins = "INSERT INTO " + CAR_TABLE + "(" + CAR_VIN_NUMBER + "," + CAR_COLOR + "," + CAR_BRAND + "," + CAR_MODEL_NAME + "," + CAR_RELEASE_YEAR + "," + CAR_PARKING_PLACE + "," + CAR_NUMBER +")" + "VALUES(?,?,?,?,?,?,?)";
+        String ins = "INSERT INTO " + CAR_TABLE + "(" + CAR_VIN_NUMBER + "," + CAR_COLOR + "," + CAR_BRAND + "," + CAR_MODEL_NAME + "," + CAR_RELEASE_YEAR + "," + CAR_PARKING_PLACE + "," + CAR_NUMBER + ")" + "VALUES(?,?,?,?,?,?,?)";
         ConnectJDBC con = ConnectJDBC.getInstance();
-        try (PreparedStatement prSt = con.getDbConnection().prepareStatement(ins)){
+        try (PreparedStatement prSt = con.getDbConnection().prepareStatement(ins)) {
             prSt.setString(1, car.getId());
             prSt.setString(2, car.getColor());
             prSt.setString(3, car.getBrand());
@@ -266,11 +267,11 @@ public class CarRepository implements Repository<Car> {
     @Override
     public Car update(Car upd) throws ClassNotFoundException {
         Car car = upd;
-        if (getByID(car)!=null) {
+        if (getByID(car) != null) {
             ConnectJDBC con = ConnectJDBC.getInstance();
             String ins = "UPDATE " + CAR_TABLE + " SET " + CAR_VIN_NUMBER + " = ?, " + CAR_COLOR + " =?, " + CAR_BRAND + " =?, " + CAR_MODEL_NAME + " =?, " + CAR_RELEASE_YEAR + " =?, " + CAR_PARKING_PLACE + " =?, " + CAR_NUMBER + " =? WHERE " + CAR_VIN_NUMBER + "=" + car.getId();
 
-            try (PreparedStatement prSt = con.getDbConnection().prepareStatement(ins)){
+            try (PreparedStatement prSt = con.getDbConnection().prepareStatement(ins)) {
                 prSt.setString(1, car.getId());
                 prSt.setString(2, car.getColor());
                 prSt.setString(3, car.getBrand());
@@ -290,10 +291,10 @@ public class CarRepository implements Repository<Car> {
     @Override
     public boolean delete(Car del) {
         String realID = del.getId();
-        if (getByID(del)!=null) {
+        if (getByID(del) != null) {
             ConnectJDBC con = ConnectJDBC.getInstance();
             String ins = "DELETE FROM " + CAR_TABLE + " WHERE " + CAR_VIN_NUMBER + "=?";
-            try (PreparedStatement prSt = con.getDbConnection().prepareStatement(ins)){
+            try (PreparedStatement prSt = con.getDbConnection().prepareStatement(ins)) {
                 prSt.setString(1, realID);
                 prSt.executeUpdate();
                 return true;

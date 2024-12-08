@@ -14,9 +14,8 @@ public class ClientService {
     }
 
     public boolean create(Client cli) throws ClassNotFoundException {
-        return clientRepository.create(cli)!=null;
+        return clientRepository.create(cli) != null;
     }
-
 
     public Client get(Client cli) {
         return clientRepository.getByID(cli);
@@ -41,7 +40,6 @@ public class ClientService {
     public Client update(Client cli) throws ClassNotFoundException {
         return clientRepository.update(cli);
     }
-
 
     public boolean delete(Client cli) {
         return clientRepository.delete(cli);

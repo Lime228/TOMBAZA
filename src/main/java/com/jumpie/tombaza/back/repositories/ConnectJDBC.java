@@ -13,7 +13,8 @@ public class ConnectJDBC {
     protected String dbName = "car_arend";
     private static ConnectJDBC instance;
 
-    private ConnectJDBC() {}
+    private ConnectJDBC() {
+    }
 
     public Connection getDbConnection() throws ClassNotFoundException, SQLException {
         String connection = "jdbc:mysql://" + dbHost + ":" + dbPort + "/" + dbName;

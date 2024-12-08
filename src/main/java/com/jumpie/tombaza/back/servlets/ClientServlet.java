@@ -57,7 +57,7 @@ public class ClientServlet extends HttpServlet {
                 req.setAttribute("error", "вероятно, был задан пустой адрес.");
             }
 
-        }else if (req.getParameter("getByName") != null) {
+        } else if (req.getParameter("getByName") != null) {
             try {
                 Client client = createClient(req);
                 List<Client> list = clientService.getByName(client);
@@ -67,7 +67,7 @@ public class ClientServlet extends HttpServlet {
                 req.setAttribute("error", "вероятно, было задано пустое имя.");
             }
 
-        }else if (req.getParameter("create") != null) {
+        } else if (req.getParameter("create") != null) {
             Client client = createClient(req);
             try {
                 if (clientService.create(client)) req.setAttribute("error", "успешно создан");
@@ -108,9 +108,9 @@ public class ClientServlet extends HttpServlet {
 
         if (req.getParameter("getByPNumber") != null) {
             return new Client("", req.getParameter("phoneNumber"), "", "");
-        }else if (req.getParameter("getByAddress") != null) {
+        } else if (req.getParameter("getByAddress") != null) {
             return new Client("", "", req.getParameter("address"), "");
-        }else if (req.getParameter("getByName") != null) {
+        } else if (req.getParameter("getByName") != null) {
             return new Client("", "", "", req.getParameter("name"));
         }
 

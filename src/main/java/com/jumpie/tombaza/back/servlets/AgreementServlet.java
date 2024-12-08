@@ -38,7 +38,7 @@ public class AgreementServlet extends HttpServlet {
                 Agreement agr = agreementService.get(agreement);
                 List<Agreement> list = new ArrayList<>();
                 list.add(agr);
-                getMoreInfo(list,req);
+                getMoreInfo(list, req);
             } catch (Exception e) {
                 e.printStackTrace();
                 req.setAttribute("error", "вероятно, был задан пустой ID. Задайте число.");
@@ -48,8 +48,7 @@ public class AgreementServlet extends HttpServlet {
             try {
                 Agreement agreement = createAgreement(req);
                 List<Agreement> agr = agreementService.getByPassport(agreement);
-                getMoreInfo(agr,req);
-//                req.setAttribute("agreements", agr);
+                getMoreInfo(agr, req);
             } catch (Exception e) {
                 e.printStackTrace();
                 req.setAttribute("error", "вероятно, был задан пустой паспорт.");
@@ -58,8 +57,7 @@ public class AgreementServlet extends HttpServlet {
             try {
                 Agreement agreement = createAgreement(req);
                 List<Agreement> agr = agreementService.getByCar(agreement);
-                getMoreInfo(agr,req);
-//                req.setAttribute("agreements", agr);
+                getMoreInfo(agr, req);
             } catch (Exception e) {
                 e.printStackTrace();
                 req.setAttribute("error", "вероятно, был задан пустой ВИН-номер.");
@@ -72,7 +70,7 @@ public class AgreementServlet extends HttpServlet {
             } catch (ClassNotFoundException e) {
                 throw new RuntimeException(e);
             }
-        } else if(req.getParameter("createWithoutId") != null){
+        } else if (req.getParameter("createWithoutId") != null) {
             Agreement agreement = createAgreement(req);
             try {
                 if (agreementService.createWithoutId(agreement)) req.setAttribute("error", "успешно создан");
@@ -80,7 +78,7 @@ public class AgreementServlet extends HttpServlet {
             } catch (ClassNotFoundException e) {
                 throw new RuntimeException(e);
             }
-        }else if (req.getParameter("update") != null) {
+        } else if (req.getParameter("update") != null) {
             Agreement agreement = createAgreement(req);
             try {
                 if (agreementService.update(agreement) != null) req.setAttribute("error", "успешно обновлено");
@@ -94,12 +92,12 @@ public class AgreementServlet extends HttpServlet {
             req.setAttribute("cars", carService.getAll());
         } else if (req.getParameter("getAll") != null) {
             List<Agreement> agreements = agreementService.getAll();
-            getMoreInfo(agreements,req);
+            getMoreInfo(agreements, req);
         } else if (req.getParameter("deleteOther") != null) {
             Agreement agreement = createAgreement(req);
             if (agreementService.delete(agreement)) req.setAttribute("error", "успешно удалено");
             else req.setAttribute("error", "договор не был удален");
-        }else if (req.getParameter("change") != null) {
+        } else if (req.getParameter("change") != null) {
             Agreement agreement = createAgreement(req);
             req.setAttribute("idRet", agreement.getId());
             req.setAttribute("rentPriceRet", agreement.getRentPrice());
@@ -118,7 +116,7 @@ public class AgreementServlet extends HttpServlet {
         String passportNumber;
         String vinNumber;
 
-        if (req.getParameter("getByCar") != null){
+        if (req.getParameter("getByCar") != null) {
             return new Agreement(0, 0, 0, "", vinNumber = req.getParameter("vinNumber"));
         } else if (req.getParameter("getByPassport") != null) {
             return new Agreement(0, 0, 0, req.getParameter("passportNumber"), "");
@@ -140,7 +138,6 @@ public class AgreementServlet extends HttpServlet {
             passportNumber = req.getParameter("passportNumber");
             vinNumber = req.getParameter("vinNumber");
         }
-        //проверку на пустоту?
         try {
             Agreement agreement = new Agreement(Integer.parseInt(id),
                     Integer.parseInt(rentPrice),
@@ -157,15 +154,16 @@ public class AgreementServlet extends HttpServlet {
         }
 
     }
+
     private void getMoreInfo(List<Agreement> agreements, HttpServletRequest req) {
         List<Car> cars = new ArrayList<>();
         List<Client> clients = new ArrayList<>();
         for (Agreement agreement : agreements) {
-            cars.add(carService.get(new Car(agreement.getVinNumber().toString(),"","","","",0,"")));
-            clients.add(clientService.get(new Client(agreement.getPassportNumber(),"","","")));
+            cars.add(carService.get(new Car(agreement.getVinNumber().toString(), "", "", "", "", 0, "")));
+            clients.add(clientService.get(new Client(agreement.getPassportNumber(), "", "", "")));
         }
-        req.setAttribute("agreements",agreements);
-        req.setAttribute("carsInfo",cars);
-        req.setAttribute("clientsInfo",clients);
+        req.setAttribute("agreements", agreements);
+        req.setAttribute("carsInfo", cars);
+        req.setAttribute("clientsInfo", clients);
     }
 }

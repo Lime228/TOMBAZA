@@ -13,7 +13,6 @@ public class Parking extends Model<Integer> {
         setParkingAddress(parkingAddress);
     }
 
-
     public int getMaxCapacity() {
         return maxCapacity;
     }
@@ -35,6 +34,7 @@ public class Parking extends Model<Integer> {
     public void print() {
         System.out.println(super.getId() + " " + this.maxCapacity + " " + this.parkingAddress);
     }
+
     public String allInString() {
         String str = "ID: " + super.getId() + " CAPACITY " + this.maxCapacity + " ADDRESS: " + this.parkingAddress;
         return str;

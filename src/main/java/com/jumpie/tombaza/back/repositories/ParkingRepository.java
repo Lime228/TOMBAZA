@@ -1,7 +1,6 @@
 package com.jumpie.tombaza.back.repositories;
 
 import com.jumpie.tombaza.back.models.Parking;
-import com.jumpie.tombaza.back.models.ParkingPlace;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -11,13 +10,14 @@ import java.util.List;
 
 public class ParkingRepository implements Repository<Parking> {
     private static ParkingRepository instance;
-    public static final String PARKING_TABLE = "parking";
 
+    public static final String PARKING_TABLE = "parking";
     public static final String PARKING_ID = "parking_id";
     public static final String PARKING_MAX_CAPACITY = "max_capacity";
     public static final String PARKING_ADDRESS = "parking_address";
 
-    private ParkingRepository() {}
+    private ParkingRepository() {
+    }
 
     @Override
     public Parking getByID(Parking get) {
@@ -83,7 +83,7 @@ public class ParkingRepository implements Repository<Parking> {
 
     public Parking createWithoutID(Parking add) throws ClassNotFoundException {
         Parking p = add;
-        String ins = "INSERT INTO " + PARKING_TABLE + "("  + PARKING_MAX_CAPACITY + "," + PARKING_ADDRESS + ")" + "VALUES(?,?)";
+        String ins = "INSERT INTO " + PARKING_TABLE + "(" + PARKING_MAX_CAPACITY + "," + PARKING_ADDRESS + ")" + "VALUES(?,?)";
         ConnectJDBC con = ConnectJDBC.getInstance();
         try (PreparedStatement prSt = con.getDbConnection().prepareStatement(ins)) {
             prSt.setString(1, String.valueOf(p.getMaxCapacity()));

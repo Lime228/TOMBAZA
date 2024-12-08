@@ -10,15 +10,16 @@ import java.util.List;
 
 public class AgreementRepository implements Repository<Agreement> {
     private static AgreementRepository instance;
-    private static final String AGREEMENT_TABLE = "agreement";
 
+    private static final String AGREEMENT_TABLE = "agreement";
     private static final String AGREEMENT_ID = "agreement_id";
     private static final String AGREEMENT_RENT_PRICE = "rent_price";
     private static final String AGREEMENT_RENT_PERIOD = "rent_period";
     private static final String AGREEMENT_VIN_NUMBER = "vin_number";
     private static final String AGREEMENT_PASSPORT_NUMBER = "passport_number";
 
-    private AgreementRepository() {}
+    private AgreementRepository() {
+    }
 
     @Override
     public Agreement getByID(Agreement get) {
@@ -122,7 +123,7 @@ public class AgreementRepository implements Repository<Agreement> {
     @Override
     public Agreement create(Agreement add) throws ClassNotFoundException {
         Agreement agr = add;
-        String ins = "INSERT INTO " + AGREEMENT_TABLE + "(" + AGREEMENT_ID + "," + AGREEMENT_RENT_PRICE + "," + AGREEMENT_RENT_PERIOD + "," + AGREEMENT_PASSPORT_NUMBER+ "," +  AGREEMENT_VIN_NUMBER + ")" + "VALUES(?,?,?,?,?)";
+        String ins = "INSERT INTO " + AGREEMENT_TABLE + "(" + AGREEMENT_ID + "," + AGREEMENT_RENT_PRICE + "," + AGREEMENT_RENT_PERIOD + "," + AGREEMENT_PASSPORT_NUMBER + "," + AGREEMENT_VIN_NUMBER + ")" + "VALUES(?,?,?,?,?)";
         ConnectJDBC con = ConnectJDBC.getInstance();
         try (PreparedStatement prSt = con.getDbConnection().prepareStatement(ins)) {
             prSt.setInt(1, agr.getId());
@@ -141,7 +142,7 @@ public class AgreementRepository implements Repository<Agreement> {
 
     public Agreement createWithoutID(Agreement add) throws ClassNotFoundException {
         Agreement agr = add;
-        String ins = "INSERT INTO " + AGREEMENT_TABLE + "(" + AGREEMENT_RENT_PRICE + "," + AGREEMENT_RENT_PERIOD + "," + AGREEMENT_PASSPORT_NUMBER + "," +  AGREEMENT_VIN_NUMBER + ")" + "VALUES(?,?,?,?)";
+        String ins = "INSERT INTO " + AGREEMENT_TABLE + "(" + AGREEMENT_RENT_PRICE + "," + AGREEMENT_RENT_PERIOD + "," + AGREEMENT_PASSPORT_NUMBER + "," + AGREEMENT_VIN_NUMBER + ")" + "VALUES(?,?,?,?)";
         ConnectJDBC con = ConnectJDBC.getInstance();
         try (PreparedStatement prSt = con.getDbConnection().prepareStatement(ins)) {
             prSt.setInt(1, agr.getRentPrice());
@@ -161,7 +162,7 @@ public class AgreementRepository implements Repository<Agreement> {
         Agreement agr = upd;
         if (getByID(agr) != null) {
             ConnectJDBC con = ConnectJDBC.getInstance();
-            String ins = "UPDATE " + AGREEMENT_TABLE + " SET " + AGREEMENT_RENT_PRICE + " =?, " + AGREEMENT_RENT_PERIOD + " =?, " +  AGREEMENT_PASSPORT_NUMBER+ " =?, " + AGREEMENT_VIN_NUMBER + " =? WHERE " + AGREEMENT_ID + "=" + agr.getId();
+            String ins = "UPDATE " + AGREEMENT_TABLE + " SET " + AGREEMENT_RENT_PRICE + " =?, " + AGREEMENT_RENT_PERIOD + " =?, " + AGREEMENT_PASSPORT_NUMBER + " =?, " + AGREEMENT_VIN_NUMBER + " =? WHERE " + AGREEMENT_ID + "=" + agr.getId();
 
             try (PreparedStatement prSt = con.getDbConnection().prepareStatement(ins)) {
 //                prSt.setString(1, String.valueOf(agr.getId()));

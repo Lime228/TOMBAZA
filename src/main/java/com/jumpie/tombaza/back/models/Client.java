@@ -16,7 +16,6 @@ public class Client extends Model<String> {
         setName(name);
     }
 
-
     public String getPhoneNumber() {
         return phoneNumber;
     }
@@ -53,6 +52,7 @@ public class Client extends Model<String> {
     public void print() {
         System.out.println(super.getId() + " " + this.address + " " + this.phoneNumber + " " + this.name);
     }
+
     public String allInString() {
         String str = "ID:  " + super.getId() + " ADDRESS:  " + this.address + " PHONENUMBER:  " + this.phoneNumber + " NAME:  " + this.name;
         return str;

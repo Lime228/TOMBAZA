@@ -11,21 +11,21 @@ import java.util.List;
 
 public class ClientRepository implements Repository<Client> {
     private static ClientRepository instance;
-    public static final String CLIENT_TABLE = "client";
 
+    public static final String CLIENT_TABLE = "client";
     public static final String CLIENT_PASSPORT = "passport_number";
     public static final String CLIENT_NUMBER = "phone_number";
     public static final String CLIENT_ADDRESS = "address";
     public static final String CLIENT_NAME = "name";
 
-    private ClientRepository() {}
+    private ClientRepository() {
+    }
 
     @Override
     public Client getByID(Client get) {
         String realID = get.getId();
         String ins = "SELECT * FROM " + CLIENT_TABLE + " WHERE " + CLIENT_PASSPORT + "=?";
         ConnectJDBC con = ConnectJDBC.getInstance();
-
         try (PreparedStatement prSt = con.getDbConnection().prepareStatement(ins)) {
             prSt.setString(1, realID);
             ResultSet res = prSt.executeQuery();

@@ -44,8 +44,9 @@ public class Fine extends Model<Integer> {
     public void print() {
         System.out.println(super.getId() + " " + this.fineDescription + " " + this.fineCost + " " + this.agreementId);
     }
+
     public String allInString() {
-        String str = "ID: "+ super.getId() + " DESCRIPTION: " + this.fineDescription + " COST:  " + this.fineCost + " AGREEMENTID: " + this.agreementId;
+        String str = "ID: " + super.getId() + " DESCRIPTION: " + this.fineDescription + " COST:  " + this.fineCost + " AGREEMENTID: " + this.agreementId;
         return str;
     }
 }

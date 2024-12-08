@@ -22,7 +22,6 @@ public class Car extends Model<String> {
         setNumber(number);
     }
 
-
     public String getColor() {
         return color;
     }
@@ -82,8 +81,9 @@ public class Car extends Model<String> {
     public void print() {
         System.out.println(super.getId() + " " + this.color + " " + this.brand + " " + this.modelName + " " + this.releaseYear + " " + this.parkingPlaceId + " " + this.number);
     }
-    public String allInString(){
-        String str = "ID:  "+ super.getId() + " COLOR:  " + this.color + " BRAND:  " + this.brand + " MODELNAME:  " + this.modelName + " RELEASEYEAR:  " + this.releaseYear + " PARKINGPLACEID:  " + this.parkingPlaceId + " NUMBER:  " + this.number;
+
+    public String allInString() {
+        String str = "ID:  " + super.getId() + " COLOR:  " + this.color + " BRAND:  " + this.brand + " MODELNAME:  " + this.modelName + " RELEASEYEAR:  " + this.releaseYear + " PARKINGPLACEID:  " + this.parkingPlaceId + " NUMBER:  " + this.number;
         return str;
     }
 }

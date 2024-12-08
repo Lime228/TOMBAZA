@@ -10,11 +10,11 @@ public class CarService {
     private static CarService instance;
 
     private CarService() {
-        carRepository =CarRepository.getInstance();
+        carRepository = CarRepository.getInstance();
     }
 
     public boolean create(Car car) throws ClassNotFoundException {
-        return carRepository.create(car)!=null;
+        return carRepository.create(car) != null;
     }
 
     public static Car get(Car car) {
@@ -57,7 +57,7 @@ public class CarService {
         return carRepository.delete(car);
     }
 
-    public static synchronized CarService getInstance(){
+    public static synchronized CarService getInstance() {
         if (instance == null) instance = new CarService();
         return instance;
     }

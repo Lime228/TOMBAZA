@@ -154,6 +154,7 @@
                 <label for="agreementId">Номер договора</label>
                 <input type="text" name="agreementId" id="agreementId" placeholder="Введите номер договора" value="">
                 <input name="getAgreements" type="submit" id="getAgreements" value="Посмотреть все договоры">
+                <input name="getByAgId" type="submit" id="getByAgId" value="Получить штраф по номеру договора">
             </p>
             <p>
                 <input name="create" type="submit" id="create" value="Внести в базу новый штраф">

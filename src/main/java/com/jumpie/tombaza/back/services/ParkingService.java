@@ -14,13 +14,13 @@ public class ParkingService {
     }
 
     public boolean create(Parking parking) throws ClassNotFoundException {
-        return parkingRepository.create(parking)!=null;
+        return parkingRepository.create(parking) != null;
     }
-
 
     public Parking get(Parking parking) {
         return parkingRepository.getByID(parking);
     }
+
     public List<Parking> getAll() {
         return parkingRepository.getAll();
     }
