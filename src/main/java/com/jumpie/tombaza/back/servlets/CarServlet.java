@@ -24,7 +24,6 @@ public class CarServlet extends HttpServlet {
     }
 
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
-        //ПЕРЕДЕЛАТЬ ПОД НОВЫЙ ВАРИАНТ
         req.setCharacterEncoding("UTF-8");
         req.setAttribute("idRet", req.getParameter("id"));
         req.setAttribute("colorRet", req.getParameter("color"));
@@ -102,7 +101,7 @@ public class CarServlet extends HttpServlet {
             Car car = createCar(req);
             try {
                 if (carService.create(car)) req.setAttribute("wasCreated", "успешно создана");
-                else req.setAttribute("wasCreated", "машина не была создана");
+                else req.setAttribute("error", "машина не была создана");
             } catch (ClassNotFoundException e) {
                 throw new RuntimeException(e);
             }
@@ -110,16 +109,25 @@ public class CarServlet extends HttpServlet {
             Car car = createCar(req);
             try {
                 if (carService.update(car) != null) req.setAttribute("wasUpdated", "успешно обновлено");
-                else req.setAttribute("wasUpdated", "машина не была обновлена");
+                else req.setAttribute("error", "машина не была обновлена");
             } catch (ClassNotFoundException e) {
                 throw new RuntimeException(e);
             }
-        } else if (req.getParameter("delete") != null) {
+        } else if (req.getParameter("deleteOther") != null) {
             //нужно подтверждение
             Car client = createCar(req);
             if (carService.delete(client)) req.setAttribute("wasDeleted", "успешно удалено");
-            else req.setAttribute("wasDeleted", "клиент не был удален");
-        } else if (req.getParameter("getAll") != null) {
+            else req.setAttribute("error", "клиент не был удален");
+        } else if (req.getParameter("change") != null) {
+            Car car = createCar(req);
+            req.setAttribute("idRet", car.getId());
+            req.setAttribute("colorRet", car.getColor());
+            req.setAttribute("brandRet", car.getBrand());
+            req.setAttribute("modelNameRet", car.getModelName());
+            req.setAttribute("releaseYearRet", car.getReleaseYear());
+            req.setAttribute("parkingPlaceIdRet", car.getParkingPlaceId());
+            req.setAttribute("numberRet", car.getNumber());
+        }else if (req.getParameter("getAll") != null) {
             req.setAttribute("cars", carService.getAll());
         } else if (req.getParameter("getParkingPlaces") != null) {
             req.setAttribute("places", parkingPlaceService.getAll());
@@ -192,6 +200,7 @@ public class CarServlet extends HttpServlet {
     }
 
     private void getMoreInfo(List<Car> cars, HttpServletRequest req) {
+        //добавить инфы
         req.setAttribute("cars", cars);
 
     }

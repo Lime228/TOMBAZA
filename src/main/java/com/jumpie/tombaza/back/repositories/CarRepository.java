@@ -275,7 +275,7 @@ public class CarRepository implements Repository<Car> {
                 prSt.setString(2, car.getColor());
                 prSt.setString(3, car.getBrand());
                 prSt.setString(4, car.getModelName());
-                prSt.setString(5, String.valueOf(car.getReleaseYear()));
+                prSt.setString(5, car.getReleaseYear());
                 prSt.setString(6, String.valueOf(car.getParkingPlaceId()));
                 prSt.setString(7, car.getNumber());
                 prSt.executeUpdate();
