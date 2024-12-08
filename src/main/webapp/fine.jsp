@@ -1,4 +1,4 @@
-<%--
+    <%--
   Created by IntelliJ IDEA.
   User: Volodya
   Date: 10.11.2024
@@ -108,6 +108,7 @@
         .card p {
             margin: 10px 0;
         }
+
         home {
             margin: 20px 0;
         }
@@ -144,24 +145,27 @@
             </p>
             <p>
                 <label for="fineDescription">Описание</label>
-                <input type="text" name="fineDescription" id="fineDescription" placeholder="Введите описание" value="${fineDescriptionRet}">
+                <input type="text" name="fineDescription" id="fineDescription" placeholder="Введите описание"
+                       value="${fineDescriptionRet}">
             </p>
             <p>
                 <label for="fineCost">Стоимость</label>
-                <input type="text" name="fineCost" id="fineCost" placeholder="Введите стоимость оплаты" value="${fineCostRet}">
+                <input type="text" name="fineCost" id="fineCost" placeholder="Введите стоимость оплаты"
+                       value="${fineCostRet}">
             </p>
             <p>
                 <label for="agreementId">Номер договора</label>
-                <input type="text" name="agreementId" id="agreementId" placeholder="Введите номер договора" value="${agreementIdRet}">
+                <input type="text" name="agreementId" id="agreementId" placeholder="Введите номер договора"
+                       value="${agreementIdRet}">
                 <input name="getAgreements" type="submit" id="getAgreements" value="Посмотреть все договоры">
                 <input name="getByAgId" type="submit" id="getByAgId" value="Получить штраф по номеру договора">
             </p>
             <p>
                 <input name="create" type="submit" id="create" value="Внести в базу новый штраф с номером">
                 <input name="createWithoutId" type="submit" id="createWithoutId" value="Внести в базу новый штраф">
-                <input name="update" type="submit" id="update" value="Обновить данные штрафа">
+
             <p></p>
-                <input name="delete" type="submit" id="delete" value="Удалить штраф из базы по номеру">
+                <input name="update" type="submit" id="update" value="Обновить данные штрафа">
                 <input name="getAll" type="submit" id="getAll" value="Посмотреть все штрафы">
             </p>
         </div>
@@ -177,15 +181,16 @@
                 <form action="" method="post" name="agreementform" id="oneAgreementform">
                     <c:out value="${fine.allInString()}"></c:out>
                     <input type="hidden" name="idOther" id="idOther" value="${fine.getId()}">
-                    <input type="hidden" name="fineDescriptionOther" id="fineDescriptionOther" value="${fine.getFineDescription()}">
+                    <input type="hidden" name="fineDescriptionOther" id="fineDescriptionOther"
+                           value="${fine.getFineDescription()}">
                     <input type="hidden" name="fineCostOther" id="fineCostOther" value="${fine.getFineCost()}">
                     <input type="hidden" name="agreementIdOther" id="agreementIdOther" value="${fine.getAgreementId()}">
 
 
                     <input name="change" type="submit" id="change" value="Изменить штраф">
                     <input name="deleteOther" type="submit" id="deleteOther" value="Удалить штраф">
-<%--                    <p style="text-indent: 25px;">Car: ${carsInfo.removeFirst().allInString()}</p>--%>
-<%--                    <p style="text-indent: 25px;">Client: ${clientsInfo.removeFirst().allInString()}</p>--%>
+                        <%--                    <p style="text-indent: 25px;">Car: ${carsInfo.removeFirst().allInString()}</p>--%>
+                        <%--                    <p style="text-indent: 25px;">Client: ${clientsInfo.removeFirst().allInString()}</p>--%>
                 </form>
             </div>
         </c:forEach>

@@ -2,6 +2,7 @@ package com.jumpie.tombaza.back.servlets;
 
 import com.jumpie.tombaza.back.models.ParkingPlace;
 import com.jumpie.tombaza.back.services.ParkingPlaceService;
+import com.jumpie.tombaza.back.services.ParkingService;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
@@ -13,6 +14,7 @@ import java.util.List;
 
 public class ParkingPlaceServlet extends HttpServlet {
     private static ParkingPlaceService parkingPlaceService = ParkingPlaceService.getInstance();
+    private static ParkingService parkingService = ParkingService.getInstance();
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -106,6 +108,7 @@ public class ParkingPlaceServlet extends HttpServlet {
         } else if (req.getParameter("getAll") != null) {
             req.setAttribute("parkingPlaces", parkingPlaceService.getAll());
         } else if (req.getParameter("getParkings") != null) {
+            req.setAttribute("parkings", parkingService.getAll());
 
 
         } else if (req.getParameter("deleteOther") != null) {
