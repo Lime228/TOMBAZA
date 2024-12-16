@@ -34,7 +34,7 @@ public class CarServlet extends HttpServlet {
         if (req.getParameter("get") != null) {
             try {
                 Car car = createCar(req);
-                Car cr = CarService.get(car);
+                Car cr = carService.get(car);
                 List<Car> list = new ArrayList<>();
                 list.add(cr);
                 getMoreInfo(list, req);
