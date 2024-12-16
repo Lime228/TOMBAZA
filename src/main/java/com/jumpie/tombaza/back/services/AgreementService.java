@@ -6,7 +6,7 @@ import com.jumpie.tombaza.back.repositories.AgreementRepository;
 import java.util.List;
 
 public class AgreementService {
-    private static AgreementRepository agreementRepository;
+    private final AgreementRepository agreementRepository;
     private static AgreementService instance;
 
     private AgreementService() {

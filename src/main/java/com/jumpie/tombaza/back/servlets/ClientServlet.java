@@ -12,7 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ClientServlet extends HttpServlet {
-    private static ClientService clientService = ClientService.getInstance();
+    private ClientService clientService = ClientService.getInstance();
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {

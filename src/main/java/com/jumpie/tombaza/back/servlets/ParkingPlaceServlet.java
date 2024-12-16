@@ -13,8 +13,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ParkingPlaceServlet extends HttpServlet {
-    private static ParkingPlaceService parkingPlaceService = ParkingPlaceService.getInstance();
-    private static ParkingService parkingService = ParkingService.getInstance();
+    private ParkingPlaceService parkingPlaceService = ParkingPlaceService.getInstance();
+    private ParkingService parkingService = ParkingService.getInstance();
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {

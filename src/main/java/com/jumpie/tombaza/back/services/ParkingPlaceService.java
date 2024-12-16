@@ -6,7 +6,7 @@ import com.jumpie.tombaza.back.repositories.ParkingPlaceRepository;
 import java.util.List;
 
 public class ParkingPlaceService {
-    private static ParkingPlaceRepository parkingPlaceRepository;
+    private final ParkingPlaceRepository parkingPlaceRepository;
     private static ParkingPlaceService instance;
 
     private ParkingPlaceService() {

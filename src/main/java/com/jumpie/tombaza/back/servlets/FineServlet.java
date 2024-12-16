@@ -13,8 +13,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class FineServlet extends HttpServlet {
-    private static FineService fineService = FineService.getInstance();
-    private static AgreementService agreementService = AgreementService.getInstance();
+    private FineService fineService = FineService.getInstance();
+    private AgreementService agreementService = AgreementService.getInstance();
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {

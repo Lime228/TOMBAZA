@@ -6,7 +6,7 @@ import com.jumpie.tombaza.back.repositories.ClientRepository;
 import java.util.List;
 
 public class ClientService {
-    private static ClientRepository clientRepository;
+    private final ClientRepository clientRepository;
     private static ClientService instance;
 
     private ClientService() {

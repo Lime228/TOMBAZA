@@ -16,9 +16,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class AgreementServlet extends HttpServlet {
-    private static AgreementService agreementService = AgreementService.getInstance();
-    private static CarService carService = CarService.getInstance();
-    private static ClientService clientService = ClientService.getInstance();
+    private AgreementService agreementService = AgreementService.getInstance();
+    private CarService carService = CarService.getInstance();
+    private ClientService clientService = ClientService.getInstance();
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {

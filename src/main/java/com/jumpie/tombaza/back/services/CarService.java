@@ -6,7 +6,7 @@ import com.jumpie.tombaza.back.repositories.CarRepository;
 import java.util.List;
 
 public class CarService {
-    private static CarRepository carRepository;
+    private final CarRepository carRepository;
     private static CarService instance;
 
     private CarService() {
@@ -17,7 +17,7 @@ public class CarService {
         return carRepository.create(car) != null;
     }
 
-    public static Car get(Car car) {
+    public Car get(Car car) {
         return carRepository.getByID(car);
     }
 

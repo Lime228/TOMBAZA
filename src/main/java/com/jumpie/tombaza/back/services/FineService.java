@@ -6,7 +6,7 @@ import com.jumpie.tombaza.back.repositories.FineRepository;
 import java.util.List;
 
 public class FineService {
-    private static FineRepository fineRepository;
+    private final FineRepository fineRepository;
     private static FineService instance;
 
     private FineService() {
