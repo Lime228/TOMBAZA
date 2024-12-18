@@ -6,6 +6,7 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
 <!DOCTYPE html>
@@ -108,6 +109,7 @@
         .card p {
             margin: 10px 0;
         }
+
         home {
             margin: 20px 0;
         }
@@ -139,23 +141,27 @@
         <div class="section">
             <p>
                 <label for="id">ID места</label>
-                <input type="text" name="id" id="id" placeholder="Введите id места" value="${idRet}">
+                <input type="text" name="id" id="id" placeholder="Введите id места" value="${fn:escapeXml(idRet)}">
                 <input name="get" type="submit" id="get" value="Получить место по ID">
             </p>
             <p>
                 <label for="occupiedSlot">Номер места</label>
-                <input type="text" name="occupiedSlot" id="occupiedSlot" placeholder="Введите номер места" value="${occupiedSlotRet}">
+                <input type="text" name="occupiedSlot" id="occupiedSlot" placeholder="Введите номер места"
+                       value="${fn:escapeXml(occupiedSlotRet)}">
                 <input name="getByOccupiedSlot" type="submit" id="getByOccupiedSlot" value="Получить место по номеру">
             </p>
             <p>
                 <label for="parkingId">Номер парковки</label>
-                <input type="text" name="parkingId" id="parkingId" placeholder="Введите номер парковки" value="${parkingIdRet}">
-                <input name="getByParkingId" type="submit" id="getByParkingId" value="Получить место по номеру парковки">
+                <input type="text" name="parkingId" id="parkingId" placeholder="Введите номер парковки"
+                       value="${fn:escapeXml(parkingIdRet)}">
+                <input name="getByParkingId" type="submit" id="getByParkingId"
+                       value="Получить место по номеру парковки">
                 <input name="getParkings" type="submit" id="getParkings" value="Посмотреть все парковки">
             </p>
             <p>
                 <label for="floor">Этаж</label>
-                <input type="text" name="floor" id="floor" placeholder="Введите этаж места" value="${floorRet}">
+                <input type="text" name="floor" id="floor" placeholder="Введите этаж места"
+                       value="${fn:escapeXml(floorRet)}">
                 <input name="getByFloor" type="submit" id="getByFloor" value="Получить место по этажу">
             </p>
             <p>
@@ -168,39 +174,44 @@
         </div>
     </form>
     <div class="info">
-        <p>${error}</p>
+        <p>${fn:escapeXml(error)}</p>
     </div>
 
-    <div class="section">
-        <h2>Парковочные места</h2>
-        <c:forEach var="pp" items="${parkingPlaces}">
-            <div class="card">
-                <form action="" method="post" name="oneParkingform" id="oneParkingform">
-                    <c:out value="${pp.allInString()}"></c:out>
-                    <input type="hidden" name="idOther" id="idOther" value="${pp.getId()}">
-                    <input type="hidden" name="occupiedSlotOther" id="occupiedSlotOther" value="${pp.getOccupiedSlot()}">
-                    <input type="hidden" name="parkingIdOther" id="parkingIdOther" value="${pp.getParkingId()}">
-                    <input type="hidden" name="floorOther" id="floorOther" value="${pp.getFloor()}">
+    <c:if test="${not empty parkingPlaces}">
+        <div class="section">
+            <h2>Парковочные места</h2>
+            <c:forEach var="pp" items="${parkingPlaces}">
+                <div class="card">
+                    <form action="" method="post" name="oneParkingform" id="oneParkingform">
+                        <c:out value="${pp.allInString()}"/>
+                        <input type="hidden" name="idOther" id="idOther" value="${fn:escapeXml(pp.getId())}">
+                        <input type="hidden" name="occupiedSlotOther" id="occupiedSlotOther"
+                               value="${fn:escapeXml(pp.getOccupiedSlot())}">
+                        <input type="hidden" name="parkingIdOther" id="parkingIdOther"
+                               value="${fn:escapeXml(pp.getParkingId())}">
+                        <input type="hidden" name="floorOther" id="floorOther" value="${fn:escapeXml(pp.getFloor())}">
 
 
-                    <input name="change" type="submit" id="change" value="Изменить место">
-                    <input name="deleteOther" type="submit" id="deleteOther" value="Удалить место">
-                        <%--                    <p style="text-indent: 25px;">Car: ${carsInfo.removeFirst().allInString()}</p>--%>
-                        <%--                    <p style="text-indent: 25px;">Client: ${clientsInfo.removeFirst().allInString()}</p>--%>
-                </form>
-            </div>
-        </c:forEach>
-    </div>
+                        <input name="change" type="submit" id="change" value="Изменить место">
+                        <input name="deleteOther" type="submit" id="deleteOther" value="Удалить место">
+                            <%--                    <p style="text-indent: 25px;">Car: ${carsInfo.removeFirst().allInString()}</p>--%>
+                            <%--                    <p style="text-indent: 25px;">Client: ${clientsInfo.removeFirst().allInString()}</p>--%>
+                    </form>
+                </div>
+            </c:forEach>
+        </div>
+    </c:if>
 
-    <div class="section">
-        <h2>Парковки</h2>
-        <c:forEach var="pp" items="${parkings}">
-            <div class="card">
-                <c:out value="${pp.allInString()}"></c:out>
-            </div>
-        </c:forEach>
-    </div>
-
+    <c:if test="${not empty clients}">
+        <div class="section">
+            <h2>Парковки</h2>
+            <c:forEach var="pp" items="${parkings}">
+                <div class="card">
+                    <c:out value="${pp.allInString()}"/>
+                </div>
+            </c:forEach>
+        </div>
+    </c:if>
 </main>
 </body>
 </html>
