@@ -40,7 +40,7 @@ public class CarServlet extends HttpServlet {
                 getMoreInfo(list, req);
             } catch (Exception e) {
                 e.printStackTrace();
-                req.setAttribute("error", "вероятно, был задан пустой ID.");
+                req.setAttribute("error", "Вероятно, был задан пустой или несуществующий ID.");
             }
         } else if (req.getParameter("getByColor") != null) {
             try {
@@ -49,7 +49,7 @@ public class CarServlet extends HttpServlet {
                 getMoreInfo(list, req);
             } catch (Exception e) {
                 e.printStackTrace();
-                req.setAttribute("error", "вероятно, был задан пустой цвет.");
+                req.setAttribute("error", "Вероятно, был задан пустой или несуществующий цвет.");
             }
         } else if (req.getParameter("getByBrand") != null) {
             try {
@@ -58,7 +58,7 @@ public class CarServlet extends HttpServlet {
                 getMoreInfo(list, req);
             } catch (Exception e) {
                 e.printStackTrace();
-                req.setAttribute("error", "вероятно, был задан пустой бренд.");
+                req.setAttribute("error", "Вероятно, был задан пустой или несуществующий бренд.");
             }
         } else if (req.getParameter("getByModel") != null) {
             try {
@@ -67,7 +67,7 @@ public class CarServlet extends HttpServlet {
                 getMoreInfo(list, req);
             } catch (Exception e) {
                 e.printStackTrace();
-                req.setAttribute("error", "вероятно, была задана пустая модель.");
+                req.setAttribute("error", "Вероятно, была задана пустая или несуществующая модель.");
             }
         } else if (req.getParameter("getByYear") != null) {
             try {
@@ -76,7 +76,7 @@ public class CarServlet extends HttpServlet {
                 getMoreInfo(list, req);
             } catch (Exception e) {
                 e.printStackTrace();
-                req.setAttribute("error", "вероятно, был задан пустой год.");
+                req.setAttribute("error", "Вероятно, был задан пустой, несоответствующий формату YYYY или несуществующий год.");
             }
         } else if (req.getParameter("getByPPlace") != null) {
             try {
@@ -85,7 +85,7 @@ public class CarServlet extends HttpServlet {
                 getMoreInfo(list, req);
             } catch (Exception e) {
                 e.printStackTrace();
-                req.setAttribute("error", "вероятно, был задан пустой цвет.");
+                req.setAttribute("error", "Вероятно, был задан пустой или несуществующий цвет.");
             }
         } else if (req.getParameter("getByNumber") != null) {
             try {
@@ -94,15 +94,15 @@ public class CarServlet extends HttpServlet {
                 getMoreInfo(list, req);
             } catch (Exception e) {
                 e.printStackTrace();
-                req.setAttribute("error", "вероятно, был задан пустой номер.");
+                req.setAttribute("error", "Вероятно, был задан пустой или несуществующий номер.");
             }
 
 
         } else if (req.getParameter("create") != null) {
             Car car = createCar(req);
             try {
-                if (carService.create(car)) req.setAttribute("error", "успешно создана");
-                else req.setAttribute("error", "машина не была создана");
+                if (carService.create(car)) req.setAttribute("error", "Успешно создана.");
+                else req.setAttribute("error", "Машина не была создана.");
             } catch (ClassNotFoundException e) {
                 throw new RuntimeException(e);
             }
@@ -111,8 +111,8 @@ public class CarServlet extends HttpServlet {
         } else if (req.getParameter("update") != null) {
             Car car = createCar(req);
             try {
-                if (carService.update(car) != null) req.setAttribute("error", "успешно обновлено");
-                else req.setAttribute("error", "машина не была обновлена");
+                if (carService.update(car) != null) req.setAttribute("error", "Успешно обновлено.");
+                else req.setAttribute("error", "Машина не была обновлена.");
             } catch (ClassNotFoundException e) {
                 throw new RuntimeException(e);
             }
@@ -135,8 +135,8 @@ public class CarServlet extends HttpServlet {
 
         } else if (req.getParameter("deleteOther") != null) {
             Car client = createCar(req);
-            if (carService.delete(client)) req.setAttribute("error", "успешно удалено");
-            else req.setAttribute("error", "клиент не был удален");
+            if (carService.delete(client)) req.setAttribute("error", "Успешно удалено.");
+            else req.setAttribute("error", "Клиент не был удален");
         }
 
         req.getRequestDispatcher("/car.jsp").forward(req, resp);

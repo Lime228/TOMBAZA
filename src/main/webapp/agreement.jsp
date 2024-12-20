@@ -132,6 +132,7 @@
     <h1>Управление договорами</h1>
 </header>
 <main>
+<%--    пагинация, крутая статистика, проверить XSS везде, сделать нормальные карточки, приделать текст--%>
     <home>
         <a href="index">Домой</a>
     </home>
@@ -186,25 +187,36 @@
     <c:if test="${not empty agreements}">
         <div class="section">
             <h2>Договоры</h2>
+            <a>Найдено договоров: ${fn:escapeXml(agreements.size())}</a>
             <c:forEach var="agreement" items="${agreements}">
                 <div class="card">
                     <form action="" method="post" name="agreementform" id="oneAgreementform">
-                        <c:out value="${agreement.allInString()}"/>
-                        <input type="hidden" name="idOther" id="idOther" value="${fn:escapeXml(agreement.getId())}">
-                        <input type="hidden" name="rentPriceOther" id="rentPriceOther"
-                               value="${fn:escapeXml(agreement.getRentPrice())}">
-                        <input type="hidden" name="rentPeriodOther" id="rentPeriodOther"
-                               value="${fn:escapeXml(agreement.getRentPeriod())}">
-                        <input type="hidden" name="passportNumberOther" id="passportNumberOther"
-                               value="${fn:escapeXml(agreement.getPassportNumber())}">
-                        <input type="hidden" name="vinNumberOther" id="vinNumberOther"
-                               value="${fn:escapeXml(agreement.getVinNumber())}">
-
+                        <a>
+                            <label for="idOther">Номер договора</label>
+                            <input type="text" name="idOther" id="idOther" value="${fn:escapeXml(agreement.getId())}"
+                                   >
+                            <label for="rentPriceOther">Стоимость аренды</label>
+                            <input type="text" name="rentPriceOther" id="rentPriceOther"
+                                   value="${fn:escapeXml(agreement.getRentPrice())}" >
+                            <label for="rentPeriodOther">Период аренды</label>
+                            <input type="text" name="rentPeriodOther" id="rentPeriodOther"
+                                   value="${fn:escapeXml(agreement.getRentPeriod())}" >
+                            <label for="passportNumberOther">Номер паспорта</label>
+                            <input type="text" name="passportNumberOther" id="passportNumberOther"
+                                   value="${fn:escapeXml(agreement.getPassportNumber())}" >
+                            <label for="vinNumberOther">Вин-номер автомобиля</label>
+                            <input type="text" name="vinNumberOther" id="vinNumberOther"
+                                   value="${fn:escapeXml(agreement.getVinNumber())}" >
+                        </a>
+                        <p></p>
                         <input name="change" type="submit" id="change" value="Изменить условия договора">
                         <input name="deleteOther" type="submit" id="deleteOther" value="Удалить договор">
-                        <p style="text-indent: 25px;">Car: ${fn:escapeXml(carsInfo.removeFirst().allInString())}</p>
-                        <p style="text-indent: 25px;">
-                            Client: ${fn:escapeXml(clientsInfo.removeFirst().allInString())}</p>
+                        <div class="card">
+                            <p>Car: ${fn:escapeXml(carsInfo.removeFirst().allInString())}</p>
+                        </div>
+                        <div class="card">
+                            <p> Client: ${fn:escapeXml(clientsInfo.removeFirst().allInString())}</p>
+                        </div>
                     </form>
                 </div>
             </c:forEach>
@@ -214,6 +226,7 @@
     <c:if test="${not empty passports}">
         <div class="section">
             <h2>Паспорта</h2>
+            <a>Найдено паспортов: ${fn:escapeXml(passports.size())}</a>
             <c:forEach var="passport" items="${passports}">
                 <div class="card">
                     <c:out value="${passport.allInString()}"/>
@@ -225,6 +238,7 @@
     <c:if test="${not empty cars}">
         <div class="section">
             <h2>Автомобили</h2>
+            <a>Найдено автомобилей: ${fn:escapeXml(cars.size())}</a>
             <c:forEach var="car" items="${cars}">
                 <div class="card">
                     <c:out value="${car.allInString()}"/>

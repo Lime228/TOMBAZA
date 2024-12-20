@@ -178,19 +178,23 @@ To change this template use File | Settings | File Templates.
     <c:if test="${not empty fines}">
         <div class="section">
             <h2>Штрафы</h2>
+            <a>Найдено штрафов: ${fn:escapeXml(fines.size())}</a>
             <c:forEach var="fine" items="${fines}">
                 <div class="card">
                     <form action="" method="post" name="agreementform" id="oneAgreementform">
-                        <c:out value="${fine.allInString()}"/>
-                        <input type="hidden" name="idOther" id="idOther" value="${fn:escapeXml(fine.getId())}">
-                        <input type="hidden" name="fineDescriptionOther" id="fineDescriptionOther"
-                               value="${fn:escapeXml(fine.getFineDescription())}">
-                        <input type="hidden" name="fineCostOther" id="fineCostOther"
-                               value="${fn:escapeXml(fine.getFineCost())}">
-                        <input type="hidden" name="agreementIdOther" id="agreementIdOther"
-                               value="${fn:escapeXml(fine.getAgreementId())}">
+                        <label for="idOther">Номер штрафа</label>
+                        <input type="text" name="idOther" id="idOther" value="${fn:escapeXml(fine.getId())}" >
+                        <label for="fineDescriptionOther">Описание</label>
+                        <input type="text" name="fineDescriptionOther" id="fineDescriptionOther"
+                               value="${fn:escapeXml(fine.getFineDescription())}" >
+                        <label for="fineCostOther">Стоимость</label>
+                        <input type="text" name="fineCostOther" id="fineCostOther"
+                               value="${fn:escapeXml(fine.getFineCost())}" >
+                        <label for="agreementIdOther">Номер договора</label>
+                        <input type="text" name="agreementIdOther" id="agreementIdOther"
+                               value="${fn:escapeXml(fine.getAgreementId())}" >
 
-
+                        <p></p>
                         <input name="change" type="submit" id="change" value="Изменить штраф">
                         <input name="deleteOther" type="submit" id="deleteOther" value="Удалить штраф">
                             <%--                    <p style="text-indent: 25px;">Car: ${carsInfo.removeFirst().allInString()}</p>--%>
@@ -204,6 +208,7 @@ To change this template use File | Settings | File Templates.
     <c:if test="${not empty agreements}">
         <div class="section">
             <h2>Договоры</h2>
+            <a>Найдено договоров: ${fn:escapeXml(agreements.size())}</a>
             <c:forEach var="agreement" items="${agreements}">
                 <div class="card">
                     <c:out value="${agreement.allInString()}"/>

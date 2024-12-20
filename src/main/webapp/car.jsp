@@ -201,22 +201,31 @@
     <c:if test="${not empty cars}">
         <div class="section">
             <h2>Автомобили</h2>
+            <a>Найдено автомобилей: ${fn:escapeXml(cars.size())}</a>
             <c:forEach var="car" items="${cars}">
                 <div class="card">
                     <form action="" method="post" name="carform" id="oneCarform">
-                        <c:out value="${car.allInString()}"/>
-                        <input type="hidden" name="idOther" id="idOther" value="${fn:escapeXml(car.getId())}">
-                        <input type="hidden" name="colorOther" id="colorOther" value="${fn:escapeXml(car.getColor())}">
-                        <input type="hidden" name="brandOther" id="brandOther" value="${fn:escapeXml(car.getBrand())}">
-                        <input type="hidden" name="modelNameOther" id="modelNameOther"
-                               value="${fn:escapeXml(car.getModelName())}">
-                        <input type="hidden" name="releaseYearOther" id="releaseYearOther"
-                               value="${fn:escapeXml(car.getReleaseYear())}">
-                        <input type="hidden" name="parkingPlaceIdOther" id="parkingPlaceIdOther"
-                               value="${fn:escapeXml(car.getParkingPlaceId())}">
-                        <input type="hidden" name="numberOther" id="numberOther"
-                               value="${fn:escapeXml(car.getNumber())}">
-
+                        <label for="idOther">ВИН-номер</label>
+                        <input type="text" name="idOther" id="idOther" value="${fn:escapeXml(car.getId())}" >
+                        <label for="colorOther">Цвет</label>
+                        <input type="text" name="colorOther" id="colorOther" value="${fn:escapeXml(car.getColor())}"
+                               >
+                        <label for="brandOther">Бренд</label>
+                        <input type="text" name="brandOther" id="brandOther" value="${fn:escapeXml(car.getBrand())}"
+                               >
+                        <label for="modelNameOther">Модель</label>
+                        <input type="text" name="modelNameOther" id="modelNameOther"
+                               value="${fn:escapeXml(car.getModelName())}" >
+                        <label for="releaseYearOther">Год выпуска</label>
+                        <input type="text" name="releaseYearOther" id="releaseYearOther"
+                               value="${fn:escapeXml(car.getReleaseYear())}" >
+                        <label for="parkingPlaceIdOther">Парковочное место</label>
+                        <input type="text" name="parkingPlaceIdOther" id="parkingPlaceIdOther"
+                               value="${fn:escapeXml(car.getParkingPlaceId())}" >
+                        <label for="numberOther">Гос. номер</label>
+                        <input type="text" name="numberOther" id="numberOther"
+                               value="${fn:escapeXml(car.getNumber())}" >
+                        <p></p>
                         <input name="change" type="submit" id="change" value="Изменить данные автомобиля">
                         <input name="deleteOther" type="submit" id="deleteOther" value="Удалить автомобиль">
                             <%--            пример ниже    здесь еще выводить место, парковку (договор?)--%>
@@ -232,6 +241,7 @@
     <c:if test="${not empty places}">
         <div class="section">
             <h2>Места</h2>
+            <a>Найдено мест: ${fn:escapeXml(places.size())}</a>
             <c:forEach var="place" items="${places}">
                 <div class="card">
                     <c:out value="${place.allInString()}"/>

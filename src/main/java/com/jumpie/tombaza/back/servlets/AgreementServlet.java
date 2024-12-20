@@ -42,7 +42,7 @@ public class AgreementServlet extends HttpServlet {
                 getMoreInfo(list, req);
             } catch (Exception e) {
                 e.printStackTrace();
-                req.setAttribute("error", "вероятно, был задан пустой ID. Задайте число.");
+                req.setAttribute("error", "Вероятно, был задан пустой или несуществующий ID. Задайте число.");
             }
 
         } else if (req.getParameter("getByPassport") != null) {
@@ -52,7 +52,7 @@ public class AgreementServlet extends HttpServlet {
                 getMoreInfo(agr, req);
             } catch (Exception e) {
                 e.printStackTrace();
-                req.setAttribute("error", "вероятно, был задан пустой паспорт.");
+                req.setAttribute("error", "Вероятно, был задан пустой или несуществующий паспорт.");
             }
         } else if (req.getParameter("getByCar") != null) {
             try {
@@ -61,23 +61,23 @@ public class AgreementServlet extends HttpServlet {
                 getMoreInfo(agr, req);
             } catch (Exception e) {
                 e.printStackTrace();
-                req.setAttribute("error", "вероятно, был задан пустой ВИН-номер.");
+                req.setAttribute("error", "Вероятно, был задан пустой или несуществующий ВИН-номер.");
             }
 
 
         } else if (req.getParameter("create") != null) {
             Agreement agreement = createAgreement(req);
             try {
-                if (agreementService.create(agreement)) req.setAttribute("error", "успешно создан");
-                else req.setAttribute("error", "договор не был создан");
+                if (agreementService.create(agreement)) req.setAttribute("error", "Успешно создан.");
+                else req.setAttribute("error", "Договор не был создан.");
             } catch (ClassNotFoundException e) {
                 throw new RuntimeException(e);
             }
         } else if (req.getParameter("createWithoutId") != null) {
             Agreement agreement = createAgreement(req);
             try {
-                if (agreementService.createWithoutId(agreement)) req.setAttribute("error", "успешно создан");
-                else req.setAttribute("error", "договор не был создан");
+                if (agreementService.createWithoutId(agreement)) req.setAttribute("error", "Успешно создан.");
+                else req.setAttribute("error", "Договор не был создан.");
             } catch (ClassNotFoundException e) {
                 throw new RuntimeException(e);
             }
@@ -86,8 +86,8 @@ public class AgreementServlet extends HttpServlet {
         } else if (req.getParameter("update") != null) {
             Agreement agreement = createAgreement(req);
             try {
-                if (agreementService.update(agreement) != null) req.setAttribute("error", "успешно обновлено");
-                else req.setAttribute("error", "договор не был обновлен");
+                if (agreementService.update(agreement) != null) req.setAttribute("error", "Успешно обновлено.");
+                else req.setAttribute("error", "Договор не был обновлен.");
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -111,8 +111,8 @@ public class AgreementServlet extends HttpServlet {
 
         } else if (req.getParameter("deleteOther") != null) {
             Agreement agreement = createAgreement(req);
-            if (agreementService.delete(agreement)) req.setAttribute("error", "успешно удалено");
-            else req.setAttribute("error", "договор не был удален");
+            if (agreementService.delete(agreement)) req.setAttribute("error", "Успешно удалено.");
+            else req.setAttribute("error", "Договор не был удален.");
         }
 
         req.getRequestDispatcher("/agreement.jsp").forward(req, resp);

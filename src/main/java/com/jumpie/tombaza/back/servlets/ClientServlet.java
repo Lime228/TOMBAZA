@@ -35,7 +35,7 @@ public class ClientServlet extends HttpServlet {
                 req.setAttribute("clients", list);
             } catch (Exception e) {
                 e.printStackTrace();
-                req.setAttribute("error", "вероятно, был задан пустой ID.");
+                req.setAttribute("error", "Вероятно, был задан пустой или несуществующий ID.");
             }
 
         } else if (req.getParameter("getByPNumber") != null) {
@@ -45,7 +45,7 @@ public class ClientServlet extends HttpServlet {
                 req.setAttribute("clients", list);
             } catch (Exception e) {
                 e.printStackTrace();
-                req.setAttribute("error", "вероятно, был задан пустой номер.");
+                req.setAttribute("error", "Вероятно, был задан пустой или несуществующий номер.");
             }
 
         } else if (req.getParameter("getByAddress") != null) {
@@ -55,7 +55,7 @@ public class ClientServlet extends HttpServlet {
                 req.setAttribute("clients", list);
             } catch (Exception e) {
                 e.printStackTrace();
-                req.setAttribute("error", "вероятно, был задан пустой адрес.");
+                req.setAttribute("error", "Вероятно, был задан пустой или несуществующий адрес.");
             }
 
         } else if (req.getParameter("getByName") != null) {
@@ -65,15 +65,15 @@ public class ClientServlet extends HttpServlet {
                 req.setAttribute("clients", list);
             } catch (Exception e) {
                 e.printStackTrace();
-                req.setAttribute("error", "вероятно, было задано пустое имя.");
+                req.setAttribute("error", "Вероятно, было задано пустое или несуществующее имя.");
             }
 
 
         } else if (req.getParameter("create") != null) {
             Client client = createClient(req);
             try {
-                if (clientService.create(client)) req.setAttribute("error", "успешно создан");
-                else req.setAttribute("error", "клиент не был создан");
+                if (clientService.create(client)) req.setAttribute("error", "Успешно создан.");
+                else req.setAttribute("error", "Клиент не был создан.");
             } catch (ClassNotFoundException e) {
                 throw new RuntimeException(e);
             }
@@ -82,8 +82,8 @@ public class ClientServlet extends HttpServlet {
         } else if (req.getParameter("update") != null) {
             Client client = createClient(req);
             try {
-                if (clientService.update(client) != null) req.setAttribute("errror", "успешно обновлено");
-                else req.setAttribute("error", "клиент не был обновлен");
+                if (clientService.update(client) != null) req.setAttribute("errror", "Успешно обновлено.");
+                else req.setAttribute("error", "Клиент не был обновлен.");
             } catch (ClassNotFoundException e) {
                 throw new RuntimeException(e);
             }
@@ -99,8 +99,8 @@ public class ClientServlet extends HttpServlet {
             req.setAttribute("clients", clientService.getAll());
         } else if (req.getParameter("deleteOther") != null) {
             Client client = createClient(req);
-            if (clientService.delete(client)) req.setAttribute("error", "успешно удалено");
-            else req.setAttribute("error", "клиент не был удален");
+            if (clientService.delete(client)) req.setAttribute("error", "Успешно удалено.");
+            else req.setAttribute("error", "Клиент не был удален.");
         }
 
         req.getRequestDispatcher("/client.jsp").forward(req, resp);

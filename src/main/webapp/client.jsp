@@ -179,18 +179,23 @@
     <c:if test="${not empty clients}">
         <div class="section">
             <h2>Клиенты</h2>
+            <a>Найдено клиентов: ${fn:escapeXml(clients.size())}</a>
             <c:forEach var="client" items="${clients}">
                 <div class="card">
                     <form action="" method="post" name="carform" id="oneCarform">
-                        <c:out value="${client.allInString()}"/>
-                        <input type="hidden" name="idOther" id="idOther" value="${fn:escapeXml(client.getId())}">
-                        <input type="hidden" name="phoneNumberOther" id="phoneNumberOther"
-                               value="${fn:escapeXml(client.getPhoneNumber())}">
-                        <input type="hidden" name="addressOther" id="addressOther"
-                               value="${fn:escapeXml(client.getAddress())}">
-                        <input type="hidden" name="nameOther" id="nameOther" value="${fn:escapeXml(client.getName())}">
+                        <label for="idOther">Номер паспорта</label>
+                        <input type="text" name="idOther" id="idOther" value="${fn:escapeXml(client.getId())}" >
+                        <label for="phoneNumberOther">Номер телефона</label>
+                        <input type="text" name="phoneNumberOther" id="phoneNumberOther"
+                               value="${fn:escapeXml(client.getPhoneNumber())}" >
+                        <label for="addressOther">Адрес</label>
+                        <input type="text" name="addressOther" id="addressOther"
+                               value="${fn:escapeXml(client.getAddress())}" >
+                        <label for="nameOther">ФИО</label>
+                        <input type="text" name="nameOther" id="nameOther" value="${fn:escapeXml(client.getName())}"
+                               >
 
-
+                        <p></p>
                         <input name="change" type="submit" id="change" value="Изменить данные">
                         <input name="deleteOther" type="submit" id="deleteOther" value="Удалить клиента">
                     </form>
