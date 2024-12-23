@@ -205,26 +205,34 @@
             <c:forEach var="car" items="${cars}">
                 <div class="card">
                     <form action="" method="post" name="carform" id="oneCarform">
-                        <label for="idOther">ВИН-номер</label>
-                        <input type="text" name="idOther" id="idOther" value="${fn:escapeXml(car.getId())}" >
-                        <label for="colorOther">Цвет</label>
-                        <input type="text" name="colorOther" id="colorOther" value="${fn:escapeXml(car.getColor())}"
-                               >
-                        <label for="brandOther">Бренд</label>
-                        <input type="text" name="brandOther" id="brandOther" value="${fn:escapeXml(car.getBrand())}"
-                               >
-                        <label for="modelNameOther">Модель</label>
-                        <input type="text" name="modelNameOther" id="modelNameOther"
-                               value="${fn:escapeXml(car.getModelName())}" >
-                        <label for="releaseYearOther">Год выпуска</label>
-                        <input type="text" name="releaseYearOther" id="releaseYearOther"
-                               value="${fn:escapeXml(car.getReleaseYear())}" >
-                        <label for="parkingPlaceIdOther">Парковочное место</label>
-                        <input type="text" name="parkingPlaceIdOther" id="parkingPlaceIdOther"
-                               value="${fn:escapeXml(car.getParkingPlaceId())}" >
-                        <label for="numberOther">Гос. номер</label>
-                        <input type="text" name="numberOther" id="numberOther"
-                               value="${fn:escapeXml(car.getNumber())}" >
+
+                        <i>ВИН-номер: <b>${fn:escapeXml(car.getId())}</b></i>
+                        <input type="hidden" name="idOther" id="idOther" value="${fn:escapeXml(car.getId())}">
+                        <hr>
+                        <i>Цвет: <b>${fn:escapeXml(car.getColor())}</b></i>
+                        <input type="hidden" name="colorOther" id="colorOther" value="${fn:escapeXml(car.getColor())}"
+                        >
+                        <hr>
+                        <i>Бренд: <b>${fn:escapeXml(car.getBrand())}</b></i>
+                        <input type="hidden" name="brandOther" id="brandOther" value="${fn:escapeXml(car.getBrand())}"
+                        >
+                        <hr>
+                        <i>Модель: <b>${fn:escapeXml(car.getModelName())}</b></i>
+                        <input type="hidden" name="modelNameOther" id="modelNameOther"
+                               value="${fn:escapeXml(car.getModelName())}">
+                        <hr>
+                        <i>Год выпуска: <b>${fn:escapeXml(car.getReleaseYear())}</b></i>
+                        <input type="hidden" name="releaseYearOther" id="releaseYearOther"
+                               value="${fn:escapeXml(car.getReleaseYear())}">
+                        <hr>
+                        <i>Парковочное место: <b>${fn:escapeXml(car.getParkingPlaceId())}</b></i>
+                        <input type="hidden" name="parkingPlaceIdOther" id="parkingPlaceIdOther"
+                               value="${fn:escapeXml(car.getParkingPlaceId())}">
+                        <hr>
+                        <i>Гос. номер: <b>${fn:escapeXml(car.getNumber())}</b></i>
+                        <input type="hidden" name="numberOther" id="numberOther"
+                               value="${fn:escapeXml(car.getNumber())}">
+                        <hr>
                         <p></p>
                         <input name="change" type="submit" id="change" value="Изменить данные автомобиля">
                         <input name="deleteOther" type="submit" id="deleteOther" value="Удалить автомобиль">
@@ -245,6 +253,14 @@
             <c:forEach var="place" items="${places}">
                 <div class="card">
                     <c:out value="${place.allInString()}"/>
+                    <i>ID: <b>${fn:escapeXml(place.getId())}</b></i>
+                    <hr>
+                    <i>Номер места: <b>${fn:escapeXml(place.getOccupiedSlot())}</b></i>
+                    <hr>
+                    <i>Парковка: <b>${fn:escapeXml(place.getParkingId())}</b></i>
+                    <hr>
+                    <i>Этаж: <b>${fn:escapeXml(place.getFloor())}</b></i>
+                    <hr>
                 </div>
             </c:forEach>
         </div>

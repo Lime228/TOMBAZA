@@ -183,14 +183,20 @@
             <c:forEach var="pp" items="${parkingPlaces}">
                 <div class="card">
                     <form action="" method="post" name="oneParkingform" id="oneParkingform">
-                        <c:out value="${pp.allInString()}"/>
+                        <i>Номер места: <b>${fn:escapeXml(pp.getId())}</b></i>
                         <input type="hidden" name="idOther" id="idOther" value="${fn:escapeXml(pp.getId())}">
+                        <hr>
+                        <i>Занимаемое место: <b>${fn:escapeXml(pp.getOccupiedSlot())}</b></i>
                         <input type="hidden" name="occupiedSlotOther" id="occupiedSlotOther"
                                value="${fn:escapeXml(pp.getOccupiedSlot())}">
+                        <hr>
+                        <i>Номер парковки: <b>${fn:escapeXml(pp.getParkingId())}</b></i>
                         <input type="hidden" name="parkingIdOther" id="parkingIdOther"
                                value="${fn:escapeXml(pp.getParkingId())}">
+                        <hr>
+                        <i>Этаж: <b>${fn:escapeXml(pp.getFloor())}</b></i>
                         <input type="hidden" name="floorOther" id="floorOther" value="${fn:escapeXml(pp.getFloor())}">
-
+                        <hr>
 
                         <input name="change" type="submit" id="change" value="Изменить место">
                         <input name="deleteOther" type="submit" id="deleteOther" value="Удалить место">
@@ -202,12 +208,18 @@
         </div>
     </c:if>
 
-    <c:if test="${not empty clients}">
+    <c:if test="${not empty parkings}">
         <div class="section">
             <h2>Парковки</h2>
             <c:forEach var="pp" items="${parkings}">
                 <div class="card">
-                    <c:out value="${pp.allInString()}"/>
+                    <i>Номер парковки: <b>${fn:escapeXml(pp.getId())}</b></i>
+                    <hr>
+                    <i>Вместимость: <b>${fn:escapeXml(pp.getMaxCapacity())}</b></i>
+                    <hr>
+                    <i>Адрес: <b>${fn:escapeXml(pp.getParkingAddress())}</b></i>
+                    <hr>
+
                 </div>
             </c:forEach>
         </div>

@@ -114,7 +114,6 @@ public class AgreementServlet extends HttpServlet {
             if (agreementService.delete(agreement)) req.setAttribute("error", "Успешно удалено.");
             else req.setAttribute("error", "Договор не был удален.");
         }
-
         req.getRequestDispatcher("/agreement.jsp").forward(req, resp);
     }
 
@@ -175,8 +174,12 @@ public class AgreementServlet extends HttpServlet {
             cars.add(carService.get(new Car(agreement.getVinNumber().toString(), "", "", "", "", 0, "")));
             clients.add(clientService.get(new Client(agreement.getPassportNumber(), "", "", "")));
         }
+
+        List<Agreement> newAgreements = new ArrayList<>();
+        req.setAttribute("allAgreements", agreements.size());
         req.setAttribute("agreements", agreements);
         req.setAttribute("carsInfo", cars);
         req.setAttribute("clientsInfo", clients);
+
     }
 }

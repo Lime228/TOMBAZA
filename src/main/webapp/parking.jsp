@@ -141,7 +141,8 @@
         <div class="section">
             <p>
                 <label for="id">Номер парковки</label>
-                <input type="text" name="id" id="id" placeholder="Введите номер парковки" value="${fn:escapeXml(idRet)}">
+                <input type="text" name="id" id="id" placeholder="Введите номер парковки"
+                       value="${fn:escapeXml(idRet)}">
                 <input name="get" type="submit" id="get" value="Получить парковку по номеру">
             </p>
             <p>
@@ -173,12 +174,17 @@
             <c:forEach var="parking" items="${parkings}">
                 <div class="card">
                     <form action="" method="post" name="oneParkingform" id="oneParkingform">
-                        <c:out value="${fn:escapeXml(parking.allInString())}"/>
+                        <i>Номер парковки: <b>${fn:escapeXml(parking.getId())}</b></i>
                         <input type="hidden" name="idOther" id="idOther" value="${fn:escapeXml(parking.getId())}">
+                        <hr>
+                        <i>Вместимость: <b>${fn:escapeXml(parking.getMaxCapacity())}</b></i>
                         <input type="hidden" name="maxCapacityOther" id="maxCapacityOther"
                                value="${fn:escapeXml(parking.getMaxCapacity())}">
+                        <hr>
+                        <i>Адрес: <b>${fn:escapeXml(parking.getParkingAddress())}</b></i>
                         <input type="hidden" name="parkingAddressOther" id="parkingAddressOther"
                                value="${fn:escapeXml(parking.getParkingAddress())}">
+                        <hr>
 
 
                         <input name="change" type="submit" id="change" value="Изменить парковку">

@@ -132,7 +132,7 @@
     <h1>Управление договорами</h1>
 </header>
 <main>
-<%--    пагинация, крутая статистика, проверить XSS везде, сделать нормальные карточки, приделать текст--%>
+    <%--    пагинация, крутая статистика--%>
     <home>
         <a href="index">Домой</a>
     </home>
@@ -187,26 +187,31 @@
     <c:if test="${not empty agreements}">
         <div class="section">
             <h2>Договоры</h2>
-            <a>Найдено договоров: ${fn:escapeXml(agreements.size())}</a>
+            <a>Найдено договоров: ${fn:escapeXml(allAgreements)}</a>
             <c:forEach var="agreement" items="${agreements}">
                 <div class="card">
                     <form action="" method="post" name="agreementform" id="oneAgreementform">
                         <a>
-                            <label for="idOther">Номер договора</label>
-                            <input type="text" name="idOther" id="idOther" value="${fn:escapeXml(agreement.getId())}"
-                                   >
-                            <label for="rentPriceOther">Стоимость аренды</label>
-                            <input type="text" name="rentPriceOther" id="rentPriceOther"
-                                   value="${fn:escapeXml(agreement.getRentPrice())}" >
-                            <label for="rentPeriodOther">Период аренды</label>
-                            <input type="text" name="rentPeriodOther" id="rentPeriodOther"
-                                   value="${fn:escapeXml(agreement.getRentPeriod())}" >
-                            <label for="passportNumberOther">Номер паспорта</label>
-                            <input type="text" name="passportNumberOther" id="passportNumberOther"
-                                   value="${fn:escapeXml(agreement.getPassportNumber())}" >
-                            <label for="vinNumberOther">Вин-номер автомобиля</label>
-                            <input type="text" name="vinNumberOther" id="vinNumberOther"
-                                   value="${fn:escapeXml(agreement.getVinNumber())}" >
+                            <i>Номер договора: <b>${fn:escapeXml(agreement.getId())}</b></i>
+                            <input type="hidden" name="idOther" id="idOther" value="${fn:escapeXml(agreement.getId())}"
+                            >
+                            <hr>
+                            <i>Стоимость аренды: <b>${fn:escapeXml(agreement.getRentPrice())}</b> </i>
+                            <input type="hidden" name="rentPriceOther" id="rentPriceOther"
+                                   value="${fn:escapeXml(agreement.getRentPrice())}">
+                            <hr>
+                            <i>Длительность аренды: <b>${fn:escapeXml(agreement.getRentPeriod())}</b> </i>
+                            <input type="hidden" name="rentPeriodOther" id="rentPeriodOther"
+                                   value="${fn:escapeXml(agreement.getRentPeriod())}">
+                            <hr>
+                            <i>Номер паспорта: <b>${fn:escapeXml(agreement.getPassportNumber())}</b> </i>
+                            <input type="hidden" name="passportNumberOther" id="passportNumberOther"
+                                   value="${fn:escapeXml(agreement.getPassportNumber())}">
+                            <hr>
+                            <i>ВИН-номер автомобиля: <b>${fn:escapeXml(agreement.getVinNumber())}</b> </i>
+                            <input type="hidden" name="vinNumberOther" id="vinNumberOther"
+                                   value="${fn:escapeXml(agreement.getVinNumber())}">
+                            <hr>
                         </a>
                         <p></p>
                         <input name="change" type="submit" id="change" value="Изменить условия договора">
@@ -229,7 +234,14 @@
             <a>Найдено паспортов: ${fn:escapeXml(passports.size())}</a>
             <c:forEach var="passport" items="${passports}">
                 <div class="card">
-                    <c:out value="${passport.allInString()}"/>
+                    <i>Номер паспорта: <b>${fn:escapeXml(passport.getId())}</b></i>
+                    <hr>
+                    <i>Номер телефона: <b>${fn:escapeXml(passport.getPhoneNumber())}</b></i>
+                    <hr>
+                    <i>Адрес: <b>${fn:escapeXml(passport.getAddress())}</b></i>
+                    <hr>
+                    <i>ФИО: <b>${fn:escapeXml(passport.getName())}</b></i>
+                    <hr>
                 </div>
             </c:forEach>
         </div>
@@ -241,7 +253,20 @@
             <a>Найдено автомобилей: ${fn:escapeXml(cars.size())}</a>
             <c:forEach var="car" items="${cars}">
                 <div class="card">
-                    <c:out value="${car.allInString()}"/>
+                    <i>ВИН-номер: <b>${fn:escapeXml(car.getId())}</b></i>
+                    <hr>
+                    <i>Цвет: <b>${fn:escapeXml(car.getColor())}</b></i>
+                    <hr>
+                    <i>Бренд: <b>${fn:escapeXml(car.getBrand())}</b></i>
+                    <hr>
+                    <i>Модель: <b>${fn:escapeXml(car.getModelName())}</b></i>
+                    <hr>
+                    <i>Год выпуска: <b>${fn:escapeXml(car.getReleaseYear())}</b></i>
+                    <hr>
+                    <i>Парковочное место: <b>${fn:escapeXml(car.getParkingPlaceId())}</b></i>
+                    <hr>
+                    <i>Гос. номер: <b>${fn:escapeXml(car.getNumber())}</b></i>
+                    <hr>
                 </div>
             </c:forEach>
         </div>

@@ -182,17 +182,21 @@ To change this template use File | Settings | File Templates.
             <c:forEach var="fine" items="${fines}">
                 <div class="card">
                     <form action="" method="post" name="agreementform" id="oneAgreementform">
-                        <label for="idOther">Номер штрафа</label>
-                        <input type="text" name="idOther" id="idOther" value="${fn:escapeXml(fine.getId())}" >
-                        <label for="fineDescriptionOther">Описание</label>
-                        <input type="text" name="fineDescriptionOther" id="fineDescriptionOther"
-                               value="${fn:escapeXml(fine.getFineDescription())}" >
-                        <label for="fineCostOther">Стоимость</label>
-                        <input type="text" name="fineCostOther" id="fineCostOther"
-                               value="${fn:escapeXml(fine.getFineCost())}" >
-                        <label for="agreementIdOther">Номер договора</label>
-                        <input type="text" name="agreementIdOther" id="agreementIdOther"
-                               value="${fn:escapeXml(fine.getAgreementId())}" >
+                        <i>Номер штрафа: <b>${fn:escapeXml(fine.getId())}</b></i>
+                        <input type="hidden" name="idOther" id="idOther" value="${fn:escapeXml(fine.getId())}">
+                        <hr>
+                        <i>Описание: <b>${fn:escapeXml(fine.getFineDescription())}</b></i>
+                        <input type="hidden" name="fineDescriptionOther" id="fineDescriptionOther"
+                               value="${fn:escapeXml(fine.getFineDescription())}">
+                        <hr>
+                        <i>Стоимость: <b>${fn:escapeXml(fine.getFineCost())}</b></i>
+                        <input type="hidden" name="fineCostOther" id="fineCostOther"
+                               value="${fn:escapeXml(fine.getFineCost())}">
+                        <hr>
+                        <i>Номер договора: <b>${fn:escapeXml(fine.getAgreementId())}</b></i>
+                        <input type="hidden" name="agreementIdOther" id="agreementIdOther"
+                               value="${fn:escapeXml(fine.getAgreementId())}">
+                        <hr>
 
                         <p></p>
                         <input name="change" type="submit" id="change" value="Изменить штраф">
@@ -212,6 +216,16 @@ To change this template use File | Settings | File Templates.
             <c:forEach var="agreement" items="${agreements}">
                 <div class="card">
                     <c:out value="${agreement.allInString()}"/>
+                    <i>Номер договора: <b>${fn:escapeXml(agreement.getId())}</b></i>
+                    <hr>
+                    <i>Стоимость аренды: <b>${fn:escapeXml(agreement.getRentPrice())}</b></i>
+                    <hr>
+                    <i>Период аренды: <b>${fn:escapeXml(agreement.getRentPeriod())}</b></i>
+                    <hr>
+                    <i>Номер паспорта: <b>${fn:escapeXml(agreement.getPassportNumber())}</b></i>
+                    <hr>
+                    <i>ВИН-номер: <b>${fn:escapeXml(agreement.getVinNumber())}</b></i>
+                    <hr>
                 </div>
             </c:forEach>
         </div>

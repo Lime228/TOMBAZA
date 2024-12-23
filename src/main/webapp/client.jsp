@@ -183,17 +183,21 @@
             <c:forEach var="client" items="${clients}">
                 <div class="card">
                     <form action="" method="post" name="carform" id="oneCarform">
-                        <label for="idOther">Номер паспорта</label>
-                        <input type="text" name="idOther" id="idOther" value="${fn:escapeXml(client.getId())}" >
-                        <label for="phoneNumberOther">Номер телефона</label>
-                        <input type="text" name="phoneNumberOther" id="phoneNumberOther"
-                               value="${fn:escapeXml(client.getPhoneNumber())}" >
-                        <label for="addressOther">Адрес</label>
-                        <input type="text" name="addressOther" id="addressOther"
-                               value="${fn:escapeXml(client.getAddress())}" >
-                        <label for="nameOther">ФИО</label>
-                        <input type="text" name="nameOther" id="nameOther" value="${fn:escapeXml(client.getName())}"
-                               >
+                        <i>Номер паспорта: <b>${fn:escapeXml(client.getId())}</b></i>
+                        <input type="hidden" name="idOther" id="idOther" value="${fn:escapeXml(client.getId())}">
+                        <hr>
+                        <i>Номер телефона: <b>${fn:escapeXml(client.getPhoneNumber())}</b></i>
+                        <input type="hidden" name="phoneNumberOther" id="phoneNumberOther"
+                               value="${fn:escapeXml(client.getPhoneNumber())}">
+                        <hr>
+                        <i>Адрес: <b>${fn:escapeXml(client.getAddress())}</b></i>
+                        <input type="hidden" name="addressOther" id="addressOther"
+                               value="${fn:escapeXml(client.getAddress())}">
+                        <hr>
+                        <i>ФИО: <b>${fn:escapeXml(client.getName())}</b></i>
+                        <input type="hidden" name="nameOther" id="nameOther" value="${fn:escapeXml(client.getName())}"
+                        >
+                        <hr>
 
                         <p></p>
                         <input name="change" type="submit" id="change" value="Изменить данные">
