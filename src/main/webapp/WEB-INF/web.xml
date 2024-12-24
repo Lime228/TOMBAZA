@@ -67,4 +67,13 @@
         <servlet-name>ParkingPlaceServlet</servlet-name>
         <url-pattern>/parkingplace</url-pattern>
     </servlet-mapping>
+
+    <servlet>
+        <servlet-name>StatisticsServlet</servlet-name>
+        <servlet-class>com.jumpie.tombaza.back.servlets.StatisticsServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>StatisticsServlet</servlet-name>
+        <url-pattern>/stat</url-pattern>
+    </servlet-mapping>
 </web-app>

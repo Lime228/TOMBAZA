@@ -63,6 +63,7 @@
     <a href="fine">Штрафы</a>
     <a href="parking">Парковка</a>
     <a href="parkingplace">Парковочное место</a>
+    <a href="stat">Статистика</a>
 </nav>
 </body>
 
